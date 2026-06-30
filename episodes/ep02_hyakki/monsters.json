@@ -1,0 +1,1158 @@
+{
+  "monsters": {
+    "menreiki": {
+      "name": "面灵气",
+      "name_en": "Menreiki",
+      "description_distant": "远处飘浮着一张白色的面具，恰好悬在人脸的高度。没有身体。没有丝线。只有一张面具在空气中缓缓漂移。月光照在它的表面，那表情宁静而美丽，像一张正在做梦的脸。",
+      "description_close": "面具近在咫尺。做工精美绝伦，手工雕刻的能面，金箔勾勒出细腻的眉眼轮廓。表情安详，几乎带着慈爱。但面具的背后什么都没有。不是阴影。不是黑暗。是虚无。是你的视线穿过去之后抵达不了任何地方的那种空。面具上画着的眼睛正在看你。那些颜料画成的瞳孔里，有活着的东西。",
+      "description_attacking": "面具猛然加速，朝你的脸扑来。你感到一股冰冷的力量按住你的后脑勺，面具贴上你的皮肤，严丝合缝。你试图尖叫，但嘴已经不是你的了。你能感觉到自己的五官在消失，被那张宁静的微笑一点一点替换。最后一件你看见的东西，是你自己的手在空气中无力地抓挠。",
+      "type": "patrol",
+      "initial_location": "mask_shop",
+      "patrol_route": ["mask_shop", "lantern_street", "hanamachi_entrance", "lantern_street", "mask_shop"],
+      "patrol_speed": "slow",
+      "activation_time": "19:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "不要与面具上画着的眼睛对视。看它背后的虚无是安全的。戴上狐狸面具可以让它无法辨认你。",
+        "rule_id": "rule_menreiki_gaze",
+        "states": {
+          "idle": {
+            "description": "面具在巡逻路线上无声漂浮，表情安详。",
+            "transitions": {
+              "player_enters_room": "drifting",
+              "player_looks_at_face": "fixated",
+              "player_wears_fox_mask": "idle"
+            }
+          },
+          "drifting": {
+            "description": "面具感知到有人在附近，开始缓缓朝玩家方向漂移。它的移动没有声音，像水中的气泡一样自然。",
+            "transitions": {
+              "player_looks_at_face": "fixated",
+              "player_looks_at_body": "drifting",
+              "player_leaves_room": "idle",
+              "player_wears_fox_mask": "idle",
+              "shrine_bell_used": "repelled"
+            }
+          },
+          "fixated": {
+            "description": "面具停住了。那双画出来的眼睛锁定了你。表情没有变化，但你能感觉到它在笑。它开始朝你直线移动，不再漫无目的地漂浮。",
+            "transitions": {
+              "2_turns_elapsed": "pursuing",
+              "player_breaks_eye_contact": "drifting",
+              "camera_flash_used": "repelled",
+              "shrine_bell_used": "repelled"
+            }
+          },
+          "pursuing": {
+            "description": "面具以不变的速度朝你逼近。缓慢，但绝不停下。它的表情依然宁静。这份宁静比任何狰狞都可怕。",
+            "transitions": {
+              "reaches_player": "attaching",
+              "player_runs": "drifting",
+              "player_wears_fox_mask": "idle",
+              "camera_flash_used": "repelled",
+              "shrine_bell_used": "repelled"
+            }
+          },
+          "attaching": {
+            "description": "面具贴上了你的脸。冰冷的漆面紧贴皮肤。你的五官开始消融。你正在变成它。",
+            "transitions": {
+              "attach_complete": "player_death",
+              "interrupted_by_companion": "drifting"
+            }
+          },
+          "repelled": {
+            "description": "面具剧烈震颤，像被无形的手拍打了一下，急速后退飘远。它的表情依然没有变化，但它显然在回避。",
+            "duration_turns": 3,
+            "transitions": {
+              "duration_expires": "idle"
+            }
+          }
+        },
+        "encounter_responses": {
+          "look": {
+            "at_face": {
+              "outcome": "danger",
+              "narration": "你看向面具上画着的眼睛。那双眼睛回望了你。不是比喻。那些颜料画的瞳孔动了。面具停止漂浮，锁定了你的位置。你的后脑勺传来一阵麻意。",
+              "effect": "state_change_to_fixated",
+              "san_cost": 5
+            },
+            "at_body": {
+              "outcome": "safe",
+              "narration": "你把目光投向面具背后的区域。那里什么都没有。不是黑暗，是比黑暗更深的东西。你的视线像掉进了一口没有底的井。面具没有反应，继续缓缓漂浮。看它的虚无似乎是安全的。",
+              "effect": "none"
+            }
+          },
+          "look_at_body": {
+            "outcome": "safe",
+            "narration": "你刻意避开面具的表面，盯着它身后的虚空。那片虚无像一扇开着的门，门后是永远到不了的地方。面具对此毫无反应，仿佛你在看它最不在意的部分。",
+            "effect": "none"
+          },
+          "stare": {
+            "outcome": "danger",
+            "narration": "你直直地盯着面具的脸。那张宁静的表情似乎在你注视下活了过来。嘴角微微上扬了吗？还是你的错觉？面具骤然停住，然后开始朝你移动。不是漂浮。是滑行。直直地。冲着你的脸。",
+            "effect": "state_change_to_fixated",
+            "san_cost": 8
+          },
+          "glance": {
+            "outcome": "warning",
+            "narration": "你飞快地扫了面具一眼。一瞬间，你觉得那双画出来的眼睛追踪了你的目光。面具似乎微微转向了你的方向。你不确定。但你的直觉在尖叫。",
+            "effect": "next_look_triggers_fixation",
+            "san_cost": 2
+          },
+          "look_away": {
+            "outcome": "safe_but_approaching",
+            "narration": "你低下头，把视线移开。面具没有锁定你。但你能感觉到它在靠近。不是追逐。是漂移。它只是恰好朝你的方向飘过来了。空气变得更冷了一点。",
+            "effect": "menreiki_approaches_slowly"
+          },
+          "crouch": {
+            "outcome": "partially_safe",
+            "narration": "你蹲了下去。面具悬浮在站立时的人脸高度，现在它在你头顶上方缓缓飘过。只要你不抬头看它的脸，它似乎感知不到你。但你得一直蹲着。",
+            "effect": "avoid_detection_while_crouching"
+          },
+          "run": {
+            "outcome": "escape",
+            "narration": "你转身就跑。面具没有加速追赶。它依然以那种令人发疯的恒定速度漂浮着，但你跑得比它快得多。你的脚步声在巷子里回荡。面具的身影在月光中越来越小，像一张被遗忘的脸。",
+            "effect": "escape_successful"
+          },
+          "hide": {
+            "outcome": "safe",
+            "narration": "你躲进阴影里，屏住呼吸。面具从你藏身处的前方缓缓飘过。那张宁静的表情在黑暗中格外清晰，像一轮小小的满月。它没有发现你。过了很久，你才敢松开攥紧的拳头。",
+            "effect": "avoid_detection"
+          },
+          "wear_fox_mask": {
+            "outcome": "best",
+            "narration": "你戴上了狐狸面具。面灵气在你面前停下，歪了歪头。它看见的不是一个人，而是另一张面具。它似乎困惑了片刻，然后失去了兴趣，转身飘向别处。在它的感知里，你不存在了。你只是另一张脸。",
+            "effect": "invisible_to_menreiki"
+          },
+          "use_shrine_bell": {
+            "outcome": "repel",
+            "narration": "你摇响了神社的铃铛。清脆的铃声在夜空中炸开，面具像被烫到一样猛地后退，剧烈震颤着飘向远处。铃声的余韵在空气中盘旋，像一道无形的屏障。它暂时不会靠近了。",
+            "effect": "repelled_3_turns"
+          },
+          "use_camera": {
+            "outcome": "stun",
+            "narration": "你举起相机，按下快门。闪光灯在黑暗中炸开一片白光。面具仿佛被钉在了空中，剧烈颤抖，表面的金箔在闪光下刺眼地反射。照片洗出来的话，上面只会有一片纯黑的虚无和一张飘浮的脸。",
+            "effect": "stunned_2_turns"
+          },
+          "attack": {
+            "outcome": "ineffective",
+            "narration": "你挥出拳头。你的手穿过了面具，穿过了它背后的虚无，什么都没有碰到。就像试图殴打一个倒影。面具甚至没有晃动。你的手指尖传来一阵彻骨的寒冷，像是摸到了宇宙的边缘。",
+            "effect": "none",
+            "san_cost": 3
+          },
+          "investigate": {
+            "outcome": "risky",
+            "narration": "你凑近仔细端详。面具的做工精美得不可思议，每一道刻痕都像活的。你越看越清晰，金箔的纹路，漆面的光泽，嘴角那一丝若有若无的笑意。然后你意识到你一直在看它的眼睛。你已经看了很久了。",
+            "effect": "state_change_to_fixated",
+            "san_cost": 5
+          },
+          "talk": {
+            "outcome": "no_response",
+            "narration": "你开口说话。声音在寂静中显得很大。面具没有反应。它不是一个可以对话的存在。它是一件东西。一件活着的东西。但不是一个有意识的存在。它只是在漂浮。在寻找一张脸。",
+            "effect": "none"
+          },
+          "bow": {
+            "outcome": "ignored",
+            "narration": "你鞠了一躬。这是日本的礼节，对人对鬼都适用。但面灵气不是人，也不是鬼。它是一件器物。一张获得了生命的面具。它不理解礼节。它继续漂浮着，对你的鞠躬毫无反应。",
+            "effect": "none"
+          },
+          "use_lantern": {
+            "outcome": "reveal",
+            "narration": "你举起灯笼。暖黄色的光照在面具上，投射出的阴影暴露了真相。面具背后的虚无在灯光下显得更加清晰。那不是黑暗。那是一个洞。一个通向什么都没有的地方的洞。面具就浮在这个洞的边缘，像一扇门上贴着的装饰。",
+            "effect": "reveal_void_behind_mask",
+            "san_cost": 4
+          },
+          "ignore": {
+            "outcome": "risky",
+            "narration": "你无视了它，继续走你的路。面具在你身后缓缓跟随，不急不缓。你不看它，它就不锁定你。但你能感觉到背后有一张脸在注视你。那种感觉像是有人在你睡着的时候贴着你的脸看你。",
+            "effect": "menreiki_follows_slowly"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 30,
+        "san_damage": 25,
+        "san_damage_on_sight": 3,
+        "speed": 1,
+        "pursuit_speed": 1
+      },
+      "weakness": "戴上狐狸面具可以让它完全无视你。注视面具背后的虚无而非面具表面是安全的。相机闪光灯可以使它停滞两回合。神社铃铛的声音可以驱退它三回合。",
+      "immunity": "物理攻击会直接穿过它。无法被杀死。"
+    },
+
+    "jorougumo": {
+      "name": "络新妇",
+      "name_en": "Jorougumo",
+      "description_distant": "一个美丽的女人跪坐在茶具旁，身穿深红色的和服。她的动作流畅而优雅，像水一样自然。她抬起头，朝你微笑。温柔的。欢迎的。完美的。",
+      "description_close": "她美得不可方物。瓷白的皮肤。乌黑的发髻上别着银色的梳子。和服是上等丝绸，深红底色上绣满了彼岸花的纹样。她以行云流水的姿态倒茶，每一个动作都是练习了几百年的优雅。「请坐吧。你一定累了。」她的声音温暖而真诚。她的眼睛没有眨过。一次也没有。",
+      "description_attacking": "她的嘴裂开了。不是从中间裂开。是从两侧，一直裂到耳根。露出的不是牙齿，是蛛螯。她的和服炸开，八条覆满绒毛的蜘蛛腿从她的腰间伸展出来。银色的蛛丝从她的指尖喷射而出，在你还没来得及尖叫之前就把你缠得动弹不得。她用那双从未眨过的眼睛温柔地看着你，仿佛在包裹一件珍贵的礼物。",
+      "type": "reactive",
+      "initial_location": "teahouse_momiji",
+      "patrol_route": null,
+      "patrol_speed": null,
+      "activation_time": "20:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "她的影子会暴露真实形态。在光线充足的房间里，墙壁和地面上的影子会显示出八条蜘蛛腿。不要接受她的食物和饮料。不要让她触碰你超过三秒。",
+        "rule_id": "rule_jorougumo_shadow",
+        "states": {
+          "idle": {
+            "description": "她以美丽女性的姿态跪坐在房间中，完美地伪装成人类。除了从不眨眼，没有任何破绽。",
+            "transitions": {
+              "player_enters_room": "greeting"
+            }
+          },
+          "greeting": {
+            "description": "她优雅地抬起头，微笑着迎接来客。声音温柔，举止得体。她在邀请你坐下。",
+            "transitions": {
+              "player_sits": "serving",
+              "player_refuses": "greeting",
+              "player_checks_shadow": "revealed",
+              "player_mentions_shadow": "revealed",
+              "player_leaves": "idle"
+            }
+          },
+          "serving": {
+            "description": "她正在准备茶和点心。动作赏心悦目。茶杯里飘着淡淡的花香。但那花香里混着某种甜腻的气味，像是腐烂的水果。",
+            "transitions": {
+              "player_accepts_tea": "player_drugged",
+              "player_refuses_tea": "serving",
+              "player_checks_shadow": "revealed",
+              "3_seconds_touch": "touching"
+            }
+          },
+          "touching": {
+            "description": "她的手指碰到了你。皮肤像绸缎一样光滑。但三秒之后，你感觉到指尖有细细的丝线正在缠上你的手腕。像蛛网一样轻。像钢丝一样牢。",
+            "transitions": {
+              "pull_away_in_time": "serving",
+              "3_seconds_elapsed": "attacking",
+              "player_checks_shadow": "revealed"
+            }
+          },
+          "revealed": {
+            "description": "她的笑容僵住了。嘴唇之间发出一声尖锐的嘶嘶声，像蛇，又像水壶沸腾。她的身体开始扭曲，和服下面有太多东西在移动。",
+            "transitions": {
+              "player_shows_fire": "fleeing",
+              "player_runs": "attacking",
+              "player_stays": "attacking"
+            }
+          },
+          "attacking": {
+            "description": "伪装彻底崩塌。八条蜘蛛腿撑起她的身体，银色的蛛丝像暴雨一样从她的指尖和嘴里喷射而出。她的速度惊人。",
+            "transitions": {
+              "player_shows_fire": "fleeing",
+              "player_escapes": "idle",
+              "player_caught": "player_cocooned"
+            }
+          },
+          "fleeing": {
+            "description": "她看见了火。所有的优雅和伪装在火光面前瓦解。她发出刺耳的尖叫，八条腿疯狂后退，撞翻了茶具。她消失在墙壁的缝隙里，速度快得像是从未存在过。",
+            "transitions": {
+              "fire_extinguished": "idle"
+            }
+          }
+        },
+        "encounter_responses": {
+          "look": {
+            "outcome": "no_alarm",
+            "narration": "你看着她。她看起来就是一个普通的美丽女性。和服。发髻。微笑。如果不是在这种地方遇见她，你不会有任何怀疑。但这正是问题所在。在这种地方，为什么会有一个独自喝茶的美人？",
+            "effect": "none"
+          },
+          "stare": {
+            "outcome": "trap",
+            "narration": "你盯着她看。她回以微笑，不是羞涩的那种，而是从容的、见过世面的微笑。「看够了吗？」她的声音带着一丝调侃。「不如坐下来喝杯茶。一直站着多累。」她的眼睛依然没有眨。",
+            "effect": "invitation_to_sit"
+          },
+          "investigate": {
+            "outcome": "clue",
+            "narration": "你仔细观察她。动作优雅。言谈得体。妆容精致。但有一个细节在你心里扎了一根刺。她的眼睛。一直睁着。一次也没有眨过。你盯着看了三十秒，四十秒。她的睫毛纹丝不动。不是在忍耐。是不需要。",
+            "effect": "notice_no_blinking"
+          },
+          "check_shadow": {
+            "outcome": "best_reveal",
+            "narration": "你不经意地低下头，目光扫过地板。灯笼的光把她的影子投在了榻榻米上。你的心脏停了一拍。影子不对。影子上有八条腿。纤细的、带着关节的、弯曲的腿。从她腰部的影子两侧伸出来，像一朵黑色的花。她优雅跪坐的身影在地上是一只巨大的蜘蛛。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 12
+          },
+          "accept_tea": {
+            "outcome": "danger",
+            "narration": "你端起茶杯，喝了一口。味道很好。温热的茶汤带着桂花的香气。然后你的视线开始模糊。手指发麻。茶杯从手中滑落。你听见她在你耳边轻轻说了一句什么，但你已经听不清了。你最后看见的是她的微笑，以及从她指尖伸出的银色丝线。",
+            "effect": "player_drugged_and_cocooned",
+            "hp_cost": 35,
+            "san_cost": 15
+          },
+          "refuse_tea": {
+            "outcome": "delayed_safe",
+            "narration": "「不了，谢谢。」她微微歪头，眼中闪过一丝不易察觉的寒光，但立刻恢复了温柔的笑容。「那真可惜。我泡的茶很少有人拒绝呢。」她没有勉强。她只是更加殷勤了一些。「那吃点点心吧？赶路一定饿了。」",
+            "effect": "she_offers_food_instead"
+          },
+          "accept_food": {
+            "outcome": "danger",
+            "narration": "你拿起她递来的和�的子。入口即化，甜而不腻。但那柔软的口感里有什么不对。太黏了。像丝一样黏。你的嘴巴突然合不上了。银色的细丝从你的唇角向外扩散，你拼命想张嘴尖叫，但丝线已经封住了你的声音。",
+            "effect": "player_drugged_and_silenced",
+            "hp_cost": 20,
+            "san_cost": 10
+          },
+          "let_her_touch": {
+            "outcome": "danger_countdown",
+            "narration": "她的手指轻轻碰到了你的手背。冰凉的。光滑得不像人类的皮肤。一秒。她的指尖开始发烫。两秒。你感到手腕上有什么东西在缠绕，细得几乎看不见。三秒。银色的丝线已经从她的指尖长出来，缠了你三圈。你试图抽手，但那些丝线比钢缆还结实。",
+            "effect": "3_second_countdown_to_silk_binding",
+            "hp_cost": 15
+          },
+          "mention_shadow": {
+            "outcome": "reveal_and_retreat",
+            "narration": "「你的影子，」你说。她的笑容凝固了。时间停了一秒。然后她从喉咙深处发出一声不属于人类的嘶嘶声，像是一千根琴弦同时绷断。她的身体扭曲着后退，和服下面有太多腿在移动。「你不该看那里。」她的声音变了，不再温柔，像砂纸摩擦玻璃。",
+            "effect": "state_change_to_revealed_retreat",
+            "san_cost": 8
+          },
+          "point_out_shadow": {
+            "outcome": "reveal_and_retreat",
+            "narration": "你指着地上的影子。八条腿的影子。她顺着你的手指看过去，然后抬起头看你。她的脸上没有了笑容。没有了温柔。没有了人类的任何痕迹。「这就是你看的方式吗？」她低声说。然后她开始变形。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 10
+          },
+          "use_lantern": {
+            "outcome": "reveal",
+            "narration": "你举起灯笼。温暖的光线洒满房间，影子变得清晰而锐利。她的影子在墙壁上巨大而清晰。你看见了。八条腿。两只螯。一个圆滚滚的腹部。她的人形只是一张画在光线前面的薄纱。灯笼照穿了一切。",
+            "effect": "shadow_revealed_in_any_room",
+            "san_cost": 12
+          },
+          "use_hand_mirror": {
+            "outcome": "reveal",
+            "narration": "你悄悄举起手镜，假装整理头发。镜面反射出她的身影。镜子里没有美丽的女人。镜子里有一只巨大的蜘蛛，色彩斑斓的腹部上有一个人脸模样的花纹。它正用八只眼睛看着你。镜子从你手中滑落，碎在了地上。",
+            "effect": "true_form_revealed",
+            "san_cost": 15
+          },
+          "run": {
+            "outcome": "conditional",
+            "narration_unrevealed": "你起身离开。她温柔地目送你，没有追赶。「下次路过再来喝茶哦。」她的声音从背后传来。你的后背发凉。",
+            "narration_revealed": "你转身就跑。她的速度远超你的想象。八条腿在地板上发出急促的哒哒声，银色的丝线像鞭子一样朝你甩来。你拼命跑，不敢回头。",
+            "effect_unrevealed": "safe_escape",
+            "effect_revealed": "pursuit_initiated"
+          },
+          "attack": {
+            "outcome": "counterattack",
+            "narration": "你冲上前去。她侧身避开，动作快得像一滴水从叶尖滑落。下一秒，银色的丝线从她指尖射出，缠住了你的攻击手臂。她轻轻一拉，丝线切入了你的皮肤。「不乖。」她说。声音还是那么温柔。",
+            "effect": "counterattack_silk_binding",
+            "hp_cost": 20
+          },
+          "talk": {
+            "outcome": "manipulated",
+            "narration": "你和她交谈。她是一个绝佳的谈话对象。知性、幽默、体贴。她告诉你这个镇子的历史，哪条路安全，哪里有避难所。她的每一条建议都指向她的另一个巢穴。她的声音太好听了。你差点就信了。",
+            "effect": "misdirection_to_other_location"
+          },
+          "use_fire": {
+            "outcome": "flee",
+            "narration": "你点燃了手中的灯笼，把火焰举到她面前。她的反应是即时的、发自本能的。她尖叫了一声，不是人类的尖叫，是某种昆虫被灼烧时发出的嘶嘶声。八条腿从和服下面伸出来，疯狂地后退，撞翻了茶壶和花瓶。她消失在墙壁的裂缝里，留下一缕烧焦丝绸的气味。",
+            "effect": "state_change_to_fleeing"
+          },
+          "use_lantern_flame": {
+            "outcome": "flee",
+            "narration": "你打开灯笼的外罩，露出里面跳动的火苗。她的瞳孔猛地收缩。火光在她的眼睛里反射出太多的光点。不是两个。是八个。「不要...不要把那个东西拿过来。」她的声音第一次颤抖了。她向后退去，再也无法维持优雅的姿态。",
+            "effect": "state_change_to_fleeing"
+          },
+          "bow": {
+            "outcome": "safe_delay",
+            "narration": "你鞠了一躬。她回以一个完美的鞠躬，额头几乎碰到了手指。这个动作优雅得像是从能剧里走出来的。当她抬起头的时候，她的微笑更深了。你争取到了一点时间。但你也向她展示了你的后脑勺，而那正是蛛丝最容易缠住的地方。",
+            "effect": "buys_1_turn"
+          },
+          "hide": {
+            "outcome": "conditional",
+            "narration_unrevealed": "你悄悄藏了起来。她没有搜索。她只是继续跪坐在那里，倒茶，等待下一个客人。你闻到了茶的香气和腐败花朵的甜腻混合在一起。",
+            "narration_revealed": "你躲起来了。但她知道你在这个房间里。银色的丝线像触须一样从她的指尖伸出，一根一根地探索着每一个角落。你屏住呼吸。一根丝线从你的脸旁边掠过，差了三厘米。",
+            "effect_unrevealed": "safe",
+            "effect_revealed": "hiding_but_searched"
+          },
+          "glance": {
+            "outcome": "subtle_clue",
+            "narration": "你匆匆扫了她一眼。漂亮。太漂亮了。有什么不对但你说不上来。像是一幅画得太好的画。每一个细节都对，但整体让你不安。你的直觉在低声说什么，但你听不清。",
+            "effect": "vague_unease"
+          },
+          "look_away": {
+            "outcome": "safe",
+            "narration": "你把目光移开。她没有在意。或者说，她的反应像是不在意。她继续安静地喝茶，偶尔整理一下和服的衣袖。你能从余光里看到她修长的手指在茶碗边缘游走。",
+            "effect": "none"
+          },
+          "ignore": {
+            "outcome": "followed",
+            "narration": "你无视了她，径直穿过房间。你以为她会留在原地。但当你走出门口的时候，你闻到了她的香气。转过头。她站在你身后两步远的地方，手里端着一碗茶。「你走得太急了。至少喝一杯再走。」她的微笑像钉子一样钉在脸上。",
+            "effect": "jorougumo_follows_to_next_room"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 35,
+        "san_damage": 20,
+        "san_damage_on_sight": 0,
+        "speed": 2,
+        "pursuit_speed": 3
+      },
+      "weakness": "光源可以在任何房间照出她的真实影子。提及影子会导致她僵硬并撤退。火焰或灯笼的明火让她本能地逃走。她害怕火。",
+      "immunity": "物理攻击有效但她速度极快。对魅惑和说服免疫。"
+    },
+
+    "kappa": {
+      "name": "河童",
+      "name_en": "Kappa",
+      "description_distant": "水边蹲着什么东西。跟小孩差不多大。绿莹莹的。它的脑袋形状很奇怪，顶上像是顶着一只碟子。",
+      "description_close": "一个小孩大小的生物。皮肤像湿漉漉的苔藓，绿中带黑。手指之间有蹼。但最引人注目的是它头顶的构造。一个碗状的浅凹，里面盛满了浑浊的水。它用一双古老而睿智的眼睛看着你。那双眼睛里有几百年的岁月。空气中弥漫着河泥和黄瓜的气味。",
+      "description_attacking": "河童以惊人的速度扑向你的腿。蹼状的手指像钳子一样锁住你的脚踝。它的力量和它的体型完全不成比例，像是被一根上了锚的锁链绊住。它开始把你拖向水边。水面泛起黑色的涟漪。你知道一旦被拉下去，你就再也不会浮起来。",
+      "type": "patrol",
+      "initial_location": "bridge",
+      "patrol_route": ["bridge", "bathhouse", "underground_passage", "bathhouse", "bridge"],
+      "patrol_speed": "normal",
+      "activation_time": "18:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "头顶碟子里的水是它的生命力来源。水洒了它就会失去力量。向它鞠躬。日本的礼节会强制它回礼，头顶的水就会洒出来。",
+        "rule_id": "rule_kappa_bow",
+        "states": {
+          "idle": {
+            "description": "河童蹲在水边，注视着水面。它看起来安静而专注，像一个在钓鱼的老人。",
+            "transitions": {
+              "player_approaches": "aware",
+              "player_near_water_edge": "aggressive"
+            }
+          },
+          "aware": {
+            "description": "河童注意到了你。它转过头来，那双古老的眼睛上下打量着你。它还没有决定你是猎物还是过客。",
+            "transitions": {
+              "player_approaches_water": "aggressive",
+              "player_bows": "powerless",
+              "player_stays_away_from_water": "aware",
+              "player_leaves": "idle"
+            }
+          },
+          "aggressive": {
+            "description": "你离水太近了。河童的姿态变了，从蹲坐变成了蓄势待发的匍匐。它的蹼状手指在石头上刮出白痕。",
+            "transitions": {
+              "player_bows": "powerless",
+              "player_touches_water": "grappling",
+              "player_backs_away": "aware",
+              "salt_on_dish": "powerless"
+            }
+          },
+          "grappling": {
+            "description": "河童抓住了你。它的蹼状手指缠着你的四肢，以不可思议的力量把你拖向水面。水在你脚下变得更深。",
+            "transitions": {
+              "player_escapes": "aggressive",
+              "player_dragged_underwater": "player_death",
+              "companion_intervenes": "aware"
+            }
+          },
+          "powerless": {
+            "description": "河童呆住了。它头顶碟子里的水洒了出来，沿着它绿色的皮肤蜿蜒而下。它的四肢开始发抖，浑身的力量像退潮一样流走。它跪在地上，无法动弹，眼睛里满是惊恐和请求。",
+            "transitions": {
+              "player_talks": "powerless_grateful",
+              "player_attacks": "powerless_dies",
+              "time_passes": "retreating"
+            }
+          },
+          "retreating": {
+            "description": "河童拖着虚弱的身体朝水源爬去，每一步都很艰难。它需要水来补充碟子。如果让它到达水源，它就会恢复力量。",
+            "transitions": {
+              "reaches_water": "idle",
+              "player_blocks_path": "powerless"
+            }
+          }
+        },
+        "encounter_responses": {
+          "bow": {
+            "outcome": "best",
+            "narration": "你深深鞠了一躬。河童愣住了。它的眼睛里闪过一丝困惑，然后某种根深蒂固的本能驱使它回礼。它弯下腰，头顶碟子里的浑浊的水哗啦一声洒了出来，浸湿了地面。河童整个身体像被抽走了骨头，瘫软在地上。它抬起头看你，眼神里混杂着愤怒和敬佩。它被你以礼数击败了。",
+            "effect": "state_change_to_powerless"
+          },
+          "look": {
+            "outcome": "observed",
+            "narration": "你看着它。它也看着你。那双眼睛里有水草、有淤泥、有在河底度过的漫长岁月。这不是一只野兽的目光。这是一个智慧生物在评估另一个智慧生物。",
+            "effect": "kappa_becomes_aware"
+          },
+          "stare": {
+            "outcome": "provocation",
+            "narration": "你直直地盯着它。在河童的世界里，直视是挑衅。它的背部弓起，嘴里发出一声低沉的咕噜声，像是有石头在水里翻滚。它开始朝你匍匐前进。你惹怒了它。",
+            "effect": "state_change_to_aggressive"
+          },
+          "run": {
+            "outcome": "conditional",
+            "narration_on_land": "你在陆地上跑了起来。河童追了几步就放弃了，它在陆地上远不如水中灵活。它蹲回水边，用那双古老的眼睛盯着你离去的背影。它会记住你的。",
+            "narration_near_water": "你转身就跑。但你离水太近了。河童的蹼状手指划过水面，像一条绿色的鱼雷朝你射来。你的脚踝被抓住了。",
+            "effect_on_land": "escape_successful",
+            "effect_near_water": "grappling_initiated"
+          },
+          "attack": {
+            "outcome": "conditional",
+            "narration_on_land": "你挥拳打向河童。在陆地上它的反应迟缓，你的拳头结实地砸在了它绿色的肩膀上。它发出一声痛苦的嘶叫，后退了几步。但你的指关节也在疼。它的皮肤像橡胶一样韧。",
+            "narration_in_water": "你在水中挥拳。水的阻力让你的攻击变得缓慢而无力。河童在水里如鱼得水，轻松躲开了你笨拙的挥击，然后它的蹼状手指抓住了你的手腕。你感到自己正在被拉向深处。",
+            "effect_on_land": "hp_cost_to_kappa",
+            "effect_in_water": "grappling_initiated"
+          },
+          "use_salt": {
+            "outcome": "powerless",
+            "narration": "你把盐撒在了它头顶的碟子里。浑浊的水开始冒泡、蒸发。河童发出一声惨叫，双手捂住头顶，但已经来不及了。盐把它的生命之水吸干了。它跪倒在地，全身发抖，像一条搁浅的鱼。",
+            "effect": "state_change_to_powerless"
+          },
+          "talk": {
+            "outcome": "communication",
+            "narration": "你开口说话。河童歪了歪头，然后用一种粗粝的、带着水声的声音回答了你。它会说话。语法古怪，像是从几百年前的日语翻译过来的，但能听懂。它告诉你这片水域的事情，告诉你夜晚哪些路是安全的。如果你尊重它，它是一个诚实的信息源。",
+            "effect": "may_receive_clue_if_respectful"
+          },
+          "hide": {
+            "outcome": "conditional",
+            "narration_near_water": "你躲起来了。但空气中弥漫着水的气味，或者说，它能闻到你身上的气味。河童的鼻子不停地翕动。它在搜索。你听见它蹼状的脚掌在湿滑的石头上啪嗒啪嗒地走。",
+            "narration_far_from_water": "你躲进了远离水源的角落。河童在水边徘徊了一会儿，最终放弃了。它不愿离开水太远。水是它的领域。离开水，它什么都不是。",
+            "effect_near_water": "50_percent_detection",
+            "effect_far_from_water": "safe"
+          },
+          "investigate": {
+            "outcome": "clue",
+            "narration": "你仔细观察河童。最显眼的是它头顶那个碟子状的凹陷，里面盛着浑浊的水。水面在月光下微微晃动。你想起了传说。那个碟子。那是它力量的源泉。如果水洒了，它就什么都不是了。让它鞠躬。",
+            "effect": "discover_weakness_hint"
+          },
+          "lure_away_from_water": {
+            "outcome": "weaken",
+            "narration": "你慢慢后退，引诱河童跟上来。它犹豫了。每远离水源一步，它的动作就迟钝一分。它的皮肤开始干裂，像暴晒的河床。它不想离开水。但你手里的东西太诱人了。它又向前走了一步。它离水越来越远。",
+            "effect": "kappa_weakens_progressively"
+          },
+          "push_into_water": {
+            "outcome": "terrible",
+            "narration": "你把河童推进了水里。这是你做过的最愚蠢的决定。水花溅起的瞬间，河童像完全变了一个生物。它的速度变成了陆地上的三倍。它的力量增加了不知道多少。水是它的领域。你刚刚把一条鲨鱼推回了大海。",
+            "effect": "kappa_fully_powered",
+            "san_cost": 5
+          },
+          "offer_food": {
+            "outcome": "distraction",
+            "narration": "你拿出食物。河童的注意力立刻被吸引了。它歪着头，鼻子抽动着。它伸出蹼状的手接过食物，小心翼翼地闻了闻，然后塞进嘴里。嚼了嚼。表情变得温和了一些。但它依然警惕地注视着你。",
+            "effect": "kappa_distracted_1_turn"
+          },
+          "use_beans": {
+            "outcome": "distraction",
+            "narration": "你把豆子撒在河童面前。它低头看了看，捡起一粒塞进嘴里。然后又捡了一粒。它被豆子分散了注意力，但不像鬼那样强迫症般地去数。它只是觉得豆子好吃。你争取到了一点点时间。",
+            "effect": "distracted_briefly"
+          },
+          "crouch": {
+            "outcome": "less_threatening",
+            "narration": "你蹲下来，让自己的身高和河童差不多。它的攻击性明显降低了。在它看来，你这个姿态不是威胁，而是某种服从。它歪着头看你，碟子里的水晃了晃。它在等你做什么。",
+            "effect": "reduced_aggression"
+          },
+          "swim": {
+            "outcome": "death",
+            "narration": "你下了水。这是一个致命的错误。水面合拢在你头顶的瞬间，你感到脚踝被蹼状的手指锁住了。河童在水中的力量是另一个量级。你被拖向河底。水灌进你的肺。你最后看见的是它头顶碟子里的水在你面前晃动。满满的。",
+            "effect": "instant_death",
+            "hp_cost": 999
+          },
+          "glance": {
+            "outcome": "notice",
+            "narration": "你匆匆瞥了一眼。绿色的身影蹲在水边。体型比你想象的小。它的轮廓在月光下像一块长了苔藓的石头。如果你不注意看，你可能会把它当成一块石头。",
+            "effect": "basic_awareness"
+          },
+          "look_away": {
+            "outcome": "stealth_approach",
+            "narration": "你移开了视线。这是一个错误。河童的脚步声在水声的掩护下几乎听不见。等你再次感觉到什么的时候，它已经比刚才近了很多。它在水边移动的时候几乎没有声音。",
+            "effect": "kappa_approaches_silently"
+          },
+          "use_lantern": {
+            "outcome": "no_effect",
+            "narration": "你举起灯笼。河童眯了眯眼，但没有任何退缩。光线对它没有影响。它是水中的生物，不是暗处的生物。灯光只是让你更清楚地看见了它湿漉漉的绿色皮肤和那双古老的眼睛。",
+            "effect": "none"
+          },
+          "use_shrine_bell": {
+            "outcome": "brief_retreat",
+            "narration": "你摇响了铃铛。清脆的声音在水面上弹跳。河童浑身一颤，像是被什么东西电了一下。它惊恐地跳回水边，蹲在那里警惕地盯着你。但只持续了一瞬间。它很快就恢复了镇定。铃铛对它的效果微乎其微。",
+            "effect": "retreats_1_turn"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 25,
+        "san_damage": 5,
+        "san_damage_on_sight": 2,
+        "speed_land": 2,
+        "speed_water": 4,
+        "speed": 2,
+        "pursuit_speed": 3
+      },
+      "weakness": "鞠躬会迫使它回礼，头顶碟子里的水就会洒出来，失去所有力量。引诱它远离水源会使它逐渐虚弱。盐撒在碟子上可以蒸发掉水分。",
+      "immunity": "在水中无法被物理攻击伤害。对寒冷具有抗性。"
+    },
+
+    "tenjokudari": {
+      "name": "天井下",
+      "name_en": "Tenjokudari",
+      "description_distant": "天花板上有什么东西。一个黑色的形状。像湿布搭在横梁上，又像什么东西从上面垂下来。你不确定。灯光照不到那么高的地方。",
+      "description_close": "那是一个女人。倒挂在天花板上。双脚嵌入天花板的缝隙里。她的头发长得不可思议，笔直垂下来，像黑色的雨帘，发梢触到了地板。她的脸是倒过来的。她的眼睛是睁着的。她在笑。倒过来的笑容从你的角度看像是皱眉。还是说她本来就在皱眉？你分不清了。她的手指在微微抽搐。",
+      "description_attacking": "她从天花板上坠落。没有声音。只有头发像瀑布一样倾泻而下。在你抬头的瞬间她已经落在了你的肩膀上。她的重量出乎意料地大，把你压倒在地。长发缠住你的脖子、你的手臂、你的腿。她倒过来的脸贴着你的脸。她还在笑。近距离看，那确实是笑。不是皱眉。是笑。",
+      "type": "stationary",
+      "initial_location": "teahouse_momiji",
+      "patrol_route": null,
+      "patrol_speed": null,
+      "activation_time": "22:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "她在你走到她正下方时坠落。永远不要走房间的中央。贴墙走。如果听到不是水的滴答声，短暂地抬头看一眼确认她的位置，然后避开那片区域。",
+        "rule_id": "rule_tenjokudari_ceiling",
+        "states": {
+          "idle": {
+            "description": "她一动不动地挂在天花板上。如果不抬头看，你永远不会知道她在那里。只有偶尔滴落的发梢水滴暴露她的存在。",
+            "transitions": {
+              "player_enters_room": "idle",
+              "player_walks_under": "dropping",
+              "loud_noise": "retracted"
+            }
+          },
+          "dripping": {
+            "description": "她的发梢开始滴水。不是水。是某种黏稠的、冰冷的液体。滴答。滴答。如果你注意到了这个声音，你还有机会避开她的正下方。",
+            "transitions": {
+              "player_notices_sound": "idle",
+              "player_walks_under": "dropping",
+              "loud_noise": "retracted"
+            }
+          },
+          "dropping": {
+            "description": "她松开了天花板。坠落是无声的。只有头发在空气中展开时发出一声细微的沙沙声。当你听到这个声音的时候已经来不及了。",
+            "transitions": {
+              "hits_player": "player_pinned",
+              "misses_player": "resetting"
+            }
+          },
+          "resetting": {
+            "description": "她砸在了地面上，但你不在那里。她用那不可思议的长发像蛇一样缠住横梁，把自己拉回天花板。整个过程安静得令人发指。十秒之内她又回到了上面。",
+            "transitions": {
+              "reset_complete": "idle"
+            }
+          },
+          "retracted": {
+            "description": "巨大的声响让她缩成一团，躲进天花板的角落里。她的头发缠绕成一个紧密的茧。她在那里瑟瑟发抖。声音消失后她才会慢慢展开。",
+            "duration_turns": 3,
+            "transitions": {
+              "duration_expires": "idle"
+            }
+          }
+        },
+        "encounter_responses": {
+          "look_up_briefly": {
+            "outcome": "best",
+            "narration": "你快速抬头看了一眼天花板。你的心跳漏了一拍。那里挂着一个女人。头发垂到地面。她在天花板的正中间。你知道了她的位置。现在。贴着墙走。不要走到她下面。你能做到。",
+            "effect": "locate_position_avoid_area"
+          },
+          "look_up_long": {
+            "outcome": "creepy_but_safe",
+            "narration": "你抬起头，盯着天花板。她就在那里。倒挂着。头发像黑色的瀑布。她感知到了你的目光。她的身体开始一点一点地下降，头发像触手一样慢慢伸展。她的脸在靠近。那双倒过来的眼睛盯着你。但她动得很慢。你还有时间移动。",
+            "effect": "she_descends_slowly_2_turn_warning",
+            "san_cost": 8
+          },
+          "walk_center": {
+            "outcome": "danger",
+            "narration": "你走过房间的中央。你不知道自己正在做什么。在你头顶三米的地方，一个东西松开了天花板上的附着点。你听到了头发在空气中展开的沙沙声。然后你什么都听不到了。因为她已经落在了你身上。",
+            "effect": "tenjokudari_drops_on_player",
+            "hp_cost": 40,
+            "san_cost": 15
+          },
+          "walk_along_walls": {
+            "outcome": "safe",
+            "narration": "你贴着墙壁走。你的肩膀蹭着陈旧的木板。你能感觉到头顶有什么东西在注视你，但你不在她的正下方。她没有动。她只能直线坠落。你绕着房间的边缘走出了门。你甚至不确定她是不是真的在那里。但你活着走出来了。",
+            "effect": "safe_passage"
+          },
+          "run_through_room": {
+            "outcome": "risky",
+            "narration": "你加速冲过房间。如果她在天花板中间，你会经过她的正下方。她开始坠落的时候你已经跑出了几步。她的头发擦过你的后背，冰凉的、湿漉漉的触感让你全身的汗毛都竖了起来。差一点。你差一点就被她压住了。",
+            "effect": "50_percent_chance_dodge",
+            "san_cost": 5
+          },
+          "crouch": {
+            "outcome": "still_dangerous",
+            "narration": "你蹲下身子。这降低了你的高度，但没有改变你在房间里的水平位置。如果你蹲在她正下方，她照样会落在你身上。矮一点只意味着她坠落的距离更长，冲击力更大。",
+            "effect": "still_vulnerable_if_underneath"
+          },
+          "hide": {
+            "outcome": "safe_if_walls",
+            "narration": "你缩在墙角的阴影里。天花板上的形状一动不动。她不搜索。她不追赶。她只是挂在那里，等待下一个走到她正下方的人。只要你不站到她的阴影下，你就是安全的。",
+            "effect": "safe_if_hiding_spot_along_walls"
+          },
+          "use_shrine_bell": {
+            "outcome": "retract",
+            "narration": "你摇响了铃铛。声波在封闭的房间里震荡。天花板上的形状剧烈抽搐了一下，然后以惊人的速度缩进了天花板的角落。她的头发紧紧缠绕成一团，像一个黑色的茧。她在颤抖。她害怕声音。巨大的、突然的声音。",
+            "effect": "retracted_3_turns"
+          },
+          "use_lantern": {
+            "outcome": "reveal",
+            "narration": "你举起灯笼。温暖的光线照亮了天花板。你看见了她。完完整整地看见了。白色的双脚嵌入天花板的缝隙，身体像一根倒挂的蜡烛，头发从她的头顶倾泻而下，铺了半个房间的地板。她的脸在灯光下清晰可见。她在看你。她在笑。",
+            "effect": "clearly_locate_position",
+            "san_cost": 8
+          },
+          "listen": {
+            "outcome": "clue",
+            "narration": "你停下脚步，屏住呼吸。房间很安静。太安静了。然后你听到了。滴答。滴答。不是水龙头。不是雨水。是某种更黏稠、更缓慢的东西。从天花板上滴下来的。你抬头看了一眼发梢。有液体正沿着漆黑的发丝慢慢汇聚成珠。她在那里。",
+            "effect": "discover_dripping_sound_locate_area"
+          },
+          "investigate_ceiling": {
+            "outcome": "same_as_look_up_briefly",
+            "narration": "你检查了天花板。木质横梁之间有一个不自然的形状。看起来像是湿漉漉的布料挂在上面。然后你看见了手指。苍白的、纤细的手指，微微抽搐着，像是在梦中抓握什么东西。那不是布。是一个倒挂的人。",
+            "effect": "locate_position_avoid_area",
+            "san_cost": 5
+          },
+          "talk": {
+            "outcome": "no_response",
+            "narration": "你朝天花板说话。你的声音在空荡的房间里回响。没有回应。她不是一个可以交流的存在。她只是挂在那里。等着。像一扇等待有人走过的陷阱门。",
+            "effect": "none"
+          },
+          "attack_upward": {
+            "outcome": "futile",
+            "narration": "你试图朝天花板攻击。但她挂得太高了。你的手够不到。你跳起来也够不到。你只是在一个空荡的房间里对着天花板挥舞拳头。如果她有情绪的话，她大概在笑你。",
+            "effect": "none"
+          },
+          "throw_something_up": {
+            "outcome": "creepy",
+            "narration": "你朝天花板扔了个东西。东西飞到一半就被接住了。不是被手接住的。是被头发接住的。那些漆黑的发丝像活的一样缠住了你扔上去的东西，把它卷进了黑色的发帘之后。你再也看不到那个东西了。",
+            "effect": "item_lost",
+            "san_cost": 5
+          },
+          "stare_up": {
+            "outcome": "danger",
+            "narration": "你仰着头盯着她。她开始动了。缓慢地。几乎察觉不到地。她的身体在一点一点地下降。头发的帘幕在慢慢扩大。她的脸在靠近你。那双倒过来的眼睛直直地看着你。她知道你在看她。她很开心。",
+            "effect": "she_descends_toward_player",
+            "san_cost": 10
+          },
+          "ignore": {
+            "outcome": "risky_luck",
+            "narration": "你没有注意到天花板上的异样。你径直穿过房间，步伐正常。你的路线恰好没有经过她的正下方。你走出了门。你永远不会知道自己刚才有多幸运。或者说，多不幸。因为下次你可能就没这么好的运气了。",
+            "effect": "random_chance_safe_or_drop"
+          },
+          "run": {
+            "outcome": "safe_if_toward_exit",
+            "narration": "你沿着墙壁朝出口冲去。天花板上的形状没有反应。它不能追你。它只能等。你冲出门口的时候听到了身后传来一声低沉的叹息。还是风声？你不想知道。",
+            "effect": "escape_if_along_walls"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 40,
+        "san_damage": 15,
+        "san_damage_on_sight": 8,
+        "speed": 0,
+        "pursuit_speed": 0
+      },
+      "weakness": "贴墙走可以完全避开她。短暂地抬头看一眼可以确认她的位置。巨大的声响（神社铃铛）可以让她缩到天花板角落。她无法追出房间。",
+      "immunity": "无法被伤害，她已经是死的了。对光线免疫。对盐免疫。"
+    },
+
+    "oni": {
+      "name": "鬼",
+      "name_en": "Oni",
+      "description_distant": "地面在震动。某种巨大的东西在黑暗中移动。你能看见它的剪影。很大。非常大。它的头上有两个尖锐的轮廓。角。",
+      "description_close": "红色的皮肤。肌肉像拧在一起的绳索。两只角从额头弯曲而出，像犄角一样朝天空弯去。黄色的眼睛里是竖直的瞳孔。下颚突出两根獠牙。它拎着一根铁棒，那根棒子有你的躯干那么大。腰间系着虎皮。它正在看你，就像你看一只虫子一样。不是恶意。是对你生死的彻底漠然。",
+      "description_attacking": "铁棒扫过来的时候带着破空的风声。你的世界在一瞬间变成了横向的。你被击飞了。你不确定断了几根骨头。地面在你的背后裂开了。鬼没有表情。它举起铁棒，准备第二次挥下。对它来说，这不是战斗。这是碾压。",
+      "type": "patrol",
+      "initial_location": "abandoned_house",
+      "patrol_route": ["abandoned_house", "garden", "underground_passage", "garden", "abandoned_house"],
+      "patrol_speed": "slow",
+      "activation_time": "00:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "它会数东西。撒豆子。节分的传统。它会强迫症一样地数每一粒豆子，在数完之前无法移动。注连绳和盐线可以净化门口阻止它进入。",
+        "rule_id": "rule_oni_beans",
+        "states": {
+          "idle": {
+            "description": "鬼在巡逻路线上缓慢移动。地面随着它的脚步震颤。墙壁上的灰尘在颤抖中簌簌落下。它很慢。但它不会停。",
+            "transitions": {
+              "player_detected": "aware",
+              "player_heard": "aware"
+            }
+          },
+          "aware": {
+            "description": "鬼停下了脚步。它的鼻子在空气中翕动。它闻到了你。它知道你在附近。它开始朝你的方向移动。",
+            "transitions": {
+              "player_found": "pursuing",
+              "player_escapes_area": "idle",
+              "beans_thrown": "counting"
+            }
+          },
+          "pursuing": {
+            "description": "鬼朝你走来了。每一步都让地面颤抖。它不跑。它不需要跑。它知道你迟早会跑到死胡同。",
+            "transitions": {
+              "reaches_player": "attacking",
+              "beans_thrown": "counting",
+              "purified_doorway": "blocked",
+              "player_outruns": "aware"
+            }
+          },
+          "attacking": {
+            "description": "铁棒举起。它挥下的速度和它的体型不成比例。太快了。",
+            "transitions": {
+              "player_survives": "pursuing",
+              "player_dead": "idle",
+              "beans_thrown": "counting"
+            }
+          },
+          "counting": {
+            "description": "鬼蹲了下来。铁棒搁在地上。它的巨大手指笨拙地捡起一粒豆子。然后是第二粒。第三粒。它在数。每一粒。它的嘴唇在动。它无法停下来。在数完最后一粒之前它无法做任何其他事情。",
+            "duration_turns": "proportional_to_bean_count_minimum_5",
+            "transitions": {
+              "counting_complete": "pursuing",
+              "more_beans_thrown": "counting_reset"
+            }
+          },
+          "blocked": {
+            "description": "鬼站在净化过的门口前。它试图迈步。它的脚在门槛前停住了，像是撞上了一面无形的墙。它发出一声低沉的怒吼，铁棒砸在门框上，木屑飞溅。但它进不来。",
+            "transitions": {
+              "purification_broken": "pursuing",
+              "player_leaves_room": "pursuing_other_route",
+              "oni_gives_up": "idle"
+            }
+          }
+        },
+        "encounter_responses": {
+          "throw_beans": {
+            "outcome": "best",
+            "narration": "你把豆子撒向鬼。豆子在地上蹦跳，滚得到处都是。鬼的反应是即时的。它停住了。像是被施了定身咒。然后它缓缓蹲下，铁棒搁在一边。它的巨大手指开始捡豆子。一粒。两粒。三粒。它的嘴唇在动。它在数。它没法停下来。你看着一个三米高的恶鬼蹲在地上数豆子。这是你见过的最荒谬也最救命的画面。",
+            "effect": "immobilized_5_plus_turns"
+          },
+          "use_salt": {
+            "outcome": "barrier",
+            "narration": "你在门口撒了一条盐线。白色的盐粒在月光下闪烁。鬼走到门口停住了。它的脚在盐线前方一厘米处悬停着，仿佛那条白线是一道电网。它怒吼了一声，铁棒砸在门框上，但它的身体无法越过那条线。盐线可以挡住它。但它也可以被踩断。",
+            "effect": "barrier_at_doorway_breakable"
+          },
+          "use_rope": {
+            "outcome": "strong_barrier",
+            "narration": "你把注连绳的碎片绑在门框上。稻草和纸垂在微风中摇晃。鬼走过来的时候停住了。它盯着那根注连绳，眼睛里第一次出现了某种接近恐惧的东西。神圣的结界。它的铁棒砸在地上，但它的身体连靠近都做不到。这比盐线更结实。它进不来。",
+            "effect": "strong_barrier_at_doorway"
+          },
+          "run": {
+            "outcome": "escape",
+            "narration": "你跑了。鬼没有追你。它不需要。它的步幅是你的三倍。但它的速度很慢，每一步之间有足够的间隔让你拉开距离。你跑过转角的时候回头看了一眼。它的巨大身影在月光中缓缓移动。不急不缓。它知道夜还很长。",
+            "effect": "escape_successful_but_it_follows_slowly"
+          },
+          "hide": {
+            "outcome": "risky",
+            "narration": "你躲起来了。但鬼的鼻子比你想象的灵。它停在你藏身处附近，鼻翼翕动。它闻到了你。也许吧。它在原地站了很久，像一尊赤红色的雕像。然后它继续向前走了。你不确定它是没找到你，还是懒得找你。",
+            "effect": "50_percent_detection"
+          },
+          "fight": {
+            "outcome": "near_certain_death",
+            "narration": "你冲上去了。你的拳头砸在它的腹部。就像打一堵墙。一堵温热的、会呼吸的、红色的墙。它低头看了你一眼。然后它的铁棒挥了过来。你没有看到铁棒。你只是突然在五米外的墙壁上了。嘴里是血的味道。",
+            "effect": "massive_damage",
+            "hp_cost": 60,
+            "san_cost": 10
+          },
+          "use_shrine_bell": {
+            "outcome": "bad",
+            "narration": "你摇响了铃铛。鬼的反应出乎你的意料。它没有后退。它暴怒了。声音刺激了它。它发出一声震耳欲聋的怒吼，铁棒在空中旋转。它的速度突然加快了。你犯了一个严重的错误。",
+            "effect": "oni_enraged_speed_doubled",
+            "san_cost": 8
+          },
+          "use_lantern": {
+            "outcome": "no_effect",
+            "narration": "你举起灯笼。灯光照在鬼的红色皮肤上，投下巨大的阴影。它看都没看你的灯笼一眼。光对它毫无影响。它不是暗处的妖怪。它是暴力本身。",
+            "effect": "none"
+          },
+          "talk": {
+            "outcome": "ignored",
+            "narration": "你开口说话。你的声音在它面前小得可怜。它没有理你。不是因为听不懂。它只是不在乎。你的话语对它来说就像风声一样微不足道。它继续朝你走来。",
+            "effect": "none"
+          },
+          "bow": {
+            "outcome": "amused",
+            "narration": "你鞠了一躬。鬼停下了。它看着你低下去的头。然后它发出一声低沉的笑声，像是岩石在摩擦。它觉得这很有趣。一个即将被碾碎的蝼蚁在向它鞠躬。它笑够了之后继续前进。你争取到了一瞬间。",
+            "effect": "buys_1_turn"
+          },
+          "crouch": {
+            "outcome": "still_visible",
+            "narration": "你蹲下来。鬼低下头看你。三米的身高差让它看你像看地上的石头。蹲下来并没有让你更安全。你只是变成了一块更容易踩到的石头。",
+            "effect": "none"
+          },
+          "investigate": {
+            "outcome": "terror",
+            "narration": "你仔细看着它。它的每一块肌肉都在皮肤下面缓缓移动。獠牙上沾着什么发黑的东西。铁棒的表面坑坑洼洼，每一个坑都是一次撞击留下的。它的指甲是黑色的，像铁一样厚。这不是你可以战胜的东西。这是灾害。是海啸。是地震。你不「打败」地震。你只能「活过」地震。",
+            "effect": "none",
+            "san_cost": 5
+          },
+          "stare": {
+            "outcome": "provoke",
+            "narration": "你盯着它。它盯着你。黄色的竖瞳在黑暗中燃烧。对峙持续了三秒。然后它迈步了。不是走。是冲。三米高的身体以不可能的加速度朝你撞来。你凝视深渊，深渊决定碾碎你。",
+            "effect": "oni_charges",
+            "san_cost": 5
+          },
+          "look_away": {
+            "outcome": "provoke",
+            "narration": "你别开了视线。这在鬼的逻辑里不是恐惧。是轻视。你居然敢不看它。它发出一声怒哼，铁棒在地上拖出一道深痕。它加快了脚步。",
+            "effect": "oni_approaches_faster"
+          },
+          "glance": {
+            "outcome": "assess",
+            "narration": "你飞快地瞥了一眼。巨大。红色。角。铁棒。你的大脑在一秒内完成了计算。结论：跑。现在就跑。往它来的反方向跑。",
+            "effect": "assess_escape_route"
+          },
+          "use_fox_mask": {
+            "outcome": "no_effect",
+            "narration": "你戴上了狐狸面具。鬼看了你一眼。它看穿了面具。它不在乎你脸上戴了什么。它在乎的是你的肉。面具对鬼没有用。",
+            "effect": "none"
+          },
+          "barricade_door": {
+            "outcome": "delay",
+            "narration": "你把能找到的东西都堆在门口。桌子。柜子。木板。你听见另一边传来了沉重的脚步声。然后是第一声撞击。整面墙都在颤抖。第二声。门上出现了裂缝。第三声。门板碎裂了，家具像玩具一样被弹开。鬼的脸出现在碎裂的门框后面。你有三个回合。你用完了。",
+            "effect": "buys_3_turns"
+          },
+          "use_hand_mirror": {
+            "outcome": "brief_pause",
+            "narration": "你举起手镜。鬼看到了镜子里自己的脸。它停了一秒。它歪着头看那个镜面中赤红色的面孔，瞳孔收缩。它似乎困惑了。然后它把镜子连同你的手一起拍到了地上。困惑只持续了一瞬。",
+            "effect": "stun_1_turn"
+          },
+          "pray": {
+            "outcome": "conditional_safe",
+            "narration": "你在神龛前祈祷。如果你在净化过的区域里，鬼的脚步在结界前停住了。它怒吼着，铁棒砸在地上，但它进不来。祈祷本身不能阻止鬼。但祈祷的地方可以。",
+            "effect": "safe_if_in_purified_area"
+          },
+          "ignore": {
+            "outcome": "death_approaches",
+            "narration": "你假装没看到它。这不是你可以忽略的东西。地面在你脚下震动。墙壁在颤抖。空气中弥漫着硫磺和铁锈的气味。你可以忽略它。但它不会忽略你。",
+            "effect": "oni_continues_approaching"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 60,
+        "san_damage": 10,
+        "san_damage_on_sight": 5,
+        "speed": 1,
+        "pursuit_speed": 2
+      },
+      "weakness": "豆子可以触发它的强迫计数行为，撒出去的每一粒豆子都会让它停下来数，至少五个回合无法动弹。无法进入净化空间（盐线、注连绳、神龛区域）。注连绳可以暂时净化门口阻挡它。",
+      "immunity": "对绝大多数物理攻击免疫（生命值极高）。对心理效果免疫。对火焰免疫。"
+    },
+
+    "kitsune": {
+      "name": "狐",
+      "name_en": "Kitsune",
+      "description_distant": {
+        "fox_form": "石阶上坐着一只大狐狸。皮毛是金红色的。它有不止一条尾巴。它用一种不安地聪慧的眼神注视着你。",
+        "human_form": "一个你不认识的人，正从容地走过花街。",
+        "companion_form": "你的同伴。就站在那里。微笑着。一切看起来都是对的。一切听起来都是对的。但是..."
+      },
+      "description_close": {
+        "fox_form": "九条尾巴在身后展开成扇形。琥珀色的眼睛里是竖直的瞳孔。它歪着头打量你。它的表情里有某种接近于玩味的东西。像是在看一出它已经知道结局的戏。",
+        "human_form": "一个年轻人，穿着旅人的衣服。看起来很普通。但他的笑容有一种不属于这个场合的了然。像是他知道一些你不知道的事情。很多。",
+        "companion_form": "你的同伴。每一个细节都对。声音。表情。说话的方式。衣服上的褶皱。但有什么东西不对。你说不上来。也许什么都没有不对。也许你在疑神疑鬼。但那种不对的感觉像鱼骨头一样卡在你的喉咙里。"
+      },
+      "description_attacking": "狐的幻术碎裂了。金红色的皮毛在月光下燃烧般地闪耀。九条尾巴张开，每一条尾巴的尖端都燃着幽蓝色的狐火。它的嘴张开了，露出了不该存在于这个体型上的獠牙。狐火从它的喉咙深处喷涌而出。这不是你可以躲避的东西。这是天火。",
+      "type": "reactive",
+      "initial_location": "stone_steps",
+      "patrol_route": null,
+      "patrol_speed": null,
+      "activation_time": "21:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "它无法复制气味。你真正的同伴有他们特有的味道。狐狸变成的假同伴没有气味，或者闻起来像泥土和树叶。模仿狗叫可以让它暴露真身。",
+        "rule_id": "rule_kitsune_smell",
+        "special_note": "有一只狐是善意的，守护着护符碎片之三。献上油炸豆腐可以赢得它的信任，它会引导你找到碎片。",
+        "states": {
+          "idle": {
+            "description": "狐以本体形态坐在高处，打量来往的行人。九条尾巴慵懒地在身后摇摆。它还没有决定是否要戏弄你。",
+            "transitions": {
+              "player_approaches": "disguised",
+              "player_offers_tofu": "friendly",
+              "player_attacks": "hostile"
+            }
+          },
+          "disguised": {
+            "description": "一阵微风。一眨眼。你面前站着的是一个人。完美的人类。没有尾巴。没有竖瞳。没有任何破绽。除了气味。",
+            "transitions": {
+              "player_checks_scent": "revealed",
+              "player_barks": "revealed",
+              "player_uses_camera": "revealed",
+              "player_uses_mirror": "revealed",
+              "player_trusts": "testing",
+              "player_attacks": "hostile"
+            }
+          },
+          "testing": {
+            "description": "它已经完美地伪装成了你认识的人。它在测试你。给你建议。给你方向。观察你会不会上当。这是一场它已经玩了几百年的游戏。",
+            "transitions": {
+              "player_detects_fake": "revealed",
+              "player_follows_advice": "misdirected",
+              "player_offers_tofu": "friendly"
+            }
+          },
+          "revealed": {
+            "description": "幻术破碎了。金红色的狐狸站在人形消散的烟雾中，九条尾巴在身后摇曳。它看着你，表情不是愤怒，是某种近似佩服的东西。你识破了它。",
+            "transitions": {
+              "player_is_respectful": "friendly",
+              "player_attacks": "hostile",
+              "player_offers_tofu": "friendly",
+              "player_flees": "idle"
+            }
+          },
+          "friendly": {
+            "description": "狐的眼睛眯了起来，嘴角勾出一个弧度，像是在笑。它轻轻甩了甩尾巴，朝你点了点头。一种不成文的契约在你们之间成立了。它认可了你。",
+            "transitions": {
+              "player_requests_help": "guiding",
+              "player_attacks": "hostile",
+              "player_leaves": "idle"
+            }
+          },
+          "guiding": {
+            "description": "狐在前方轻盈地跑着，时不时回头看你有没有跟上。它的九条尾巴像九盏灯笼，在黑暗中微微发光。它在带你去一个只有它知道的地方。",
+            "transitions": {
+              "reaches_kitsune_den": "friendly",
+              "player_attacks": "hostile"
+            }
+          },
+          "hostile": {
+            "description": "你激怒了它。或者你不敬。狐火在它的尾巴尖端燃起，蓝白色的火焰在黑暗中跳跃。它不再是一只可爱的狐狸。它是九尾的狐仙。你在它面前像纸一样薄。",
+            "transitions": {
+              "player_flees": "idle",
+              "player_apologizes": "revealed",
+              "player_offers_tofu": "testing"
+            }
+          },
+          "fleeing": {
+            "description": "狐消失了。不是跑掉的。是消失的。像一缕烟。一秒前它还在那里，下一秒那里只有一片落叶在慢慢飘下。你甚至不确定它是真的走了还是只是换了一个你看不见的形态。",
+            "transitions": {
+              "reappears": "idle"
+            }
+          }
+        },
+        "encounter_responses": {
+          "look": {
+            "outcome": "normal",
+            "narration_disguised": "你看着眼前的人。一切正常。没有任何可疑的地方。声音对。表情对。衣服对。但你的后脑勺有一个微小的声音在说什么。你听不清。也许什么都没说。",
+            "narration_fox_form": "你看着那只狐。它也在看你。那双琥珀色的眼睛里有一种不属于动物的智慧。它歪了歪头，像是在等你说点什么有趣的。",
+            "effect": "none"
+          },
+          "investigate": {
+            "outcome": "subtle_clue",
+            "narration": "你仔细观察。一切都太完美了。每一个细节都对。但你凑近的时候注意到了一件奇怪的事。这个人没有气味。人应该有气味的。汗味。肥皂味。食物的味道。什么都好。但这个人什么气味都没有。像一幅画。完美但平面。",
+            "effect": "notice_lack_of_scent"
+          },
+          "smell": {
+            "outcome": "best_detection",
+            "narration": "你深吸一口气。你的同伴应该有他们的气味。衣服上的洗涤剂。皮肤上的汗。头发上的风。但你闻到的只有泥土。落叶。秋天的雨后的森林。这不是人的气味。这是狐狸的气味。你面前的不是你的同伴。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 10
+          },
+          "check_scent": {
+            "outcome": "best_detection",
+            "narration": "你假装不经意地靠近，深吸了一口气。没有人的气味。只有微弱的泥土和树叶的味道。你的心跳加速了。你知道了。它不是你认识的人。它是别的什么东西。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 10
+          },
+          "sniff": {
+            "outcome": "best_detection",
+            "narration": "你嗅了嗅空气。你同伴身上应该有的那股熟悉的味道不在了。取而代之的是一种极其微弱的、来自林间的气息。湿润的土壤。枯叶的苦涩。一丝若有若无的动物的体味。你面前站着的东西不是人类。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 10
+          },
+          "bark": {
+            "outcome": "best_reveal_funny",
+            "narration": "你张嘴模仿了一声狗叫。效果是即时的，也是滑稽的。你面前的「人」浑身一颤，然后像气球一样瘪了下去。皮肤变成了皮毛。衣服变成了尾巴。一只金红色的大狐狸站在你面前，九条尾巴炸成了毛球。它用一种又惊又怒又丢脸的眼神看着你。它被一声狗叫打回了原形。几百年的修行。一声汪。",
+            "effect": "state_change_to_revealed_involuntary"
+          },
+          "make_dog_sound": {
+            "outcome": "best_reveal_funny",
+            "narration": "你清了清嗓子，发出了你能做到的最像狗的声音。它不是很像。但足够了。你面前的人像被电击了一样跳了起来，幻术在一瞬间碎裂。一只狐狸落在地上，九条尾巴夹在两腿之间。它看着你的眼神里有一种古老的、深刻的、跨越物种的尴尬。",
+            "effect": "state_change_to_revealed_involuntary"
+          },
+          "dog": {
+            "outcome": "best_reveal_funny",
+            "narration": "「汪。」你说。只是一个字。效果堪比核弹。你面前的「同伴」的脸扭曲了一瞬间。然后砰的一声。烟雾。落叶。一只金红色的狐狸趴在地上，耳朵紧贴脑袋，九条尾巴蜷成一团。它用一种「你知道你刚才做了多低级的事吗」的眼神看着你。但它变不回去了。至少暂时变不回去。",
+            "effect": "state_change_to_revealed_involuntary"
+          },
+          "offer_fried_tofu": {
+            "outcome": "best_friendship",
+            "narration": "你拿出了油炸豆腐。效果是立竿见影的。不管它之前是什么形态，它立刻变回了狐狸的本体。九条尾巴同时竖了起来，耳朵朝前转。它小心翼翼地嗅着你手中的豆腐，然后轻轻叼了过去。它吃得很仔细。一小口一小口的。吃完之后它抬起头看你，眼睛里的戒备消失了。取而代之的是信任。它站起来，朝你甩了甩尾巴，然后朝某个方向跑了几步。停下。回头看你。它在等你跟上来。",
+            "effect": "state_change_to_friendly_then_guiding"
+          },
+          "offer_tofu": {
+            "outcome": "best_friendship",
+            "narration": "你把豆腐递过去。空气中有一瞬间的静止。然后幻术像玻璃一样碎裂了，一只九尾狐狸出现在你面前。它的表情柔和了下来。它接过豆腐，在你手心里蹭了蹭鼻子。那个触感很温暖。它吃完之后站在你面前，歪着头。它做了一个决定。它信任你。",
+            "effect": "state_change_to_friendly_then_guiding"
+          },
+          "use_fried_tofu": {
+            "outcome": "best_friendship",
+            "narration": "你拿出了油揚げ。这是给稻荷神的供品，也是狐狸最爱的食物。效果比你想象的还好。它不再伪装了。金红色的皮毛在月光下闪烁，九条尾巴轻轻摇摆。它用鼻尖碰了碰你的手指，然后叼走了豆腐。从这一刻起，你多了一个盟友。",
+            "effect": "state_change_to_friendly_then_guiding"
+          },
+          "attack": {
+            "outcome": "hostile",
+            "narration": "你攻击了它。它的反应快到你只看见了一道金色的残影。你的拳头打在了空气上。它已经在三米外了，九条尾巴的尾尖燃起了蓝白色的狐火。它的表情变了。不再是好奇。不再是玩味。是愤怒。你攻击了一只九尾狐。这是你今晚做过的最糟糕的决定。",
+            "effect": "state_change_to_hostile",
+            "san_cost": 5
+          },
+          "talk": {
+            "outcome": "conditional",
+            "narration_disguised": "你和它交谈。它的回答完美无缺。语气、措辞、甚至那些细微的口头禅都一模一样。它知道你知道的一切。也许知道得更多。你几乎忘了你在怀疑它。也许你不应该怀疑它。也许它就是你的同伴。也许。",
+            "narration_revealed": "你和它说话。它用一种悠远的、带着回音的声音回答你。它说的都是谜语。半句真话半句假话。它告诉你一些有用的东西，但你得自己分辨哪些是有用的。它在笑。跟狐狸打交道就像跟谜语打交道。",
+            "effect_disguised": "perfect_mimicry_misdirection",
+            "effect_revealed": "riddles_with_partial_truth"
+          },
+          "run": {
+            "outcome": "no_pursuit_unless_hostile",
+            "narration": "你转身跑了。它没有追你。它只是坐在那里，歪着头，看着你跑远。九条尾巴慢悠悠地摇了摇。在它看来，你只是一个不够有趣的玩具。除非你之前惹怒了它。那就另当别论了。",
+            "effect": "escape_if_not_hostile"
+          },
+          "stare": {
+            "outcome": "suspicious",
+            "narration_disguised": "你盯着它看。它回看你，不眨眼。一秒。两秒。五秒。十秒。人类会在这个时间段里眨至少三次眼。它一次也没有。这让你的胃里翻了一下。但也许有些人就是不怎么眨眼。也许。",
+            "narration_fox_form": "你盯着狐狸。它盯着你。对峙在月光下持续了很久。然后它打了一个哈欠。露出了一排细小而锐利的牙齿。它不怕你。它只是在等你做点有意思的事。",
+            "effect": "notice_abnormality"
+          },
+          "check_companion": {
+            "outcome": "detection",
+            "narration": "你走到真正的同伴身边，然后走回来。你对比了一切。声音。表情。小动作。然后你注意到了。你的真同伴身上有淡淡的汗味、衣服的洗涤剂味道。但这个「同伴」什么味道都没有。干净得不真实。它是假的。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 12
+          },
+          "bow": {
+            "outcome": "appreciated",
+            "narration": "你鞠了一躬。狐回以一个优雅的点头。在所有妖怪中，狐是最懂礼节的。它欣赏你的礼貌。这不会阻止它戏弄你，但它可能不会那么恶意。也许会在真话里多掺一点真话。也许。",
+            "effect": "slightly_more_helpful"
+          },
+          "use_shrine_bell": {
+            "outcome": "no_effect",
+            "narration": "你摇响了铃铛。狐的耳朵转了转。它是神社的生物。铃铛的声音对它来说像是家乡的音乐。它甚至看起来更放松了一些。铃铛对狐没有驱逐效果。如果有的话，它更像是在欢迎。",
+            "effect": "none"
+          },
+          "use_camera": {
+            "outcome": "reveal",
+            "narration": "你举起相机拍了一张照片。闪光灯亮起的瞬间，你在取景框里看到了真相。照片里没有人类。照片里是一只狐狸。金红色的皮毛。九条尾巴。琥珀色的眼睛直视镜头。相机不会被幻术欺骗。镜头只拍真相。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 8
+          },
+          "use_hand_mirror": {
+            "outcome": "reveal",
+            "narration": "你举起手镜，对准了它的脸。镜子里的倒影和你眼前看到的完全不同。镜子里是一只狐。尖尖的嘴。竖起的耳朵。琥珀色的眼睛。九条尾巴在镜面中摇晃。你放下镜子，眼前还是那个人类的笑脸。两个画面叠在一起。你的脑子嗡嗡作响。",
+            "effect": "state_change_to_revealed",
+            "san_cost": 10
+          },
+          "glance": {
+            "outcome": "nothing_obvious",
+            "narration": "你匆匆瞥了一眼。看起来完全正常。一个人。站在那里。没有尾巴。没有竖瞳。没有任何不对的地方。你的直觉什么都没有说。也许它就是一个普通人。也许。",
+            "effect": "none"
+          },
+          "ignore": {
+            "outcome": "follows",
+            "narration": "你无视了它，继续往前走。你走了十步。二十步。你回头看了一眼。它在你身后。不远不近。保持着固定的距离。它还在看你。它还在笑。它还在等。它有的是时间。",
+            "effect": "kitsune_follows_and_tests"
+          },
+          "throw_beans": {
+            "outcome": "amused",
+            "narration": "你朝它撒了豆子。它看着豆子落在地上，然后抬头看你。如果狐狸能做出「你在逗我吗」的表情，它现在就是这个表情。它不是鬼。它不需要数豆子。但它确实叼了一粒。尝了尝。吐了出来。不是油炸豆腐。不感兴趣。",
+            "effect": "none_but_amused"
+          },
+          "use_salt": {
+            "outcome": "mild_irritation",
+            "narration": "你朝它撒了盐。它打了一个喷嚏。一个很不优雅的、很像狐狸的喷嚏。它用一种不满的眼神看着你。盐对它没有致命效果，但它显然不喜欢。如果你之前和它的关系还不错，现在差了一点。",
+            "effect": "slight_relationship_decrease"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 20,
+        "san_damage": 15,
+        "san_damage_on_sight": 0,
+        "speed": 3,
+        "pursuit_speed": 4
+      },
+      "weakness": "无法复制气味，嗅觉检查可以识破伪装。狗叫声会迫使它暴露真身。油炸豆腐可以赢得它的信任和友谊。无法进入本殿（太神圣）。",
+      "immunity": "对物理陷阱免疫。可以短距离瞬移（狐术）。"
+    }
+  }
+}

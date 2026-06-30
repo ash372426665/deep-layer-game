@@ -1,0 +1,404 @@
+{
+  "items": {
+    "phone": {
+      "name": "智能手机",
+      "name_en": "Smartphone",
+      "description": "你自己的手机。没有信号，但WiFi列表里有一个网络：「結縁_GUEST」。不要连。手电筒能用。时钟能用，但有时候会跳——你明明只看了三秒钟，时间却过了十一分钟。",
+      "type": "tool",
+      "location": "player_start",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "flashlight": {
+          "illumination": "low",
+          "description": "微弱的手电筒光。能照亮脚下三步的距离，但光圈边缘的黑暗似乎在向内收缩。"
+        },
+        "clock": {
+          "description": "时钟仍在运转，但时间流速不稳定。有时一分钟是六十秒，有时一分钟是六百秒。唯一确定的是：午夜十二点会准时到来。"
+        },
+        "camera_basic": {
+          "description": "相机功能正常，但拍出的照片总有些不对。人不在的地方多出影子，影子该在的地方空无一物。"
+        }
+      },
+      "special_notes": "WiFi名「結縁」意为「结缘」。这个神社本身就是为了「缘」而存在的。不要连那个WiFi。上一个连了的人至今没有离开过这里。"
+    },
+    "fox_mask": {
+      "name": "白狐面具",
+      "name_en": "White Fox Mask",
+      "description": "白瓷般的狐面，朱红色笔触勾勒出眼尾和嘴角。手工绘制，颜料微微凸起。面具内侧残留着淡淡的檀香味，像是被谁戴过很久。",
+      "type": "tool",
+      "location": "mask_shop",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "menreiki_immunity": {
+          "description": "戴上面具后，面灵气无法将你与其他面具区分。在它眼中，你只是墙上又一张空洞的脸。它会从你身边飘过，没有停顿。"
+        },
+        "yokai_sight": {
+          "description": "透过面具的眼孔看出去，世界变了。阴影有了颜色——妖怪的轮廓在黑暗中发出淡淡的光。蜘蛛是暗紫色。河童是墨绿色。鬼是暗红色的脉动。"
+        },
+        "reduces_peripheral_vision": {
+          "description": "面具遮住了余光。你只能看到正前方。两侧完全是盲区。如果有东西从侧面接近，你不会知道，直到它碰到你。"
+        }
+      },
+      "special_notes": "面具店老板说这是他最得意的作品。但他的语气像是在说别人的事。也许这张面具不是他做的。也许他只是替某个不再回来的人保管。"
+    },
+    "beans": {
+      "name": "节分豆",
+      "name_en": "Setsubun Beans",
+      "description": "粗布小袋，里面装着炒熟的大豆。豆子干燥坚硬，摇晃时发出细碎的沙沙声。袋口用红色棉线系着一个简单的结。这是节分驱鬼用的豆子——「鬼は外、福は内」。",
+      "type": "consumable",
+      "location": "underground_passage",
+      "weight": 1,
+      "consumable": true,
+      "uses": 3,
+      "effects": {
+        "throw_at_oni": {
+          "description": "将一把豆子撒向鬼。它会停下来。不是因为害怕。是因为它必须数。每一颗。一颗一颗。这是刻在鬼的本质里的强迫——看到散落的豆子就必须数完。五个回合以上的完全停滞。",
+          "immobilize_turns": 5
+        },
+        "offering": {
+          "description": "也可以作为供品放在小祠堂前。节分豆本身就是驱邪之物，留在某个地方能短暂净化周围的空气。"
+        }
+      },
+      "special_notes": "只有三把的量。用完就没了。对付鬼最有效的手段，但不是无限的。每一把都要用在刀刃上。"
+    },
+    "salt": {
+      "name": "清めの塩",
+      "name_en": "Purification Salt",
+      "description": "粗粒的白盐，装在折叠的和纸里。这是神社净化用的盐。颗粒比普通食盐大得多，拿在手里有种干燥的温暖感。",
+      "type": "consumable",
+      "location": "shrine_courtyard",
+      "weight": 1,
+      "consumable": true,
+      "uses": 4,
+      "effects": {
+        "salt_line": {
+          "description": "在门口撒成一条线，可以暂时阻挡鬼和较弱的妖怪通过。盐线在地上会发出几乎看不见的微光。但效果有限，强大的妖怪可以强行突破，盐线也会随时间消散。"
+        },
+        "purify_area": {
+          "description": "在小范围内撒盐，暂时净化该区域。不洁之物会短暂退缩。空气变得干净，那种让人脊背发凉的感觉会消退几分钟。"
+        },
+        "kappa_weakness": {
+          "description": "将盐倒在河童头顶的皿（盘状凹陷）上。盐会吸干皿中的水。没有水的河童会瞬间失去所有力量，瘫软在地，像一具被抽走灵魂的空壳。"
+        }
+      },
+      "special_notes": "神社的盐不同于普通的盐。它在神前供奉过，吸收了结界的力量。但力量是有限的，四次使用之后，剩下的只是普通的氯化钠。"
+    },
+    "fried_tofu": {
+      "name": "油揚げ",
+      "name_en": "Fried Tofu",
+      "description": "用油纸包着的炸豆腐。外皮金黄酥脆，还带着淡淡的温热，好像刚从油锅里捞出来不久。空气中弥漫着豆油的香气。这是稻荷神社供奉狐狸的传统祭品。",
+      "type": "consumable",
+      "location": "bell_tower",
+      "weight": 1,
+      "consumable": true,
+      "uses": 1,
+      "effects": {
+        "kitsune_offering": {
+          "description": "将油揚げ供奉给狐狸。它会从阴影中现出原形——不是妖，是守护者。它等了很久，等一个带着正确供品的人。它会露出尾巴，引导你前往狐穴，将最后一片护符碎片交给你。"
+        },
+        "minor_hp_restore": {
+          "description": "也可以自己吃掉。炸豆腐意外地好吃，恢复少量体力。但你会错失唯一获得第三片护符碎片的机会。",
+          "hp_restore": 5
+        }
+      },
+      "special_notes": "钟楼旁边有一个小小的狐狸供奉架。上面已经空了很久。蜘蛛网结了又断，断了又结。这份油揚げ放在架子下面的暗格里，像是被人特意藏起来，等待对的人来取。"
+    },
+    "hand_mirror": {
+      "name": "手鏡",
+      "name_en": "Bronze Hand Mirror",
+      "description": "青铜手镜，背面刻着缠绕的藤蔓纹样。镜面已经氧化发暗，但仍能映出模糊的倒影。这面镜子沉在水神社桥下的浅水中，水流却绕着它走，不曾掩盖它。",
+      "type": "tool",
+      "location": "water_shrine",
+      "weight": 2,
+      "consumable": false,
+      "effects": {
+        "reveal_jorougumo": {
+          "description": "将镜子对准络新妇——镜中映出的不是美丽的女人，而是一只巨大的蜘蛛。八条腿，腹部膨胀，螯肢上挂着丝线。她的人形只是披在外面的壳。"
+        },
+        "reveal_kitsune": {
+          "description": "将镜子对准狐狸——镜中映出一只白狐，九条尾巴在身后展开如扇。眼睛是琥珀色的。它看着镜中的自己，表情平静。它不怕被看见。"
+        },
+        "reveal_menreiki": {
+          "description": "将镜子对准面灵气——镜中什么都没有。空的。面灵气没有真实形态。面具就是它的全部。面具之下不是脸，是虚无。"
+        },
+        "reveal_kappa": {
+          "description": "将镜子对准河童——镜中映出一具湿漉漉的骨架。骨骼呈绿色，头顶凹陷处盛着发光的水。它比看上去的样子要古老得多。"
+        },
+        "mirror_room_special": {
+          "description": "在镜之间使用这面手镜，它会显示房间的真实样貌——没有幻象，没有扭曲。其他镜子里的谎言在这面镜子前无所遁形。"
+        }
+      },
+      "special_notes": "这面镜子不是人造的。铜的纯度太高，纹样的风格不属于任何已知的时代。也许它从来就不是给人类用的东西。但它现在在你手里。"
+    },
+    "shrine_bell": {
+      "name": "神铃",
+      "name_en": "Shrine Bell",
+      "description": "系在红色绢绳上的小铜铃。铃身刻着细密的云纹。轻轻摇动，铃声清脆却不尖锐，像是从很远的地方传来的回响。声音在空气中停留的时间比它应该的要长。",
+      "type": "tool",
+      "location": "shrine_office",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "repel_menreiki": {
+          "description": "铃声响起时，面灵气会剧烈颤抖，像被看不见的手推开。它会退到铃声传不到的地方。效果持续三个回合。",
+          "duration_turns": 3
+        },
+        "startle_kappa": {
+          "description": "铃声会让河童短暂惊愕——它会停下动作，歪着头听。但只有一个回合的时间。河童对声音好奇但不畏惧。",
+          "duration_turns": 1
+        },
+        "retract_tenjokudari": {
+          "description": "天井下会在铃声中缩回天花板的角落。它厌恶神圣的声音。但它不会离开——只是退得更远，蜷缩在横梁的阴影里，等铃声消失。"
+        },
+        "enrage_oni": {
+          "description": "对鬼无效。铃声会激怒它。鬼不属于神社的秩序，神圣的声音对它而言是挑衅。它会更快地向你冲来。不要对鬼摇铃。",
+          "warning": true
+        },
+        "no_effect_kitsune": {
+          "description": "对狐狸无效。狐狸是神社的生灵，铃声是它听惯了的声音。它甚至可能觉得悦耳。",
+          "warning": false
+        }
+      },
+      "special_notes": "这个铃铛很老了。绢绳换过很多次，但铃铛本身从未被替换。上面的云纹已经被无数只手摸得光滑。它见证了这座神社的每一个夜晚。"
+    },
+    "talisman_fragment_1": {
+      "name": "缘结护符·壹",
+      "name_en": "Binding Talisman Fragment 1",
+      "description": "巴掌大的符纸碎片，边缘参差不齐。上面用朱砂写着一个字：「縁」。纸张泛黄但质地坚韧，拿在手里有微微的温热感，像是捂在掌心里很久的东西。",
+      "type": "key_item",
+      "location": "shrine_office",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "assembly_component": {
+          "description": "缘结护符的第一片。「縁」——缘分、命运的连接。这个字是起点。没有缘，就没有之后的一切。"
+        }
+      },
+      "special_notes": "在社务所的一个上锁的抽屉里找到的。锁已经锈蚀，但抽屉里干燥温暖，像是有什么东西一直在保护这片碎片不受时间侵蚀。"
+    },
+    "talisman_fragment_2": {
+      "name": "缘结护符·贰",
+      "name_en": "Binding Talisman Fragment 2",
+      "description": "第二片符纸碎片。上面用墨写着一个字：「結」。和第一片不同，这片碎片冰冷。拿在手里像是握着一块冬天的石头。边缘能和第一片完美咬合。",
+      "type": "key_item",
+      "location": "mirror_room",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "assembly_component": {
+          "description": "缘结护符的第二片。「結」——系结、绑定。缘分找到了，就要用力系住。这个字是动作。"
+        }
+      },
+      "special_notes": "藏在镜之间唯一一面显示真实的镜子背后。那面镜子有裂痕。碎片就贴在裂痕的另一侧。只有用手镜看到真实的镜子，才会发现它不只是一面镜子——它是一扇门。"
+    },
+    "talisman_fragment_3": {
+      "name": "缘结护符·叁",
+      "name_en": "Binding Talisman Fragment 3",
+      "description": "第三片符纸碎片。上面的字不是写的，而是印上去的——一个完成语气词：「び」。纸片温暖，温暖得不正常。像是刚从活物身上取下来。表面有细微的、几乎看不见的毛发。狐毛。",
+      "type": "key_item",
+      "location": "kitsune_den",
+      "weight": 1,
+      "consumable": false,
+      "requires": "fried_tofu",
+      "effects": {
+        "assembly_component": {
+          "description": "缘结护符的第三片。「び」——完成。「縁結び」。缘，已结。当三个字重新合在一起的时候，它们不再是碎片。它们是一个承诺。"
+        }
+      },
+      "special_notes": "狐狸把这片碎片含在嘴里保存了不知道多少年。它把碎片放在你面前的时候，眼睛是琥珀色的。它看着你，又看着你身后——看着某个你看不到的人。然后它点了点头。"
+    },
+    "tea": {
+      "name": "抹茶",
+      "name_en": "Matcha Tea",
+      "description": "翠绿色的抹茶，盛在素朴的�的碗里。茶面上有细腻的泡沫。香气苦涩而温暖。但这碗茶是谁泡的——这个问题比茶本身重要得多。",
+      "type": "consumable",
+      "location": "teahouse_momiji",
+      "weight": 1,
+      "consumable": true,
+      "uses": 2,
+      "effects": {
+        "san_restore_safe": {
+          "description": "如果茶是安全的——如果泡茶的人是真正的人类或善意的存在——抹茶的苦味会让混沌的思绪沉淀下来。恢复10点理智。温暖从胃扩散到四肢。你感觉脚重新踩在了地上。",
+          "san_restore": 10
+        },
+        "sleep_trap": {
+          "description": "如果泡茶的是络新妇——茶里有东西。你不会尝出来。你只会觉得越来越困。三十秒后，你会睡着。然后你会在蛛丝的茧里醒来，或者不会醒来。",
+          "trigger": "served_by_jorougumo"
+        }
+      },
+      "special_notes": "判断方法：看影子。泡茶的人的影子。如果影子有八条腿，不要喝。如果你没有灯，看不到影子——那就是你要做的选择。信任，还是不信任。"
+    },
+    "lantern": {
+      "name": "提灯",
+      "name_en": "Paper Lantern",
+      "description": "和纸糊的提灯，木骨竹架，里面是一根矮蜡烛。烛火在没有风的地方也会轻轻摇晃。灯笼的纸面上有淡淡的墨渍，像是有人用它写过什么又擦掉了。",
+      "type": "tool",
+      "location": "water_shrine",
+      "weight": 2,
+      "consumable": false,
+      "effects": {
+        "illumination": {
+          "level": "high",
+          "description": "比手机手电筒亮得多，也暖得多。光圈覆盖整个房间。在这盏灯下，黑暗不再是压迫性的。但光也意味着你更容易被看到。"
+        },
+        "reveal_shadows": {
+          "description": "蜡烛的光会让所有物体投下清晰的影子。在黑暗的房间里，这意味着你能看到每一个影子的形状——包括那些不该有八条腿的影子。是发现络新妇伪装的关键。"
+        },
+        "jorougumo_deterrent": {
+          "description": "火。络新妇的丝线极度易燃。火焰靠近她的蛛丝网络，她会本能地后退。不是害怕你——是害怕火。她经历过一次火。那次她失去了一整张网和一百年的耐心。"
+        }
+      },
+      "special_notes": "水神社的东西怎么没有被水浸湿？这盏提灯放在一个石龛里，四周都是水，但纸面是干的。蜡烛是新的。像是有人刚刚点过，又刚刚吹灭。"
+    },
+    "sake": {
+      "name": "日本酒",
+      "name_en": "Sake",
+      "description": "陶制酒壶，封口处用蜡密封。拔开塞子，清冽的酒香立刻弥漫开来。酒液澄清，微微泛着冷光。酒壶上刻着一行小字：「百鬼亦醉，何况于人」。",
+      "type": "consumable",
+      "location": "bathhouse",
+      "weight": 2,
+      "consumable": true,
+      "uses": 3,
+      "effects": {
+        "san_restore": {
+          "description": "喝一口。灼烧的暖意从喉咙滑到胃里。恐惧退潮了一点。世界的边缘变得柔软。恢复8点理智。",
+          "san_restore": 8
+        },
+        "awareness_reduction": {
+          "description": "但酒是酒。喝了之后感知力下降。你会更难察觉接近中的妖怪。持续三个回合。在这个地方，迟钝可能比恐惧更致命。",
+          "awareness_penalty": -1,
+          "duration_turns": 3
+        },
+        "shrine_offering": {
+          "description": "也可以倒在小祠堂前作为供品。酒是最古老的供物之一。倒酒的时候，祠堂周围的空气会短暂地变得温暖而安全。微小的祝福。"
+        }
+      },
+      "special_notes": "这壶酒放在澡堂的更衣室里。谁会在澡堂里藏酒？也许是上一个来到这里的旅人留下的。也许他喝完了最后一口，没能走出去。也许酒是他最后的温暖。"
+    },
+    "rope": {
+      "name": "注连绳残片",
+      "name_en": "Shimenawa Fragment",
+      "description": "注连绳的断片。稻草编织，绳身粗如手臂，白纸垂穗还残留着几条。注连绳是分隔神域与现世的结界。这一段已经断裂，但绳中残存的力量仍然强大。拿在手里，手指会微微发麻。",
+      "type": "consumable",
+      "location": "abandoned_house",
+      "weight": 2,
+      "consumable": true,
+      "uses": 2,
+      "effects": {
+        "sanctify_doorway": {
+          "description": "将注连绳挂在门框上。神域的力量重新在门口形成结界。鬼无法通过——不是不愿意，是物理上被排斥。效果持续十个回合。比盐线强得多。",
+          "blocks_oni": true,
+          "duration_turns": 10
+        },
+        "binding": {
+          "description": "也可以用来捆绑物品或创建临时屏障。注连绳编入的结界力量会让被绑住的东西暂时无法移动——如果那个东西是不洁的。"
+        }
+      },
+      "special_notes": "这段注连绳是从哪里断下来的？废屋的梁上有挂注连绳的痕迹。有人曾经把这间屋子封印起来。然后封印被打破了。从里面。"
+    },
+    "musubi_talisman": {
+      "name": "缘结护符",
+      "name_en": "Musubi Talisman (Assembled)",
+      "description": "三片碎片合而为一。「縁結び」三个字重新完整地排列在符纸上。朱砂和墨迹交融，冷与暖中和为一种恒定的温度。护符在你手中轻轻脉动。不是一个心跳。是两个。一个你能感觉到，另一个你必须闭上眼睛才能听见。",
+      "type": "key_item",
+      "location": "assembled",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "open_inner_sanctum": {
+          "description": "将完整的护符贴在内殿的封印门上。朱砂开始发光。门上的纹路与护符上的纹路重合。门开了。没有声音。像是它一直在等这一刻。"
+        },
+        "passive_san_restore": {
+          "description": "握着护符的时候，恐惧退却得更慢。每个回合恢复2点理智。这不是魔法——是某种确认。确认你做的事是对的。确认你走的路通向终点。",
+          "san_restore_per_turn": 2
+        },
+        "compass_pull": {
+          "description": "护符会像指南针一样轻轻牵引你的手。向着本殿的方向。向着你该去的地方。不强迫。只是提示。如果你选择逆着它走，它不会阻止你。"
+        }
+      },
+      "special_notes": "两个心跳。一个属于这个世界的你。另一个属于另一个世界的、你要证明「缘分」的那个存在。护符不创造缘分——它确认缘分是否真实。如果你手中的护符有两个心跳，那么你的缘分是真的。"
+    },
+    "old_diary": {
+      "name": "旧日记",
+      "name_en": "Old Diary",
+      "description": "泛黄的和装笔记本，封面已经磨损到几乎看不清原来的图案。翻开后，里面是竖排的毛笔字迹，字体秀丽但越到后面越潦草。墨迹的颜色从深黑逐渐变成淡褐，像是写字的人越来越急迫。",
+      "type": "clue_item",
+      "location": "abandoned_house",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "diary_pages": [
+          {
+            "page": 1,
+            "title": "文久三年·秋",
+            "content": "今日随她来到这座神社。她说这里是两个世界重叠的地方。我不信鬼神之说，但她的眼神比任何教义都有说服力。神社比想象中古老。鸟居上的朱漆已经剥落，但台阶很干净。有人一直在打扫。"
+          },
+          {
+            "page": 2,
+            "title": "文久三年·秋·第二夜",
+            "content": "我见到了妖怪。不是幻觉。桥下有一只像孩子的东西，头顶凹陷着。她叫我鞠躬。我照做了。那东西也对我鞠了躬。头顶的水洒了一些出来。她笑了。说我运气好。如果没有鞠躬，它会把我拖进水里。鞠躬。永远记住。在桥上，先鞠躬。"
+          },
+          {
+            "page": 3,
+            "title": "文久三年·秋·第三夜",
+            "content": "面具。会飘的面具。不要看它的眼睛。我犯了错。只看了一瞬。它停了下来。转向我。她拉着我跑进了面具店。在一墙的面具之间，它找不到我们了。原来如此——在面具之中，它分不清谁是活的。"
+          },
+          {
+            "page": 4,
+            "title": "文久三年·秋·第四夜",
+            "content": "今夜见到了鬼。三米高。角。红。快。我扔了豆子。她教我带的。它停下来了。蹲在地上数豆子。一颗一颗。我们趁机跑了。事后她说鬼是最危险的，但也最蠢。它必须数完每一颗。必须。这是它的天性。"
+          },
+          {
+            "page": 5,
+            "title": "文久三年·秋·第五夜",
+            "content": "她告诉我护符的事。三片碎片。散落在神社各处。合在一起就能打开内殿的门。社务所一片。镜子的房间一片。最后一片在狐狸那里。狐狸只信任带着供品的人。油揚げ。必须是油揚げ。她说这些的时候尾巴不小心露出来了。我假装没看到。"
+          },
+          {
+            "page": 6,
+            "title": "文久三年·秋·第七夜",
+            "content": "今夜是最后一夜。护符已经完整。她握着我的手站在封印门前。符纸发出两个心跳的脉动。她哭了。说这证明我们的缘是真的。门开了。里面——"
+          }
+        ]
+      },
+      "special_notes": "日记在第六页的中间戛然而止。最后一个字是一个没有写完的笔画。之后是空白。整本日记的后半部分全是空白页。但有些空白页上有淡淡的水渍。不是水。是泪痕。他们进去了。日记留在了外面。他们有没有出来？没人知道。"
+    },
+    "omamori": {
+      "name": "御守",
+      "name_en": "Omamori Charm",
+      "description": "小巧的丝绸护身符袋，浅粉色的锦缎上绣着「缘」字。系带是金色的丝线。拿在手里几乎没有重量，但有一种温暖的安心感从掌心扩散上来。",
+      "type": "tool",
+      "location": "shrine_office",
+      "weight": 0,
+      "consumable": false,
+      "effects": {
+        "passive_san_drain_reduction": {
+          "description": "携带御守时，每回合的理智值流失减少2点。恐怖的事物仍然恐怖，但你心里有了一个锚点。像是有人在远处轻轻握着你的手。",
+          "san_drain_reduction": 2
+        },
+        "panic_prevention": {
+          "description": "一次性效果：如果某次理智值骤降会导致恐慌状态，御守会代替你承受那份恐惧。你会闻到燃烧的丝绸味道。御守变成灰烬。但你还站着。还清醒。用了就没了。",
+          "single_use": true,
+          "triggers_on": "panic_threshold"
+        }
+      },
+      "special_notes": "御守袋的缝线不是机器缝的。是手缝的。针脚细密而均匀，每一针都带着某种意图。这不是量产的纪念品——是某个人为某个特定的人缝制的。但袋子里面除了叠好的符纸之外，还有一小撮狐毛。"
+    },
+    "fox_statue_head": {
+      "name": "狛狐之首",
+      "name_en": "Fox Statue Head",
+      "description": "石雕的狐狸头部。大约两个拳头大小。石面被泥土覆盖，但清理之后露出细致的雕刻——眯着的眼睛，微微张开的嘴，嘴里衔着一把钥匙形状的东西。断裂面参差不齐。这颗头不是自然脱落的。是被什么东西拧下来的。",
+      "type": "key_item",
+      "location": "underground_passage",
+      "weight": 3,
+      "consumable": false,
+      "effects": {
+        "restore_statue": {
+          "description": "将狐狸头放回石阶上那尊断首的狛狐像上。石头与石头接触的瞬间，裂缝消失了。像是从来没有断过。狛狐的眼睛亮了一下。然后石阶旁的地面裂开，露出一条向下延伸的通道。通往狐穴。"
+        }
+      },
+      "special_notes": "谁拧下了狐狸的头？地下通道里没有答案。但断裂面上有指痕。不是人的指痕。太大了。五个凹陷，每个都有拇指粗。鬼的手。鬼不想让任何人找到狐穴。它在阻止什么？"
+    }
+  }
+}

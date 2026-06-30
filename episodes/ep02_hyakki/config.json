@@ -1,0 +1,80 @@
+{
+  "id": "ep02_hyakki",
+  "name": "百鬼夜行",
+  "name_en": "Night Parade of One Hundred Demons",
+  "version": "1.0.0",
+  "description": "結縁神社の百鬼夜行。人でないものとの縁を、本物にする場所。ただし、夜を越えられれば。",
+  "description_en": "A shrine that makes impossible bonds real. A flower district where yōkai and humans coexist. Survive the Night Parade, and what you feel becomes true.",
+  "time_start": "18:00",
+  "time_end": "06:00",
+  "time_tick_minutes": 10,
+  "start_room": "shrine_gate",
+  "players": {
+    "default_count": 2,
+    "default_names": ["Player 1", "Player 2"],
+    "player_template": {
+      "hp": 100, "max_hp": 100,
+      "san": 100, "max_san": 100,
+      "stamina": 100, "max_stamina": 100,
+      "inventory": ["phone"],
+      "discovered_clues": [],
+      "discovered_rules": [],
+      "status_effects": []
+    }
+  },
+  "win_condition": {
+    "type": "collect_and_escape",
+    "required_keys": ["talisman_fragment_1", "talisman_fragment_2", "talisman_fragment_3"],
+    "assembly_item": "musubi_talisman",
+    "exit_room": "inner_sanctum",
+    "time_limit": "06:00",
+    "description": "Collect all 3 talisman fragments, assemble the 縁結び talisman, and reach the inner sanctum before sunrise at 06:00."
+  },
+  "lose_conditions": [
+    {
+      "type": "hp_zero",
+      "description": "Either player's HP drops to 0."
+    },
+    {
+      "type": "san_zero",
+      "description": "Player's SAN drops to 0. The parade consumes you. You become one of them.",
+      "special_narration": "你的意识像纸灯笼一样燃尽了。你看到了。你看到了所有的妖。你看到了它们的脸。它们在笑。因为它们都是这样开始的。曾经是人。曾经走进这条花街。曾经以为自己能走出去。你的脸上开始长出白色的面具。你还能感觉到。但你已经不能动了。"
+    },
+    {
+      "type": "time_expired",
+      "description": "06:00 arrives and players haven't reached the inner sanctum.",
+      "special_narration": "日出了。金色的光从�的鳥居涌进来。百鬼夜行结束了。花街的纸灯笼一盏一盏熄灭。茶屋的门关上了。石阶上的苔藓干了。你们还站在这里。但你们再也找不到回去的路了。花街不会放走留到早晨的客人。你们将会在这里。永远。成为下一对走进来的旅人看到的背景。成为花街里永远在走、永远到不了尽头的人影。"
+    }
+  ],
+  "scoring": {
+    "survive": 30,
+    "discover_rule_each": 4,
+    "all_npcs_alive": 10,
+    "hidden_clue_each": 2,
+    "complete_escape": 20,
+    "speed_bonus_before_0500": 5,
+    "speed_bonus_before_0400": 10,
+    "lore_complete": 5,
+    "max_possible": 100
+  },
+  "difficulty": "normal",
+  "atmosphere": "japanese_folklore_horror",
+  "global_rules": {
+    "san_hallucination_threshold": 40,
+    "san_severe_hallucination_threshold": 20,
+    "san_passive_drain_after_0200": 1,
+    "monster_aggression_escalation": {
+      "18:00": 0.5,
+      "20:00": 0.8,
+      "22:00": 1.0,
+      "00:00": 1.5,
+      "02:00": 1.8,
+      "04:00": 2.0,
+      "05:00": 2.5
+    },
+    "room_revisit_changes": true,
+    "dark_rooms_require_light": ["underground_passage", "abandoned_house", "mirror_room"],
+    "purified_rooms_block_oni": ["shrine_courtyard", "main_hall", "shrine_office"],
+    "safe_rooms": ["teahouse_backroom", "shrine_office"]
+  }
+}
