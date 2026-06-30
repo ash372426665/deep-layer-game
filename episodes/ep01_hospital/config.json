@@ -1,0 +1,75 @@
+{
+  "id": "ep01_hospital",
+  "name": "深夜医院",
+  "name_en": "Midnight Hospital",
+  "version": "1.0.0",
+  "description": "一座深夜的医院，走廊太长，回声不对，病人不会出院。",
+  "description_en": "A hospital after dark. The corridors are too long. The echoes are wrong. The patients never leave.",
+  "time_start": "23:00",
+  "time_end": "06:00",
+  "time_tick_minutes": 10,
+  "start_room": "lobby",
+  "players": {
+    "default_count": 2,
+    "default_names": ["Player 1", "Player 2"],
+    "player_template": {
+      "hp": 100, "max_hp": 100,
+      "san": 100, "max_san": 100,
+      "stamina": 100, "max_stamina": 100,
+      "inventory": ["phone"],
+      "discovered_clues": [],
+      "discovered_rules": [],
+      "status_effects": []
+    }
+  },
+  "win_condition": {
+    "type": "collect_and_escape",
+    "required_keys": ["key_fragment_surgery", "key_fragment_303", "key_fragment_morgue"],
+    "exit_room": "mysterious_door",
+    "time_limit": "06:00",
+    "description": "Collect all 3 key fragments and reach the mysterious door before 06:00."
+  },
+  "lose_conditions": [
+    {
+      "type": "hp_zero",
+      "description": "Either player's HP drops to 0."
+    },
+    {
+      "type": "san_zero",
+      "description": "Player's SAN drops to 0. Permanent insanity. Lost in the fold.",
+      "special_narration": "你的意识像碎玻璃一样散落。你看见了。你看见了一切。维度的褶皱。无尽的走廊。无尽的病房。无尽的你。你再也分不清哪个方向是'回去'了。"
+    },
+    {
+      "type": "time_expired",
+      "description": "06:00 arrives and players haven't escaped.",
+      "special_narration": "六点整。你听见广播响了。'各位患者，早间查房即将开始。请回到您的病床。'走廊尽头的门消失了。窗外的光不是日出。是白色的。纯粹的白色。你意识到你们再也不是访客了。"
+    }
+  ],
+  "scoring": {
+    "survive": 30,
+    "discover_rule_each": 4,
+    "all_npcs_alive": 10,
+    "hidden_clue_each": 2,
+    "complete_escape": 20,
+    "speed_bonus_before_0500": 5,
+    "speed_bonus_before_0400": 10,
+    "lore_complete": 5,
+    "max_possible": 100
+  },
+  "difficulty": "normal",
+  "atmosphere": "cosmic_horror_japanese",
+  "global_rules": {
+    "san_hallucination_threshold": 40,
+    "san_severe_hallucination_threshold": 20,
+    "san_passive_drain_after_0300": 1,
+    "monster_aggression_escalation": {
+      "00:00": 1.0,
+      "02:00": 1.3,
+      "03:00": 1.6,
+      "04:00": 2.0,
+      "05:00": 2.5
+    },
+    "room_revisit_changes": true,
+    "dark_rooms_require_light": ["corridor_3f", "morgue_entrance", "room_302", "elevator_4f"]
+  }
+}

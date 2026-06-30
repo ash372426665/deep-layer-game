@@ -1,0 +1,680 @@
+{
+  "monsters": {
+    "the_patient": {
+      "name": "回诊者",
+      "name_en": "The Patient",
+      "description_distant": "走廊远端有一个人影。穿着白色病号服，赤脚站着。它面朝这边。你能看到它苍白的脸，但看不清五官。它没有动。",
+      "description_close": "它离你只有几米了。你能看清它了。苍白的皮肤，病号服上有黄色的水渍。赤脚，脚趾甲是黑色的。它的脸上有五官，但排列微妙地不对。眼睛太大了。鼻子太小了。它在看着你。",
+      "description_approaching": "它在朝你走。不是正常的走路。它的脚在移动，但身体像是在滑动。脚步声拖沓。每一步都在地面上留下潮湿的脚印。它的嘴角在慢慢上扬。",
+      "description_attacking": "它笑了。嘴裂开到了耳根。里面没有牙齿。没有舌头。只有一个深不见底的黑色空洞。它发出了一声低沉的、湿润的笑声。然后它的手以不可能的速度抓住了你。手指冰冷。关节太多了。",
+      "type": "patrol",
+      "initial_location": "corridor_2f",
+      "patrol_route": ["corridor_2f", "room_201", "corridor_2f", "room_203", "corridor_2f", "bathroom_2f", "corridor_2f"],
+      "patrol_speed": "slow",
+      "activation_time": "23:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "Eye contact controls it. Brief eye contact (1 turn) freezes it. Prolonged staring (>2 turns) triggers smile then attack. Being unaware (back turned) lets it approach freely. Optimal strategy: glance briefly, then leave the area.",
+        "rule_id": "rule_patient_gaze",
+        "states": {
+          "idle": {
+            "description": "Patrolling corridors slowly. Will not approach if not in same room.",
+            "transitions": {
+              "player_enters_room": "aware",
+              "player_in_adjacent_room": "idle"
+            }
+          },
+          "aware": {
+            "description": "Has noticed the player. Stands still watching. Waiting.",
+            "transitions": {
+              "player_looks_briefly": "frozen",
+              "player_stares_1_turn": "frozen",
+              "player_ignores": "approaching",
+              "player_back_turned": "approaching",
+              "player_leaves_room": "idle"
+            }
+          },
+          "frozen": {
+            "description": "Player made brief eye contact. It freezes completely. Won't move for 2 turns. Player can safely leave.",
+            "duration": 2,
+            "transitions": {
+              "player_continues_staring": "smiling",
+              "player_leaves": "idle",
+              "timer_expires": "aware"
+            }
+          },
+          "smiling": {
+            "description": "Player stared too long. It starts smiling. The smile is wrong. Too wide. This is the last warning.",
+            "duration": 1,
+            "transitions": {
+              "player_runs": "pursuing",
+              "player_stays": "attacking",
+              "player_looks_away": "attacking"
+            }
+          },
+          "approaching": {
+            "description": "Moving toward player. Slow but relentless. Player doesn't see it coming.",
+            "speed": "slow",
+            "transitions": {
+              "player_turns_around": "aware",
+              "reaches_player": "attacking"
+            }
+          },
+          "pursuing": {
+            "description": "Chasing after triggering smile. Faster than approaching. Will follow for 2 rooms then give up.",
+            "speed": "fast",
+            "pursuit_range": 2,
+            "transitions": {
+              "catches_player": "attacking",
+              "player_hides": "searching",
+              "out_of_range": "idle"
+            }
+          },
+          "searching": {
+            "description": "Player hid. It searches the room for 2 turns then moves on.",
+            "duration": 2,
+            "transitions": {
+              "finds_player": "attacking",
+              "timer_expires": "idle"
+            }
+          },
+          "attacking": {
+            "description": "Full attack. Grab and damage.",
+            "transitions": {
+              "attack_complete": "idle"
+            }
+          }
+        },
+        "encounter_responses": {
+          "look_briefly": {
+            "outcome": "safe",
+            "narration": "你和它对视了一瞬。它立刻僵住了。像被按了暂停键。一动不动。你有时间离开了。",
+            "effect": "monster_frozen_2_turns"
+          },
+          "stare_1_turn": {
+            "outcome": "safe",
+            "narration": "你盯着它看。它一动不动。目光锁定在你身上。像是在等你先眨眼。现在可以安全离开。",
+            "effect": "monster_frozen_2_turns"
+          },
+          "stare_2_turns": {
+            "outcome": "warning",
+            "narration": "你一直盯着它。它开始微笑了。嘴角一点一点往上翘。太慢了。不像是肌肉在运动。像是什么东西在它脸皮底下拉扯。现在跑。",
+            "effect": "monster_enters_smiling_state"
+          },
+          "stare_3_turns": {
+            "outcome": "attack",
+            "narration": "你没有跑。它的嘴裂到了耳根。",
+            "effect": "attack"
+          },
+          "turn_back": {
+            "outcome": "danger",
+            "narration": "你没有看它。你听到身后的拖沓脚步声越来越近。越来越近。冷气扑上了你的后颈。",
+            "effect": "monster_approaches"
+          },
+          "run_away": {
+            "outcome": "safe_if_early",
+            "narration": "你跑了。脚步声在你身后。但越来越远。它没有追上来。这次。",
+            "effect": "escape_if_not_smiling"
+          },
+          "hide": {
+            "outcome": "safe_usually",
+            "narration": "你藏起来了。透过缝隙你能看到它。它站在你刚才站的位置。歪着头。它在找你。两分钟后，它转身走了。拖沓的脚步声渐渐远去。",
+            "effect": "monster_searches_then_leaves"
+          },
+          "attack_with_weapon": {
+            "outcome": "bad",
+            "narration": "你挥出了手术刀。刀刃切进了它的手臂。没有血。切口像嘴巴一样张开了。里面是黑色的虚空。和它嘴巴里面一样的虚空。它看着切口。然后看着你。它在笑。",
+            "effect": "monster_enraged_double_damage"
+          },
+          "use_camera": {
+            "outcome": "interesting",
+            "narration": "你用相机对着它拍了一张。闪光灯亮了一下。它被光刺到了，往后退了一步。你看了看相机屏幕。照片里什么都没有。走廊上只有你自己。",
+            "effect": "monster_stunned_1_turn_no_photo"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 40,
+        "san_damage": 15,
+        "san_damage_on_sight": 5,
+        "speed": 1,
+        "pursuit_speed": 2
+      },
+      "weakness": "Brief eye contact freezes it. Camera flash stuns it for 1 turn. Cannot enter rooms with locked doors.",
+      "immunity": "Physical attacks enrage it. Cannot be killed."
+    },
+
+    "the_night_nurse": {
+      "name": "值班护士",
+      "name_en": "The Night Nurse",
+      "description_distant": "护士站那边有一个穿白色制服的人影。戴着口罩。手里拿着写字板。看起来完全正常。完全像一个值夜班的护士。",
+      "description_close": "她走过来了。白色护士服，干净整洁。戴着医用口罩。头发束起来。鞋子发出轻微的咔嗒声。她的声音很温和：'你好。你是今晚入院的患者吗？需要我带你去你的病房吗？'她看起来完全是人类。",
+      "description_tell": "你看了她的手。五根手指。但不对。你再看。每根手指有六个指节。比正常人多一节。指节之间的弯曲幅度太大了。她的手像蜘蛛的腿。其他一切都完美地像人类。只有手不对。",
+      "description_attacking": "她摘下了口罩。口罩下面没有嘴。光滑的皮肤。连一条线都没有。但声音还在从某个地方传出来：'不配合治疗的患者，需要接受特殊护理。'她的手——那些六节指的手——以不可能的角度弯曲过来抓向你。",
+      "type": "reactive",
+      "initial_location": "nurse_station",
+      "patrol_route": ["nurse_station", "corridor_2f", "room_201", "corridor_2f", "nurse_station"],
+      "patrol_speed": "normal",
+      "activation_time": "00:00",
+      "deactivation_time": "05:00",
+      "behavior_rules": {
+        "core_rule": "Appears human. Talks to player. 70% of her directions lead to danger. The tell: each finger has 6 phalanges instead of 3. Pointing out her hands causes her to freeze and drop a useful item. Following her blindly leads to monster encounters or dangerous rooms. Ignoring her is safe but wastes potential item drop.",
+        "rule_id": "rule_nurse_hands",
+        "states": {
+          "idle": {
+            "description": "Standing at nurse station or walking corridor. Appears to be doing normal nurse duties.",
+            "transitions": {
+              "player_nearby": "greeting"
+            }
+          },
+          "greeting": {
+            "description": "Greets the player warmly. Offers to help or give directions.",
+            "dialogue": "你好。深夜了还在走廊上？需要帮助吗？我可以带你去你需要去的地方。",
+            "transitions": {
+              "player_accepts_help": "directing",
+              "player_refuses": "idle",
+              "player_ignores": "idle",
+              "player_mentions_hands": "exposed",
+              "player_asks_about_hospital": "lore_hint"
+            }
+          },
+          "directing": {
+            "description": "Gives directions. 70% chance of leading to danger, 30% chance of genuinely helpful direction.",
+            "dangerous_destinations": ["surgery_prep", "elevator_4f", "corridor_3f_dark_zone", "icu"],
+            "safe_destinations": ["storage_2f", "pharmacy", "room_303"],
+            "transitions": {
+              "player_follows": "leading",
+              "player_declines": "idle",
+              "player_mentions_hands": "exposed"
+            }
+          },
+          "leading": {
+            "description": "Walking ahead of player. If leading to danger, monster encounter at destination.",
+            "transitions": {
+              "arrives_safe": "idle",
+              "arrives_danger": "vanishes_at_danger",
+              "player_stops_following": "idle",
+              "player_mentions_hands": "exposed"
+            }
+          },
+          "exposed": {
+            "description": "Player pointed out the extra finger joints. She freezes completely. Hands start trembling. She drops her clipboard (contains useful item). Then she backs away slowly and disappears around a corner. Won't appear again for 1 hour.",
+            "transitions": {
+              "freeze_complete": "retreating"
+            }
+          },
+          "retreating": {
+            "description": "Backing away after being exposed. Will not attack. Disappears.",
+            "cooldown": 60,
+            "transitions": {
+              "disappeared": "dormant"
+            }
+          },
+          "dormant": {
+            "description": "Gone for 1 hour after being exposed.",
+            "transitions": {
+              "cooldown_expires": "idle"
+            }
+          },
+          "lore_hint": {
+            "description": "If asked about the hospital, gives a cryptic but genuinely helpful hint mixed with lies.",
+            "dialogue_options": [
+              "这家医院已经运营很久了。比你想的久。每天晚上都有人来。每天早上——嗯。大部分人都留下来了。",
+              "三楼的门？不要去。那扇门不是出口。是入口。什么的入口？你不想知道。",
+              "手术准备室里的东西？别碰它。它在那里是有原因的。它是锚。没有它，这栋楼就——会动。",
+              "走廊太长了对吧。这栋楼不是给人类住的。走廊的长度是给——其他尺寸的存在设计的。我们只是借用了这个空间。"
+            ],
+            "transitions": {
+              "dialogue_complete": "idle"
+            }
+          },
+          "hostile": {
+            "description": "Only if player tries to grab her or act aggressively without mentioning hands.",
+            "transitions": {
+              "attack_complete": "dormant"
+            }
+          }
+        },
+        "encounter_responses": {
+          "look": {
+            "outcome": "risky",
+            "narration": "你看着她。她看起来完全正常。白色护士服，口罩，束起的头发。她微笑着看着你：'你好。需要帮助吗？'你注意到她说话的时候口罩没有动。声音不是从嘴里发出来的。",
+            "effect": "70_percent_danger_directions"
+          },
+          "stare": {
+            "outcome": "risky",
+            "narration": "你盯着她看。她也看着你。完全不眨眼。你盯了很久。她的眼睛上面没有睫毛。你之前没注意到。她的微笑变得更大了一点。'你在看什么呢？'声音还是很温和。",
+            "effect": "70_percent_danger_directions"
+          },
+          "glance": {
+            "outcome": "safe",
+            "narration": "你瞥了她一眼。看起来就是一个正常的值夜班护士。口罩、白大褂、写字板。没什么异常。至少从这个距离看不出来。",
+            "effect": "nothing_special"
+          },
+          "investigate": {
+            "outcome": "best",
+            "narration": "你仔细看了她的手。五根手指。但不对。每根手指有六个指节。比正常人多一节。'你的手……指节太多了。'你说。她低头看自己的手。手指在颤抖。写字板掉在了地上。她一步一步后退，消失在走廊的黑暗里。写字板上夹着什么有用的东西。",
+            "effect": "drops_item_disappears_1_hour"
+          },
+          "check_hands": {
+            "outcome": "best",
+            "narration": "你看了她的手。五根手指。但每根手指有六个指节。比正常人多一节。指节之间的弯曲幅度太大了。她的手像蜘蛛的腿。'你的手……不对。'她僵住了。写字板掉在地上。她后退着消失了。",
+            "effect": "drops_item_disappears_1_hour"
+          },
+          "run": {
+            "outcome": "safe",
+            "narration": "你转身跑了。她没有追。身后传来温和的声音：'注意安全。'",
+            "effect": "nothing"
+          },
+          "talk": {
+            "outcome": "risky",
+            "narration": "你跟她说话了。她的声音很温和，很专业。她告诉你她是今晚的值班护士。她可以带你去你需要去的地方。你注意到她说话的时候，口罩完全没有动。",
+            "effect": "70_percent_danger_directions"
+          },
+          "accept_help": {
+            "outcome": "risky",
+            "narration": "她微笑着说：'跟我来。'她转身走在前面。脚步声很轻。你注意到她走路的时候影子的方向不对。",
+            "effect": "70_percent_danger_30_percent_safe"
+          },
+          "accept_directions": {
+            "outcome": "risky",
+            "narration": "她微笑着说：'跟我来。'她转身走在前面。脚步声很轻。你注意到她走路的时候影子的方向不对。",
+            "effect": "70_percent_danger_30_percent_safe"
+          },
+          "refuse": {
+            "outcome": "safe",
+            "narration": "'好的，注意安全。'她说完继续在护士站忙碌。好像什么都没发生过。",
+            "effect": "nothing"
+          },
+          "refuse_politely": {
+            "outcome": "safe",
+            "narration": "'好的，注意安全。'她说完继续在护士站忙碌。好像什么都没发生过。",
+            "effect": "nothing"
+          },
+          "point_out_hands": {
+            "outcome": "best",
+            "narration": "'你的手……指节太多了。'你说。她低头看自己的手。手指在颤抖。六个指节像蜘蛛腿一样蜷缩起来。她的写字板掉在了地上。她抬起头看你。口罩上面的眼睛里没有任何表情。然后她一步一步后退，退到走廊的黑暗里。消失了。写字板上夹着什么有用的东西。",
+            "effect": "drops_item_disappears_1_hour"
+          },
+          "follow_directions": {
+            "outcome": "variable",
+            "narration": "你跟着她走。她的步速不快不慢。你注意到她的影子在墙上的投影总是和她差半拍。",
+            "effect": "leads_to_destination_roll"
+          },
+          "attack_physically": {
+            "outcome": "bad",
+            "narration": "你试图抓住她。她的反应速度不像人类。那些六节指的手反过来抓住了你的手腕。力量大得惊人。她摘下了口罩。",
+            "effect": "attack_25hp_20san"
+          },
+          "ask_about_hospital": {
+            "outcome": "helpful_mixed",
+            "narration": "她停顿了一下。像是在决定要告诉你多少。然后她开口了。她说的话里真假混杂。但有些信息是有价值的。",
+            "effect": "lore_hint_with_lies"
+          },
+          "use_camera": {
+            "outcome": "interesting",
+            "narration": "你用相机拍了她。闪光灯亮了。她没有躲。你看照片。照片里她的位置站着一个东西。不是人形的。太多条腿了。太多关节了。嘴在一个不应该在的位置。但她本人看起来完全正常。",
+            "effect": "reveals_true_form_in_photo"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 25,
+        "san_damage": 20,
+        "san_damage_on_sight": 0,
+        "speed": 2
+      },
+      "weakness": "Mentioning her hands causes retreat. Camera reveals true form. Cannot enter locked rooms.",
+      "immunity": "Immune to physical attacks (counterattacks). Immune to being trapped."
+    },
+
+    "the_visitor": {
+      "name": "探病者",
+      "name_en": "The Visitor",
+      "description_distant": "病房里坐着一个人。穿着便装。低着头。肩膀在抖动。在哭。",
+      "description_close": "一个三十多岁的女人，穿着日常的衣服。外套、牛仔裤。头发散落着。她在哭。泣不成声。她听到你的脚步声抬起头看你。眼睛红肿。脸上全是泪水。'求求你……帮帮我……我找不到我的孩子。'",
+      "description_tell": "你注意到了。她没有影子。灯光照在她身上，光穿过了她。地面上只有你的影子。她的衣服上也没有折痕。好像穿着画上去的衣服。她的泪水流过的地方，脸上的皮肤颜色没有变化。像是假的泪水画在假的脸上。",
+      "description_attacking": "它不会攻击你。但比攻击更可怕的是：你答应了它。然后你发现自己不在原来的地方了。你在一个完全陌生的房间里。是它把你移到了这里。它在利用你的善良。",
+      "type": "reactive",
+      "initial_location": null,
+      "spawn_rooms": ["room_201", "room_204", "room_301", "room_303"],
+      "patrol_route": null,
+      "activation_time": "00:30",
+      "deactivation_time": "05:00",
+      "spawn_chance_per_room_entry": 0.25,
+      "behavior_rules": {
+        "core_rule": "No shadow. Appears in patient rooms crying, asking player to find someone (child/spouse). If player verbally agrees and walks 2+ rooms following its direction, teleported to random dangerous room. If player verbally refuses, it screams (alerting all monsters, increasing aggression). Correct action: leave silently without responding at all. Also: camera reveals it has no reflection (no shadow either).",
+        "rule_id": "rule_visitor_silence",
+        "states": {
+          "idle": {
+            "description": "Not spawned. Chance to spawn when entering eligible rooms after 00:30.",
+            "transitions": {
+              "spawn_roll_success": "crying"
+            }
+          },
+          "crying": {
+            "description": "Sitting in room, crying. Will address player when noticed.",
+            "transitions": {
+              "player_approaches": "pleading",
+              "player_observes": "pleading",
+              "player_leaves_silently": "despawns",
+              "player_speaks": "pleading"
+            }
+          },
+          "pleading": {
+            "description": "Begging player to find someone. Gives a name and a direction.",
+            "dialogue_options": [
+              "我的女儿……她叫小雨。她在三楼。求你帮我去看看她。她一个人在那里。她才六岁。",
+              "我丈夫……他说去做检查就回来……二楼手术准备室。他已经去了很久了。帮我找找他好不好。",
+              "我妈妈……她在ICU。他们不让我进去。你能帮我看看她吗？帮我跟她说一声我在这里等她。"
+            ],
+            "transitions": {
+              "player_agrees_verbally": "leading_astray",
+              "player_refuses_verbally": "screaming",
+              "player_leaves_silently": "despawns",
+              "player_stays_silent": "pleading_again"
+            }
+          },
+          "pleading_again": {
+            "description": "Continues begging. More desperate. Tears falling faster.",
+            "dialogue": "求你了……我真的很担心……你不帮我吗？求你了……",
+            "transitions": {
+              "player_agrees": "leading_astray",
+              "player_refuses": "screaming",
+              "player_leaves_silently": "despawns"
+            }
+          },
+          "leading_astray": {
+            "description": "Player agreed. It smiles through tears. 'Thank you.' Stands up and walks toward door. If player follows for 2+ rooms, teleport triggers.",
+            "transitions": {
+              "player_follows_2_rooms": "teleport",
+              "player_stops_following": "crying"
+            }
+          },
+          "teleport": {
+            "description": "Player is teleported to a random dangerous room. The Visitor vanishes.",
+            "teleport_destinations": ["surgery_prep", "morgue_entrance", "corridor_3f"],
+            "transitions": {
+              "teleport_complete": "despawned"
+            }
+          },
+          "screaming": {
+            "description": "Player refused verbally. It screams. An inhuman, ear-splitting scream that echoes through the entire building. All monsters become more aggressive for 10 minutes.",
+            "transitions": {
+              "scream_complete": "despawned"
+            }
+          },
+          "despawns": {
+            "description": "Fades away silently. Can respawn later in a different room.",
+            "transitions": {
+              "cooldown_complete": "idle"
+            }
+          }
+        },
+        "encounter_responses": {
+          "leave_silently": {
+            "outcome": "best",
+            "narration": "你没有说话。你转身往门口走。身后的哭声越来越轻。你回头看了一眼。房间里空无一人。椅子上什么都没有。好像从来没有人坐在那里。",
+            "effect": "despawn_no_consequence"
+          },
+          "agree_to_help": {
+            "outcome": "dangerous",
+            "narration": "'谢谢你……谢谢你。'她擦了擦眼泪，站起来。'跟我来。'她朝门口走去。你注意到她走路没有声音。",
+            "effect": "begins_leading_teleport_after_2_rooms"
+          },
+          "refuse_verbally": {
+            "outcome": "bad",
+            "narration": "她的表情变了。不是悲伤。不是愤怒。是空的。她的脸上所有的表情在一瞬间消失了。然后她张开了嘴。发出了一声你从来没听过的声音。不是人类的声音。是在你脑子里炸开的尖叫。你捂住耳朵也没用。因为声音不是从外面进来的。",
+            "effect": "scream_alerts_all_monsters_san_minus_10"
+          },
+          "observe_no_shadow": {
+            "outcome": "useful",
+            "narration": "你注意到了。她没有影子。灯光穿过她投在地面上。她不是真的在这里。或者说，她以某种不投射影子的方式存在着。这不是人类。",
+            "effect": "player_gains_knowledge"
+          },
+          "use_camera": {
+            "outcome": "revealing",
+            "narration": "你用相机拍了她。照片上她的位置什么都没有。只有空的椅子。但椅子上方的空气有一点变形。像热浪。像折痕。维度的折痕。",
+            "effect": "reveals_dimensional_nature"
+          },
+          "touch_the_visitor": {
+            "outcome": "disturbing",
+            "narration": "你的手穿过了她的肩膀。没有任何触感。但你的手指在穿过的瞬间感觉到了——不是冷，不是热。是'空'。你的手指在那一瞬间不存在了。你飞快地抽回手。手指都在。但指尖的触觉需要几分钟才恢复。",
+            "effect": "san_minus_10_temporary_numbness"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 0,
+        "san_damage": 15,
+        "san_damage_on_sight": 3,
+        "san_damage_on_scream": 10,
+        "speed": 0
+      },
+      "weakness": "Leaving silently causes despawn. Has no physical form — cannot be fought or blocked. Camera reveals its nature.",
+      "immunity": "Cannot be harmed physically. Cannot be blocked or contained."
+    },
+
+    "the_crawler": {
+      "name": "管中物",
+      "name_en": "The Crawler",
+      "description_distant": "天花板的管道在响。不是水流的声音。是什么东西在管道里面爬行。金属被挤压的声音。越来越近。",
+      "description_sound_only": "管道里的声音停在了你头顶上方。金属管道在承受重量。你能看到管道的接缝被从内部撑开了一点。有黑色的液体从缝隙里渗下来。什么东西在上面。正上方。",
+      "description_close": "你看到了。不应该看的。管道的接缝裂开了。从里面伸出来的——是手指。太长了。每一根都有前臂那么长。关节太多了。数不过来。指尖是黑色的。像烧焦的。它们在空气中摸索。像盲人在找路。",
+      "description_full_reveal": "管道板材脱落了。你看到了它的全貌。一个你无法理解的身体结构。太多的关节。太多的肢体。它在管道里蜷缩着，但展开来会比这个房间大。它的头——如果那是头——朝下。没有脸。只有嘴。嘴在身体的顶部。张着。滴着黑色的液体。",
+      "description_attacking": "它从管道里掉了下来。展开的过程像是一朵花在绽放。一朵由骨头和关节组成的花。它的长指缠上了你。冰冷的。有力的。每一个关节都在独立活动。你感觉到它在丈量你的身体。像是在寻找某个入口。",
+      "type": "ambient",
+      "initial_location": "corridor_3f",
+      "move_through": ["corridor_3f", "room_301", "room_303", "icu", "morgue_entrance", "stairwell_3f", "corridor_2f", "bathroom_2f"],
+      "patrol_route": null,
+      "activation_time": "02:00",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "Lives in the ceiling pipes. Announced by pipe sounds. If player looks up when hearing pipe sounds, SAN -20 and potential grab attack (HP -30). Correct response: crouch/hide under furniture and wait. It will pass in 2 turns. Camera pointed at ceiling shows its heat signature even before pipes sound.",
+        "rule_id": "rule_crawler_dont_look_up",
+        "states": {
+          "dormant": {
+            "description": "Not yet activated. No pipe sounds.",
+            "transitions": {
+              "time_reaches_0200": "active"
+            }
+          },
+          "active": {
+            "description": "Moving through pipes. Makes sounds. Cycles through rooms.",
+            "current_room_duration": 2,
+            "transitions": {
+              "arrives_player_room": "overhead"
+            }
+          },
+          "overhead": {
+            "description": "Directly above the player. Pipe sounds are loud. This is the critical moment.",
+            "duration": 2,
+            "transitions": {
+              "player_looks_up": "reaching",
+              "player_crouches": "passing",
+              "player_hides_under_furniture": "passing",
+              "player_ignores_stays_standing": "reaching_chance_50",
+              "player_runs": "alerted",
+              "timer_expires": "moving_on"
+            }
+          },
+          "reaching": {
+            "description": "Player looked up. It reaches down through a gap in the pipes.",
+            "transitions": {
+              "grab_success": "attacking",
+              "player_dodges": "retreating"
+            }
+          },
+          "reaching_chance_50": {
+            "description": "Player stayed standing but didn't look up. 50% chance it reaches down anyway.",
+            "transitions": {
+              "reach_roll_success": "reaching",
+              "reach_roll_fail": "moving_on"
+            }
+          },
+          "passing": {
+            "description": "Player crouched or hid. It passes overhead. Safe.",
+            "transitions": {
+              "pass_complete": "moving_on"
+            }
+          },
+          "attacking": {
+            "description": "Grabbed the player. Deals damage.",
+            "transitions": {
+              "attack_complete": "retreating"
+            }
+          },
+          "retreating": {
+            "description": "After attack or failed grab, retreats into pipes. Won't come back to this room for a while.",
+            "cooldown_minutes": 15,
+            "transitions": {
+              "retreat_complete": "active"
+            }
+          },
+          "moving_on": {
+            "description": "Passed this room. Moving to next room in its route.",
+            "transitions": {
+              "next_room": "active"
+            }
+          },
+          "alerted": {
+            "description": "Player ran. It heard them. Follows through pipes to adjacent room.",
+            "transitions": {
+              "arrives_next_room": "overhead"
+            }
+          }
+        },
+        "encounter_responses": {
+          "crouch_or_hide": {
+            "outcome": "best",
+            "narration": "你蹲下来，躲在桌子下面。管道里的声音就在你头顶。你能听到它在爬行。金属被指甲刮过的声音。黑色的液体从管道接缝处滴落在地板上。你不动。你不呼吸。两分钟后，爬行声移向了远处。它走了。",
+            "effect": "safe_no_damage"
+          },
+          "look_up": {
+            "outcome": "terrible",
+            "narration": "你抬头看了。管道的接缝里有一双——不。太多了。那不是一双。那是一簇手指。从缝隙里伸出来。每一根都在朝不同的方向摸索。其中一根指向了你。然后所有的手指都指向了你。管道板材开始脱落。",
+            "effect": "san_minus_20_grab_attack_hp_minus_30"
+          },
+          "stay_still_standing": {
+            "outcome": "risky",
+            "narration": "你站在原地不动。管道里的声音在你正上方。液体滴在了你肩膀上。温热的。黏稠的。你感觉到什么东西在从管道缝隙里往外伸。",
+            "effect": "50_percent_reach_attack"
+          },
+          "run": {
+            "outcome": "bad_idea",
+            "narration": "你跑了。脚步声在安静的走廊里回荡。管道里的声音跟着你。它在管道里跑得比你快。你跑到下一个房间的时候，它已经在那里了。",
+            "effect": "follows_to_next_room"
+          },
+          "use_flashlight_up": {
+            "outcome": "terrible_plus_lore",
+            "narration": "你把手电筒对准天花板。光照进了管道的缝隙。你看见了。一只眼睛。不是人的眼睛。虹膜是螺旋形的。它在看你。你看见了它的身体在管道里盘曲的轮廓。太大了。怎么装得下的。你手里的手电筒掉了。你的手在颤抖。",
+            "effect": "san_minus_25_full_reveal"
+          },
+          "use_camera_ceiling": {
+            "outcome": "warning_useful",
+            "narration": "你把相机对准天花板拍了一张。闪光灯让管道里传来一声尖锐的嘶嘶声。你看照片。照片上你能看到管道里一个卷曲的热源。形状像一只巨大的手掌，手指从关节处向各个方向展开。它占满了整个天花板。",
+            "effect": "reveals_position_san_minus_5"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 30,
+        "san_damage": 20,
+        "san_damage_on_full_reveal": 25,
+        "san_damage_on_sound": 3,
+        "speed": 3
+      },
+      "weakness": "Cannot reach under furniture. Doesn't attack players it can't see. Camera flash causes it to hiss and retreat temporarily. Hates bright light.",
+      "immunity": "Cannot be physically harmed. Cannot be trapped. Moves through the building's infrastructure."
+    },
+
+    "the_thing_in_surgery": {
+      "name": "术中之物",
+      "name_en": "The Thing in Surgery",
+      "description_distant": "手术台上有什么东西。你的视觉在拒绝处理你看到的信息。像是一个不应该存在于三维空间里的形状被强制压缩到了一张手术台上。",
+      "description_close": "它更近了。你能感觉到它——不是看到。是感觉到。它在扭曲你周围的空间。地面上的倒影不是它的形状。不是任何形状。是所有形状的叠加。你的大脑开始痛了。不是头痛。是大脑本身在痛。你的认知系统在超载。",
+      "description_blindfolded": "你蒙着眼睛。看不见它。但你能感觉到它在你右手边大约三米的位置。空气在它周围是扭曲的。你的皮肤上每一根汗毛都在远离它的方向竖起来。但你看不见它。这是唯一让你还能站在这里的原因。",
+      "type": "static",
+      "initial_location": "surgery_prep",
+      "patrol_route": null,
+      "activation_time": "always",
+      "deactivation_time": null,
+      "behavior_rules": {
+        "core_rule": "Static. Cannot move. Cannot attack physically. Drains SAN passively every turn the player is in the room (-15/turn, -30 on first sight). If SAN drops below 20 while in its presence: permanent insanity, game over. Key fragment is on a tray next to it. Strategy: (1) Rush in, grab key, rush out — need high SAN. (2) Use blindfold from storage room — reduces SAN drain to -5/turn. (3) Use camera to scout the room first from doorway.",
+        "rule_id": "rule_surgery_look_away",
+        "states": {
+          "dormant": {
+            "description": "Always here. Doesn't change states. Just exists.",
+            "san_drain_per_turn": 15,
+            "san_drain_first_sight": 30,
+            "san_drain_with_blindfold": 5,
+            "insanity_threshold": 20,
+            "transitions": {
+              "player_enters": "active_drain",
+              "player_leaves": "dormant"
+            }
+          },
+          "active_drain": {
+            "description": "Player is in the room. SAN drains every turn. The longer you stay, the more you see. The more you see, the less sane you are.",
+            "escalation": {
+              "turn_1": "你的视觉开始解析它的形状。不要让它解析完。",
+              "turn_2": "你开始理解它的一部分。一个角度。一个你以前不知道存在的角度。你的鼻子在流血。",
+              "turn_3": "你能看见更多了。它不是一个物体。它是一个……过程？一个正在发生的事件？它一直在发生着某件事。从你还没出生的时候就在发生。你的耳朵在响。",
+              "turn_4": "你理解了。不。你不想理解。你的大脑在自我保护但来不及了。你看到了它和这栋建筑的关系。它是锚。它把这栋楼锚定在——不。停。现在走。",
+              "turn_5": "太晚了。你理解了一切。你知道了它为什么在这里。你知道了这栋楼是什么。你知道了'外面'是什么。你知道了你是什么。你——"
+            },
+            "transitions": {
+              "player_leaves": "dormant",
+              "san_below_20": "insanity_game_over"
+            }
+          },
+          "insanity_game_over": {
+            "description": "Player's mind broke. They now understand everything. This is not a gift. There is no coming back.",
+            "narration": "你的认知系统崩溃了。但不是变空了。是变满了。太满了。你知道了所有的事。这栋楼的真相。那些东西从哪里来。维度为什么在这里折叠。那个巨大的存在是什么。你是什么。一切是什么。你站在手术台旁边。你在笑。你停不下来。你的眼睛看着所有的方向。包括一些不应该存在的方向。你的同伴在叫你的名字。但你的名字已经没有意义了。名字需要'个体'才有意义。而你不再是一个个体。你是所有。你是一切。你是——"
+          }
+        },
+        "encounter_responses": {
+          "enter_normally": {
+            "outcome": "dangerous",
+            "narration": "你推开门。第一秒什么都看不懂。第二秒你的大脑开始尝试理解。第三秒你意识到不应该理解。但已经晚了。它在你的视网膜上留下了印记。你的头开始痛。",
+            "effect": "san_minus_30_first_sight_then_minus_15_per_turn"
+          },
+          "enter_blindfolded": {
+            "outcome": "safer",
+            "narration": "你蒙着眼进去了。你看不见它。但你能感觉到它。空气在你周围扭曲。你的皮肤在发麻。但你的大脑不需要处理那些不应该处理的图像。这好很多。找到器械托盘。拿到碎片。离开。",
+            "effect": "san_minus_5_per_turn_can_grab_key"
+          },
+          "grab_key_and_run": {
+            "outcome": "optimal",
+            "narration": "你冲向器械托盘。抓起金属碎片。转身就跑。你用了不到十秒。但这十秒里你的理智已经受损了。碎片在你手里。冰冷的。你不回头。你不回头。",
+            "effect": "get_key_fragment_san_damage_depends_on_turns"
+          },
+          "try_to_study_it": {
+            "outcome": "terrible",
+            "narration": "你试图理解它。这是一个错误。每多看一秒，你理解的就多一点。而理解是不可逆的。你没办法'不知道'你已经知道的事。",
+            "effect": "accelerated_san_drain"
+          },
+          "use_camera_from_door": {
+            "outcome": "useful",
+            "narration": "你站在门口，把相机举起来对着手术台拍了一张。闪光灯亮了。你看照片。照片上手术台是空的。什么都没有。但照片的边缘在扭曲。像是镜头里面有什么东西在试图从照片里出来。你关掉了相机。",
+            "effect": "no_san_damage_confirms_thing_exists_but_camera_cant_capture"
+          },
+          "throw_object_at_it": {
+            "outcome": "weird",
+            "narration": "你扔了一个东西过去。它飞到手术台上方的时候——消失了。不是掉下来了。是消失了。像是穿过了一个不可见的边界，去了别的地方。它还在那里。你的东西不在了。",
+            "effect": "item_lost_nothing_happens"
+          }
+        }
+      },
+      "stats": {
+        "hp_damage": 0,
+        "san_damage_per_turn": 15,
+        "san_damage_first_sight": 30,
+        "san_damage_blindfolded_per_turn": 5,
+        "speed": 0
+      },
+      "weakness": "Blindfold drastically reduces SAN drain. Cannot physically harm players. Cannot move. Has no consciousness — it's more like a phenomenon than an entity.",
+      "immunity": "Cannot be harmed, moved, blocked, or interacted with. It exists outside normal physics."
+    }
+  }
+}

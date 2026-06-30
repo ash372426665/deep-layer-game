@@ -1,0 +1,343 @@
+{
+  "items": {
+    "phone": {
+      "name": "手机",
+      "name_en": "Phone",
+      "description": "你的手机。电量87%。没有信号。WiFi列表里有一个网络叫'0047_WAITING_ROOM'。不要连。手电筒功能可以用。",
+      "type": "tool",
+      "location": "player_start",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "flashlight": {
+          "description": "手机手电筒。光线不如专业手电筒亮，但能看路。",
+          "illumination": "low",
+          "battery_drain": "每使用10个回合消耗10%电量。电量耗尽后失去手电筒功能。"
+        },
+        "clock": {
+          "description": "显示当前时间。唯一可靠的时间来源。但有时候时间会跳。"
+        },
+        "camera_basic": {
+          "description": "手机摄像头。分辨率比专用相机低。闪光灯较弱。可以拍照，但效果不如相机。"
+        }
+      },
+      "special_notes": "手机是玩家的起始装备。电量会随着使用降低。完全没电后时间判断变得困难。手机屏幕偶尔会自己亮，显示一条未接来电：号码是0047。不要回拨。"
+    },
+
+    "flashlight": {
+      "name": "手电筒",
+      "name_en": "Flashlight",
+      "description": "医用手电筒。金属壳。光线强而集中。电池是新的。比手机的手电筒亮很多。照到的东西也更多。有些东西你宁愿不照到。",
+      "type": "tool",
+      "location": "pharmacy",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "illumination": {
+          "description": "强光。可以照亮黑暗区域。让你看清楚一切。包括不该看清的东西。",
+          "illumination": "high"
+        },
+        "stun_minor": {
+          "description": "直射怪物眼睛可以短暂造成干扰。对回诊者有效（1回合晕眩）。对管中物有效（嘶嘶声后退缩）。对值班护士无效。"
+        },
+        "reveal": {
+          "description": "在某些房间用手电筒仔细照射墙壁或地面可以发现隐藏的痕迹、文字或标记。"
+        }
+      },
+      "special_notes": "电池充足，不会耗尽。但在手术准备室使用时，光线会在那个东西周围弯曲，形成一个黑色的光环。"
+    },
+
+    "first_aid_kit": {
+      "name": "急救包",
+      "name_en": "First Aid Kit",
+      "description": "标准急救包。纱布、绷带、创可贴、消毒液、止疼片。可以处理外伤。红色塑料壳，上面有白色十字。",
+      "type": "consumable",
+      "location": "nurse_station",
+      "weight": 2,
+      "consumable": true,
+      "uses": 2,
+      "effects": {
+        "heal": {
+          "description": "治疗外伤。每次使用恢复30HP。",
+          "hp_restore": 30
+        }
+      },
+      "special_notes": "急救包里有一张小纸条，折叠着塞在纱布下面。打开看是一份手写的值班交接记录的最后一页：'2/7 23:00 值班交接。注意事项：1. 走廊灯管B区故障已报修。2. 303患者要求加药，已拒绝。3. 手术准备室——不要进。4. 如遇到值班护士，检查她的——' 记录到这里被撕掉了。"
+    },
+
+    "sedative": {
+      "name": "安定片",
+      "name_en": "Sedative",
+      "description": "安定片0.5mg。塑料药瓶。瓶身上的标签字迹清晰。每次服用可以暂时恢复一些理智。但别吃太多。",
+      "type": "consumable",
+      "location": "pharmacy",
+      "weight": 1,
+      "consumable": true,
+      "uses": 3,
+      "effects": {
+        "san_restore": {
+          "description": "服用后恢复15点SAN。需要几分钟生效。",
+          "san_restore": 15,
+          "side_effect": "服用后下一个回合反应速度降低（逃跑困难+1）。连续服用三次后会产生严重嗜睡（强制休息一个回合）。"
+        }
+      },
+      "special_notes": "瓶身上的患者名字被涂掉了。但你在瓶底发现了一串编号：0047。和叫号屏幕上的数字一样。"
+    },
+
+    "scalpel": {
+      "name": "手术刀",
+      "name_en": "Scalpel",
+      "description": "10号手术刀。刀片锋利。银色刀身在灯光下反光。作为武器不太够用。但总比空手好。在这栋楼里，大部分威胁不是你能用刀解决的。",
+      "type": "weapon",
+      "location": "surgery_prep",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "damage": {
+          "description": "物理攻击+10。对大部分怪物无效或适得其反。对回诊者使用会激怒它（伤害翻倍）。唯一有效用途：可以用来撬开某些简单的锁或切断绳索。",
+          "damage_bonus": 10,
+          "note": "更多用途是工具而非武器。"
+        },
+        "utility": {
+          "description": "可以切断绳索、撬开简单锁、割断布料。"
+        }
+      },
+      "special_notes": "拿起手术刀的时候，你会注意到刀身上有极浅的蚀刻。对着光看能看出来是一行小字：'切开看看。里面是空的。什么都是空的。'"
+    },
+
+    "walkie_talkie": {
+      "name": "对讲机",
+      "name_en": "Walkie-Talkie",
+      "description": "旧型号的对讲机。两台中的一台。频道已经调好了。可以和NPC保持远程联系。偶尔会收到不是任何人发出的信号。",
+      "type": "tool",
+      "location": "storage_2f",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "communication": {
+          "description": "与NPC远程通信。可以让NPC待在安全地点的同时保持联系。减少NPC独处时的恐慌。",
+          "range": "全楼覆盖",
+          "note": "给周晴对讲机可以防止她独处时的恐慌计时器。给林远对讲机可以让他远程帮忙分析问题。"
+        }
+      },
+      "special_notes": "凌晨3:33分，对讲机会收到一段静电噪音。在噪音中你能依稀听到一个声音。不是人的声音。但它在说话。说的是你听不懂的语言。如果你录下来倒放——不要倒放。"
+    },
+
+    "blindfold": {
+      "name": "蒙眼布",
+      "name_en": "Blindfold",
+      "description": "一条宽布带。足够长，可以绕头两圈扎紧。棉质的。白色的。上面有淡淡的黑色污渍——不是脏。像是之前蒙着眼的人流的泪把什么东西染在了上面。",
+      "type": "tool",
+      "location": "storage_2f",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "block_vision": {
+          "description": "蒙住眼睛。无法看见任何东西。移动需要靠墙或靠同伴引导。速度降低。但在手术准备室中可以大幅减少SAN流失（15→5/回合）。",
+          "san_drain_reduction": "surgery_prep: 15 → 5 per turn",
+          "movement_penalty": "移动速度-2。需要同伴或触摸墙壁导航。"
+        }
+      },
+      "special_notes": "这条布带之前属于那个把线索写满墙壁的人。那些黑色污渍不是泪水的痕迹。是碘酒。他在做最后的笔记。用碘酒蘸着布带在自己看不到的地方留下了信息。如果你把碘酒涂在布带的黑色污渍上，会看到一行字：'看不见的时候最安全。但你必须相信你旁边的人。'"
+    },
+
+    "notebook_204": {
+      "name": "204的笔记本",
+      "name_en": "Notebook from Room 204",
+      "description": "黑色硬封皮笔记本。前半部分是日常日记。后半部分变成了求生记录。字迹从整齐变得越来越潦草。最后几页几乎无法辨认。",
+      "type": "clue_item",
+      "location": "room_204",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "lore": {
+          "description": "阅读笔记本可以获得关于回诊者（The Patient）和这栋医院的重要信息。"
+        }
+      },
+      "content_pages": {
+        "page_1": "2月3日。来做检查。挂了号。0047号。等了很久。到我的时候已经晚上了。医生说做个过夜观察。我觉得没必要但他坚持。",
+        "page_2": "2月4日。昨晚没睡好。走廊上有脚步声。拖着走的。早上问护士她说没有。今天做完检查就走。但大门口不让出去了。说系统故障。",
+        "page_3": "2月5日？我不确定日期了。我的手机没信号了。走廊好像变长了。我走了十分钟从楼梯间走到大厅。正常应该两分钟。",
+        "page_4": "看到了。走廊上。一个穿病号服的。他转过来的时候我看到了他的脸。不对。脸不对。我跑了。它没追。因为我看了它一眼再跑的。后来我发现——看它一眼它就不动。但是不能一直看。第二次我盯着它看了太久。它。笑了。我差点——",
+        "page_5": "规则：1. 走廊上的那个（穿病号服的）→看一眼就跑。千万不要盯着看超过一分钟。2. 午夜后有个护士出现。不是真的。看她的手。手指多一节。3. 有个人在病房里哭。不要回应。不要答应。不要拒绝。不说话直接走。如果答应了跟着走你会到一个你不该在的地方。如果拒绝了她会尖叫所有东西都会来。",
+        "page_6": "两点以后管道里有动静。不要抬头看。趴在桌子下面等它过去。我抬头看了一次。我看到了。我不想记下来但我必须记。太多的关节。太多的——指头。像蜘蛛但不是蜘蛛。它从管道缝隙里伸出来的时候——",
+        "page_7": "手术准备室有一把钥匙碎片。手术台上有什么东西。不要看它。不能描述。看它你会疯掉。但我必须拿到碎片。我需要一个不让我看到它的办法。",
+        "page_8": "（几乎无法辨认。字迹极度潦草。部分内容：）密码分开了……安全……办公室/护士站/301……窗外海……不是……我们不在……这栋楼在两个地方之间……锚……它……是锚……不能离开……门在三楼……碎片……三……块……出去……",
+        "page_9": "（最后一页。只有一行字，用力写的，几乎划穿了纸：）如果你读到这些，不要犯我的错误。不要试图理解它。理解会杀死你。活着出去。"
+      },
+      "special_notes": "笔记本夹着一张照片。一个年轻男人在咖啡馆里笑着自拍。照片背面写着名字和日期。日期是三个月前。你在楼下挂号处的患者列表上见过这个名字。出院日期是空的。"
+    },
+
+    "key_fragment_surgery": {
+      "name": "钥匙碎片（手术室）",
+      "name_en": "Key Fragment (Surgery)",
+      "description": "一块不规则形状的金属碎片。比你的拇指大一点。表面有蚀刻的微小文字。触感冰冷，即使你握在手里也不会变暖。碎片的断口处不像是被切断的，更像是从更大的东西上自己脱落的。",
+      "type": "key_item",
+      "location": "surgery_prep",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "key": {
+          "description": "三把钥匙碎片之一。用于打开三楼尽头的神秘之门。",
+          "key_type": "exit_key",
+          "fragment_number": 1
+        }
+      },
+      "special_notes": "碎片上的文字：'第一把钥匙。出去。快。'握着它的时候你能感觉到微弱的振动。像是碎片本身有心跳。它想被用掉。它想让你打开那扇门。"
+    },
+
+    "key_fragment_303": {
+      "name": "钥匙碎片（303）",
+      "name_en": "Key Fragment (Room 303)",
+      "description": "第二块金属碎片。形状和第一块不同，但断口能吻合。保险箱里还有一张折叠的纸，上面是前一个住客写的最后一封信。",
+      "type": "key_item",
+      "location": "room_303",
+      "requires": "correct_combination_472",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "key": {
+          "description": "三把钥匙碎片之一。用于打开三楼尽头的神秘之门。",
+          "key_type": "exit_key",
+          "fragment_number": 2
+        }
+      },
+      "accompanying_note": "折叠的纸上写着：'给下一个人。我不确定我能走到门那里了。我的理智所剩无几。所以我把碎片留在了保险箱里。你比我聪明。你能出去。密码我分散在三个不会变的房间里。不会变是因为里面没有住着它们。办公室。护士站。301。拿到碎片就走。这栋楼会在黎明前试图留住你。不要让它成功。不要回头。'"
+    },
+
+    "key_fragment_morgue": {
+      "name": "钥匙碎片（太平间）",
+      "name_en": "Key Fragment (Morgue)",
+      "description": "第三块金属碎片。这块最冷。冷到你的手指在接触的瞬间失去了知觉。碎片上结着薄薄的一层霜。不是冷柜的冷。是别的什么冷。",
+      "type": "key_item",
+      "location": "morgue_entrance",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "key": {
+          "description": "三把钥匙碎片之一。用于打开三楼尽头的神秘之门。",
+          "key_type": "exit_key",
+          "fragment_number": 3
+        }
+      },
+      "special_notes": "这块碎片上的文字不是蚀刻的。是冻在金属表面的霜构成的字：'最后一块。门在等你。快走。它们已经知道你要走了。'三块碎片同时在你身上的时候，你能感觉到它们在互相吸引。像磁铁。它们想要合在一起。"
+    },
+
+    "combination_hint_1": {
+      "name": "密码线索（一）",
+      "name_en": "Combination Hint 1",
+      "description": "医生办公室锁着的抽屉上，有人用铅笔在抽屉底部写了一个数字。",
+      "type": "clue_item",
+      "location": "doctor_office",
+      "weight": 0,
+      "consumable": false,
+      "pickup_description": "你把抽屉翻过来看底部。铅笔字迹：'第一位：四。'下面还有一行更小的字：'我把它藏在最不可能被它们移动的地方。因为它们不移动没有活物的房间。'",
+      "effects": {
+        "combination_digit": {
+          "position": 1,
+          "value": 4
+        }
+      }
+    },
+
+    "combination_hint_2": {
+      "name": "密码线索（二）",
+      "name_en": "Combination Hint 2",
+      "description": "护士站值班记录本最后一页夹着一张折角的小纸条。",
+      "type": "clue_item",
+      "location": "nurse_station",
+      "weight": 0,
+      "consumable": false,
+      "pickup_description": "纸条上：'第二位：七。护士站是安全的因为那个假护士出现的时候它不会动柜子里的东西。它只关心活人。'",
+      "effects": {
+        "combination_digit": {
+          "position": 2,
+          "value": 7
+        }
+      }
+    },
+
+    "combination_hint_3": {
+      "name": "密码线索（三）",
+      "name_en": "Combination Hint 3",
+      "description": "301病房床头柜抽屉里被海水泡皱的纸条。",
+      "type": "clue_item",
+      "location": "room_301",
+      "weight": 0,
+      "consumable": false,
+      "pickup_description": "纸条被海水泡得皱巴巴的，但字迹还能辨认：'第三位：二。窗外的海不会改变。所以这个房间不会变。但不要在这里待太久。它们有时候会来看海。'",
+      "effects": {
+        "combination_digit": {
+          "position": 3,
+          "value": 2
+        }
+      }
+    },
+
+    "master_key_card": {
+      "name": "门禁卡",
+      "name_en": "Master Key Card",
+      "description": "白色塑料门禁卡。正面印着医院的logo和一行编号。背面有磁条。编号是0047。",
+      "type": "key_item",
+      "location": "registration",
+      "weight": 0,
+      "consumable": false,
+      "effects": {
+        "unlock": {
+          "description": "可以打开302病房的电子门禁。",
+          "unlocks": ["room_302"]
+        }
+      },
+      "special_notes": "拿起门禁卡的时候，挂号处的电脑屏幕闪了一下。显示了一行字：'患者0048已取得通行权限。请引导至指定区域。'然后恢复了之前的画面。你不是患者0048。或者说，你不应该是。"
+    },
+
+    "iodine_bottle": {
+      "name": "碘酒",
+      "name_en": "Iodine Bottle",
+      "description": "一瓶医用碘伏。深棕色液体。瓶身上的标签印着用法用量。但你不需要它来消毒。你需要它来读那些用碘酒写的字。",
+      "type": "tool",
+      "location": "pharmacy",
+      "weight": 1,
+      "consumable": true,
+      "uses": 3,
+      "effects": {
+        "reveal_writing": {
+          "description": "涂在用碘酒写的文字上可以让变暗的字迹重新清晰。用于203病房的墙壁文字和蒙眼布上的隐藏文字。",
+          "usable_on": ["clue_wall_writing", "blindfold"]
+        },
+        "mark": {
+          "description": "可以在墙上做标记，标记走过的路。但碘酒干了会变成暗棕色。像血。小心不要吓到自己。"
+        }
+      },
+      "special_notes": "碘伏瓶子的生产日期和所有安定片盒子上的日期一样。和患者列表上所有人的入院日期一样。这个日期出现得太频繁了。"
+    },
+
+    "camera": {
+      "name": "相机",
+      "name_en": "Camera",
+      "description": "旧式数码相机。Canon PowerShot。电池满格。存储卡空的。但相机的照片序号从第1247张开始。之前的1246张去哪了？",
+      "type": "tool",
+      "location": "emergency_room",
+      "weight": 1,
+      "consumable": false,
+      "effects": {
+        "photograph": {
+          "description": "拍照。可以在不直接注视的情况下观察怪物和环境。照片有时候会显示你肉眼看不到的东西。有时候会不显示你肉眼看到的东西。",
+          "special_uses": {
+            "the_patient": "照片上什么都没有。闪光灯可以短暂晕眩它1回合。",
+            "the_night_nurse": "照片上显示她的真实形态。不是人形。太多条腿和关节。",
+            "the_visitor": "照片上空无一人。只有空椅子和维度折痕。",
+            "the_crawler": "照片上能看到管道里的热源轮廓。",
+            "the_thing_in_surgery": "照片上手术台是空的。但照片边缘扭曲。",
+            "room_301_window": "照片上窗外是城市夜景。但你的眼睛看到的是海洋。",
+            "bathroom_mirror": "如果拍镜子，照片里镜子反射的是一个完全不同的房间。不是这个洗手间。"
+          }
+        },
+        "flash": {
+          "description": "闪光灯。比手电筒更强的瞬间光照。对某些怪物有干扰效果。"
+        }
+      },
+      "special_notes": "相机的回放功能显示存储卡已删除的照片可以恢复。你恢复了一张。照片上是急诊室。但急诊室里坐满了人。穿着病号服。他们都在看着镜头。他们都在笑。他们的脸上——每张脸都是一样的。同一张脸。重复了几十次。照片左下角有时间戳。日期是明天。"
+    }
+  }
+}

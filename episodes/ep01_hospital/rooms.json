@@ -1,0 +1,1028 @@
+{
+  "rooms": {
+    "lobby": {
+      "name": "大厅",
+      "name_en": "Lobby",
+      "floor": 1,
+      "description_brief": "医院主大厅，叫号屏幕闪烁不定，挂号窗口已经拉下了卷帘。",
+      "description_full": "宽敞的医院大厅空无一人。叫号屏幕还在跳动，但显示的号码不是递增的，而是在重复同一个数字：0047。挂号窗口的卷帘拉了一半，里面漆黑一片。公告栏上贴满了通知，有些看起来很旧，纸张发黄卷边。右侧是通往走廊的双扇门，左边有电梯。地板上的清洁痕迹像是有人拖着什么沉重的东西走过。空气里有消毒水的味道，但底下还有另一种气味。甜的。腐烂的甜。",
+      "connections": {
+        "east": "corridor_1f",
+        "west": "registration",
+        "elevator": "elevator"
+      },
+      "items": [],
+      "clues": ["clue_bulletin_board"],
+      "features": {
+        "call_screen": {
+          "name": "叫号屏幕",
+          "description": "屏幕不断闪烁着'0047'。偶尔会跳到'0048'，然后立刻跳回'0047'。好像永远轮不到下一位。",
+          "investigate": "你盯着屏幕看了一会儿。数字突然变了：'你的号码是0048。请到三楼303室。'然后屏幕黑了一秒，恢复成0047。"
+        },
+        "reception_window": {
+          "name": "挂号窗口",
+          "description": "卷帘拉了一半。里面很暗。你弯腰往里看，只能看见一张空椅子和一台关着的电脑。椅子上好像有压痕，像是刚刚还有人坐在那里。",
+          "investigate": "你把手伸进卷帘下面摸了摸。手指碰到了什么温热的东西。你立刻缩回手。再看的时候，里面什么都没有。"
+        },
+        "bulletin_board": {
+          "name": "公告栏",
+          "description": "贴满了各种通知。大部分是常规的医院告示。但有几张看起来不对。"
+        },
+        "floor_drag_marks": {
+          "name": "地板上的拖痕",
+          "description": "清洁留下的水痕。不对。这不是拖把的痕迹。太宽了。像是有人被拖行。痕迹通向东边的走廊。"
+        }
+      },
+      "hiding_spots": ["reception_counter"],
+      "ambient": {
+        "sound": "叫号屏幕的电流嗡嗡声。远处走廊尽头偶尔传来的金属碰撞声。",
+        "smell": "消毒水。底下有一层很淡的甜腐味。",
+        "temperature": "正常，略凉。",
+        "light": "大厅灯光明亮，但叫号屏幕的闪烁投下不稳定的阴影。"
+      },
+      "monster_spawn": false,
+      "tags": ["safe_zone_initial", "starting_point", "floor_1"],
+      "first_visit_event": "event_arrival"
+    },
+
+    "registration": {
+      "name": "挂号处",
+      "name_en": "Registration",
+      "floor": 1,
+      "description_brief": "挂号处的电脑还亮着，屏幕上显示着不对劲的患者信息。",
+      "description_full": "三台电脑的显示器还在运行。左边两台显示正常的医院系统界面，但右边那台打开了一份患者列表。你凑近一看，所有患者的入院日期都是同一天，出院日期一栏全部是空的。每个患者的诊断栏写着同一句话。柜台上散落着未整理的病历本和一张门禁卡。",
+      "connections": {
+        "east": "lobby"
+      },
+      "items": ["master_key_card"],
+      "clues": ["clue_patient_records"],
+      "features": {
+        "left_computers": {
+          "name": "左边的电脑",
+          "description": "正常的医院挂号系统。显示着今天的排班表。但日期显示不对，是一个不存在的日期。",
+          "investigate": "日期显示：13月47日。排班表上只有一个名字反复出现在每一个科室：'值班护士 编号0047'。"
+        },
+        "right_computer": {
+          "name": "右边的电脑",
+          "description": "患者列表。所有人入院日期相同。没有出院记录。诊断栏统一写着四个字。"
+        },
+        "scattered_files": {
+          "name": "散落的病历",
+          "description": "大部分是常规病历。但底下有一份被反复涂改过的转院申请，目的地一栏被黑色马克笔涂掉了。透过光看，下面写着'向内转'。"
+        }
+      },
+      "hiding_spots": ["counter_underneath"],
+      "ambient": {
+        "sound": "电脑风扇运转声。偶尔的硬盘读写声，像是在自动处理什么。",
+        "smell": "塑料和灰尘。",
+        "temperature": "比大厅暖一点，电脑散热。",
+        "light": "屏幕的蓝白色光映在天花板上。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_1", "computers"],
+      "first_visit_event": null
+    },
+
+    "corridor_1f": {
+      "name": "一楼走廊",
+      "name_en": "First Floor Corridor",
+      "floor": 1,
+      "description_brief": "一条很长的走廊。似乎比从外面看到的建筑要长得多。尽头的灯在闪。",
+      "description_full": "走廊铺着浅绿色的地砖，墙面是医院标准的淡黄色。两侧有几扇门。走廊很长。你数了数头顶的灯管，有十四盏。但你走了很久，灯管的数量似乎没有在减少。尽头的灯管在以不规则的频率闪烁。地上偶尔有轮椅留下的黑色轮胎痕。右侧墙面的某处，踢脚线的缝隙里，有什么东西在反光。",
+      "connections": {
+        "west": "lobby",
+        "north_left": "pharmacy",
+        "north_right": "emergency_room",
+        "south": "doctor_office",
+        "east": "stairwell_1f"
+      },
+      "items": [],
+      "clues": ["clue_baseboard_reflection"],
+      "features": {
+        "long_corridor": {
+          "name": "走廊本身",
+          "description": "你开始走的时候觉得大概三十米长。但走到一半你回头看，大厅的门还是那么远。或者说，近了，但尽头也没有变近。",
+          "investigate": "你站在走廊中间数灯管。从你这边到尽头，七盏。从你这边到大厅，也是七盏。你往前走了五步再数。还是各七盏。"
+        },
+        "flickering_light": {
+          "name": "闪烁的灯管",
+          "description": "尽头的灯管在闪。不是那种老旧灯管的闪法。它在闪一种节奏。短短长短短长。",
+          "investigate": "你仔细听了一会。不是随机的。短短长，短短长，短短长。像是什么东西在用光说话。"
+        },
+        "baseboard_gap": {
+          "name": "踢脚线缝隙里反光的东西",
+          "description": "踢脚线和地砖之间的缝隙里，有什么小东西在反光。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "自己的脚步声回荡。灯管的电流嗡鸣。偶尔听到远处有什么东西在动。",
+        "smell": "消毒水。走到中段时，消毒水的味道突然消失了一秒，然后回来。",
+        "temperature": "走廊中段温度明显下降了几度。",
+        "light": "日光灯照明，但尽头的灯管闪烁不定。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_1", "corridor", "spatial_anomaly"],
+      "first_visit_event": "event_corridor_1f_first"
+    },
+
+    "pharmacy": {
+      "name": "药房",
+      "name_en": "Pharmacy",
+      "floor": 1,
+      "description_brief": "药房里整齐的药柜散发着药品特有的气味，天花板上有抓痕。",
+      "description_full": "药房比你预期的大。铝合金药柜排成三列，标签整齐。柜台上放着没来得及配好的处方和一个手电筒。有些抽屉半开着，像是有人匆忙翻找过。最引你注意的是天花板。天花板板材上有五道平行的抓痕，很深，从门口一直延伸到房间最里面。不是人的指甲能留下的痕迹。药柜最后一排的后面，传来很轻的呼吸声。",
+      "connections": {
+        "south": "corridor_1f"
+      },
+      "items": ["flashlight", "sedative", "iodine_bottle"],
+      "clues": ["clue_ceiling_scratches"],
+      "features": {
+        "medicine_cabinets": {
+          "name": "药柜",
+          "description": "大部分药品是常规药物。但有一整个柜子的标签都写着同一种药：'安定片 0.5mg'。这个量不正常。一整柜的安定片意味着这里有大量的患者需要被镇静。",
+          "investigate": "你打开安定片的柜子数了数。三百多盒。每盒二十片。六千多片安定。够让一整栋楼的人睡过去。再看生产日期，所有的盒子上印着同一个日期。和那些患者的入院日期一样。"
+        },
+        "ceiling_scratches": {
+          "name": "天花板抓痕",
+          "description": "五道深深的平行痕迹。间距不均匀，第三道和第四道之间的距离是其他间距的两倍。不是五根手指。是四根手指，但第三根特别长。"
+        },
+        "prescription_counter": {
+          "name": "柜台上的处方",
+          "description": "几张没配完的处方。患者名字被涂掉了，但处方内容能看见。全部是精神类药物。氯氮平、奥氮平、利培酮。重度精神分裂症的用药方案。",
+          "investigate": "处方最底下有一张纸条，手写的：'不要给303的患者停药。他看见的是真的。'"
+        }
+      },
+      "hiding_spots": ["behind_last_cabinet_row"],
+      "ambient": {
+        "sound": "药柜后面有很轻的呼吸声（周晴在那里躲着）。偶尔有药瓶自己滚动的声音。",
+        "smell": "浓烈的药品气味。碘伏。酒精。还有那种甜腐味，比大厅更明显。",
+        "temperature": "凉。",
+        "light": "灯光正常。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_1", "supplies", "npc_location_zhouqing"],
+      "first_visit_event": "event_find_zhouqing"
+    },
+
+    "emergency_room": {
+      "name": "急诊室",
+      "name_en": "Emergency Room",
+      "floor": 1,
+      "description_brief": "急诊室里排列着几张病床，布帘拉着。其中一个帘子后面有人形的轮廓。",
+      "description_full": "六张病床分两排。蓝色布帘把每张床隔成独立的空间。大部分帘子是拉开的，床上什么都没有。但第三张床的帘子拉着。从帘子的缝隙里，你能看到里面有个人形的轮廓。它没有在动。角落里有一台除颤器和一辆急救推车，推车上有一台旧相机。墙上的时钟停在了11:47。不对。你刚进来的时候是11:47吗？",
+      "connections": {
+        "south": "corridor_1f"
+      },
+      "items": ["camera"],
+      "clues": [],
+      "features": {
+        "curtained_bed": {
+          "name": "拉着帘子的第三张病床",
+          "description": "帘子后面有一个人形轮廓。一动不动。不像是躺着的，更像是坐着的。",
+          "investigate": "你拉开帘子。是一个人体模型，穿着病号服，坐在床上。它的脸上画着五官，表情是微笑。但它的右手在指着什么。你顺着它手指的方向看去，它在指墙上的时钟。",
+          "investigate_twice": "你再看了一眼人体模型。它的手不是指着时钟了。它在指着你。"
+        },
+        "wall_clock": {
+          "name": "墙上的时钟",
+          "description": "指针停在11:47。秒针没有在动。你盯着看了十秒，确认它停了。然后你眨了一下眼。秒针在12的位置。它跳了。",
+          "investigate": "你摘下时钟翻过来看。后面用铅笔写着一串数字。"
+        },
+        "defibrillator": {
+          "name": "除颤器",
+          "description": "看起来能用。但你希望不需要用到它。",
+          "investigate": "除颤器的使用记录卡上，最后一次使用日期是今天。使用原因：'无效。'"
+        },
+        "crash_cart": {
+          "name": "急救推车",
+          "description": "标准配置。抽屉里有纱布、肾上腺素、气管插管工具。最上层放着一台旧式数码相机。"
+        }
+      },
+      "hiding_spots": ["under_bed", "behind_curtain"],
+      "ambient": {
+        "sound": "安静。太安静了。偶尔有布帘被不存在的风吹动的声音。",
+        "smell": "消毒水和旧血。",
+        "temperature": "冷。比走廊冷很多。",
+        "light": "日光灯。其中一盏灯的颜色略微偏紫。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_1", "medical"],
+      "first_visit_event": "event_er_mannequin"
+    },
+
+    "doctor_office": {
+      "name": "医生办公室",
+      "name_en": "Doctor's Office",
+      "floor": 1,
+      "description_brief": "办公室里散落着病历。X光灯箱上挂着一张让人不舒服的片子。",
+      "description_full": "一间标准的医生办公室。桌上摊着几份未归档的病历，墙边是X光灯箱。灯箱上挂着一张胸部X光片，但你凑近看的时候，总觉得哪里不对。骨骼的形状不像人类。肋骨的数量太多了。桌面底下的抽屉里有一张锁着的抽屉，上面贴着'303患者'的标签。旁边有一张手写的纸条。",
+      "connections": {
+        "north": "corridor_1f"
+      },
+      "items": ["combination_hint_1"],
+      "clues": ["clue_xray", "clue_doctor_note"],
+      "features": {
+        "xray_lightbox": {
+          "name": "X光灯箱",
+          "description": "胸部X光片。乍一看正常。但肋骨太多了。人有十二对肋骨。这张片子上有十七对。而且形状在往一个方向弯曲，像是在环绕什么东西。心脏的位置有一团异常的白色阴影。",
+          "investigate": "你把片子从灯箱上取下来对着灯看。背面有铅笔字：'患者自述：它在里面生长。我能感觉到它在呼吸。请求转至——'后面被撕掉了。片子的日期栏是空白的。"
+        },
+        "locked_drawer": {
+          "name": "锁着的抽屉",
+          "description": "标签写着'303患者'。三位数密码锁。",
+          "investigate": "你试了几个常见的组合。都不对。这个密码锁可能和303室的保险箱是同一个密码。"
+        },
+        "desk_files": {
+          "name": "桌上的病历",
+          "description": "几份精神科病历。诊断各不相同，但所有病历的最后一次记录都写着同一句医嘱：'转入观察。停止一切治疗。等待。'"
+        }
+      },
+      "hiding_spots": ["under_desk"],
+      "ambient": {
+        "sound": "台灯发出的细微嗡嗡声。",
+        "smell": "旧纸张和墨水。",
+        "temperature": "正常。",
+        "light": "台灯和灯箱发出的白光。房间角落有阴影。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_1", "clue_rich"],
+      "first_visit_event": null
+    },
+
+    "stairwell_1f": {
+      "name": "一楼楼梯间",
+      "name_en": "Stairwell (1F)",
+      "floor": 1,
+      "description_brief": "向上通往二楼的楼梯。回声不对。明明没有地下室，但声音从下面传来。",
+      "description_full": "标准的医院消防楼梯。灰色水泥墙，绿色扶手，标识牌显示这里连接一楼和二楼。往上看，楼梯正常地通往二层。但往下看，楼梯在半层的转角处结束，是一面灰色的墙。没有地下室。可是你能听到声音从下面传来。不是回声。是从那面灰色墙壁后面传来的。像是有人在走路。步伐很慢。拖着脚。",
+      "connections": {
+        "west": "corridor_1f",
+        "up": "corridor_2f"
+      },
+      "items": [],
+      "clues": ["clue_stairwell_sound"],
+      "features": {
+        "grey_wall": {
+          "name": "半层转角的灰色墙壁",
+          "description": "楼梯在这里结束。灰色的墙壁。用手摸上去，是正常的混凝土。但它是温的。墙壁不应该是温的。",
+          "investigate": "你把耳朵贴在墙上。拖沓的脚步声更清晰了。一步。两步。三步。停了。你感觉到墙壁轻微地振动了一下。像是那边有人也把耳朵贴在了墙上。"
+        },
+        "stairwell_sign": {
+          "name": "楼层标识牌",
+          "description": "金属牌上刻着：'1F ⇅ 2F'。但'⇅'的向下箭头被人用什么锐器划掉了。旁边用红色记号笔写着'别下去'。"
+        }
+      },
+      "hiding_spots": ["behind_door"],
+      "ambient": {
+        "sound": "自己的脚步回声。下方传来的缓慢脚步声。水滴声。",
+        "smell": "混凝土和铁锈。",
+        "temperature": "冷。尤其是越靠近那面灰色墙壁越冷。",
+        "light": "应急灯照明，光线偏黄偏暗。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_1", "transit", "spatial_anomaly"],
+      "first_visit_event": "event_stairwell_sound"
+    },
+
+    "elevator": {
+      "name": "电梯",
+      "name_en": "Elevator",
+      "floor": 0,
+      "description_brief": "看起来正常的医院电梯。按钮面板上有1、2、3三个楼层按钮。有时候会出现第四个。",
+      "description_full": "一部普通的医院电梯。不锈钢内壁映出你变形的倒影。按钮面板上有1、2、3三个按钮。轿厢顶部的指示屏显示当前楼层。电梯运行时伴随着正常的机械声。但门关上的瞬间，你总觉得不锈钢里你的倒影比你慢了零点几秒。而且它在笑。你没有在笑。",
+      "connections": {
+        "floor_1": "lobby",
+        "floor_2": "corridor_2f",
+        "floor_3": "corridor_3f",
+        "floor_4": "elevator_4f"
+      },
+      "items": [],
+      "clues": [],
+      "features": {
+        "button_panel": {
+          "name": "按钮面板",
+          "description": "1、2、3三个按钮。金属质感。3上面的面板有一条很细的缝，像是原来还有一个按钮的位置被焊死了。",
+          "investigate": "你仔细看那条缝。在某些角度的光线下，你能看到缝隙里面有个按钮。上面刻着'4'。它不是被焊死了。它是在缝隙里面。你如果用力按那个位置——"
+        },
+        "steel_reflection": {
+          "name": "不锈钢内壁的倒影",
+          "description": "你的倒影。变形的。模糊的。你动的时候它也在动。但不完全同步。像是延迟了一帧。",
+          "investigate": "你盯着倒影看。它慢慢地、非常慢地，把一根手指放到了嘴唇上。嘘。你没有做这个动作。"
+        },
+        "floor_indicator": {
+          "name": "楼层显示屏",
+          "description": "橙色LED数字。显示当前楼层。有时候在楼层之间，数字会短暂地变成'B'。没有地下室。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "电梯运行时的钢缆声。关门的嗡鸣。偶尔会听到从井道深处传来的敲击声。",
+        "smell": "金属和机油。",
+        "temperature": "密闭空间，比外面暖和一点。",
+        "light": "顶部日光灯。有时候会闪一下。"
+      },
+      "monster_spawn": false,
+      "tags": ["transit", "anomaly", "danger_potential"],
+      "first_visit_event": null
+    },
+
+    "corridor_2f": {
+      "name": "二楼走廊",
+      "name_en": "Second Floor Corridor",
+      "floor": 2,
+      "description_brief": "二楼走廊。走廊尽头有一个穿着病号服的人影，背对着你站着。",
+      "description_full": "从楼梯间出来，二楼走廊比一楼的更窄、更长。墙上每隔几米贴着一张标语：'安静休养，配合治疗'。两侧是病房门，大部分关着。走廊尽头，大约三十米开外，有一个人影。穿着白色病号服。赤脚。背对着你站着。完全不动。走廊的灯光比一楼暗，中间有一段灯管坏了，形成一个大约五米长的黑暗区域。那个人影就站在黑暗区域的边缘。",
+      "connections": {
+        "down_stairs": "stairwell_1f",
+        "up_stairs": "stairwell_3f",
+        "elevator": "elevator",
+        "north_1": "room_201",
+        "north_2": "room_202",
+        "north_3": "room_203",
+        "north_4": "room_204",
+        "south_1": "nurse_station",
+        "south_2": "surgery_prep",
+        "south_3": "storage_2f",
+        "south_4": "bathroom_2f"
+      },
+      "items": [],
+      "clues": [],
+      "features": {
+        "wall_signs": {
+          "name": "墙上的标语",
+          "description": "'安静休养，配合治疗。'反复出现。但走到中间的那段，标语变了：'安静。配合。不要看。不要问。不要记。'"
+        },
+        "dark_zone": {
+          "name": "走廊中间的黑暗区域",
+          "description": "大约五米长的区域没有灯光。两盏灯管都坏了。经过的时候，你听到身边有呼吸声。不是你的，不是你同伴的。"
+        },
+        "figure_at_end": {
+          "name": "走廊尽头的人影",
+          "description": "穿着病号服。赤脚。背对着你。不动。你能看到它苍白的后颈。头发湿漉漉的。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "偶尔的脚步拖沓声。病房门后的呻吟。走廊中间黑暗区域里的呼吸声。",
+        "smell": "消毒水味更浓了。药物的气味。还有那种甜腐味。",
+        "temperature": "比一楼冷。尤其是黑暗区域，冷得不正常。",
+        "light": "灯光昏暗，中间有一段完全黑暗。"
+      },
+      "monster_spawn": true,
+      "monster_patrol": ["the_patient"],
+      "tags": ["floor_2", "corridor", "danger", "dark_zone"],
+      "first_visit_event": "event_2f_first_sight"
+    },
+
+    "nurse_station": {
+      "name": "护士站",
+      "name_en": "Nurse Station",
+      "floor": 2,
+      "description_brief": "二楼护士站。白板上写着患者名单，名字在你看的时候会变。",
+      "description_full": "环形的护士站柜台。白板上密密麻麻写满了患者名字和房间号。柜台后面有医疗用品柜。一台血压计、几个输液架、药品分装盒。白板上的名字你第一次看的时候是正常的中文名。但你移开目光再看回来，有几个名字变了。变成了你不认识的语言。不是任何你见过的文字。柜台底下有足够的空间藏一个人。",
+      "connections": {
+        "north": "corridor_2f"
+      },
+      "items": ["first_aid_kit", "combination_hint_2"],
+      "clues": ["clue_whiteboard_names", "clue_nurse_log"],
+      "features": {
+        "whiteboard": {
+          "name": "白板",
+          "description": "患者名单。201-张某，202-林远，203-（被擦掉了），204-（被擦掉了），ICU-（整行被黑色墨水涂掉）。但每次你看，字迹都在微妙地变化。",
+          "investigate": "你站在白板前仔细看。203的名字慢慢浮现出来——是你的名字。你眨了眨眼。不是你的名字了。是一串你看不懂的符号。"
+        },
+        "supply_cabinet": {
+          "name": "医疗用品柜",
+          "description": "纱布、碘伏、注射器、手套。比较齐全。但手套盒里的手套全部是左手的。"
+        },
+        "duty_log": {
+          "name": "值班记录本",
+          "description": "翻到最后一页有字。"
+        }
+      },
+      "hiding_spots": ["under_counter", "behind_supply_cabinet"],
+      "ambient": {
+        "sound": "某台仪器间歇性的滴滴声。白板笔的盖子偶尔自己弹开的声音。",
+        "smell": "碘伏和酒精棉球。",
+        "temperature": "正常。",
+        "light": "护士站自带的台灯还亮着。比走廊明亮。"
+      },
+      "monster_spawn": true,
+      "monster_spawn_list": ["the_night_nurse"],
+      "tags": ["floor_2", "safe_haven", "supplies", "hiding"],
+      "first_visit_event": null
+    },
+
+    "room_201": {
+      "name": "201病房",
+      "name_en": "Room 201",
+      "floor": 2,
+      "description_brief": "空病房。床铺凌乱。输液架上还在滴液。",
+      "description_full": "一间双人病房，但只有靠窗的那张床有使用过的痕迹。被子掀开一半，枕头上还有头的压痕。床边的输液架挂着半瓶生理盐水，还在以正常速度滴注。管子垂下来，针头那端在空气中悬着，没有插在任何人身上。滴液在地上形成了一小滩水。窗外是黑暗的城市夜景。至少看起来是。",
+      "connections": {
+        "south": "corridor_2f"
+      },
+      "items": [],
+      "clues": [],
+      "features": {
+        "dripping_iv": {
+          "name": "输液架",
+          "description": "半瓶生理盐水。滴速正常。但管子末端没有连着任何人。针头在空气中。液体滴在地上。",
+          "investigate": "你弯腰看地上的水滩。水滩的形状不对。不是圆形的。液体像是被什么看不见的东西挡住了，绕开了一个人形的区域。就好像有一个透明的人躺在地上，液体流不过去。"
+        },
+        "pillow_indentation": {
+          "name": "枕头上的压痕",
+          "description": "清晰的头部压痕。你把手放上去。温的。刚刚还有人。",
+          "investigate": "你正准备收回手的时候，压痕旁边的枕头上开始慢慢出现新的压痕。像是有什么东西正在枕头上转头看向你的手。"
+        },
+        "window_view": {
+          "name": "窗外",
+          "description": "城市夜景。远处有零星灯光。月光很亮。是正常的夜景。对吧？",
+          "investigate": "你仔细看了看窗外。城市的灯光格局和你来的时候不一样了。楼群的排列变了。远处应该有一座电视塔的位置现在什么都没有。天际线是错的。这不是同一座城市。"
+        }
+      },
+      "hiding_spots": ["under_bed", "bathroom_201"],
+      "ambient": {
+        "sound": "输液的滴答声。规律的。催眠的。",
+        "smell": "生理盐水。病床的消毒味。",
+        "temperature": "正常。但窗户附近冷一些。",
+        "light": "床头灯亮着。暖色调。"
+      },
+      "monster_spawn": true,
+      "monster_spawn_list": ["the_visitor"],
+      "tags": ["floor_2", "patient_room"],
+      "first_visit_event": null
+    },
+
+    "room_202": {
+      "name": "202病房",
+      "name_en": "Room 202",
+      "floor": 2,
+      "description_brief": "门从里面反锁了。敲门会听到里面有人低声说'别进来'。",
+      "description_full": "门从里面锁着。你能看到门缝下面有灯光。敲门的话，里面会有一个年轻男人的声音说：'别进来。求你了。别进来。'他声音沙哑，像是喊了很久。这是林远。他把自己锁在里面已经不知道多久了。想让他开门需要建立信任。",
+      "connections": {
+        "south": "corridor_2f"
+      },
+      "items": [],
+      "clues": [],
+      "features": {
+        "locked_door": {
+          "name": "锁着的门",
+          "description": "标准的病房门。从里面反锁。门缝下面透着灯光。敲门会听到里面的声音。",
+          "investigate": "你蹲下从门缝往里看。能看到一个男人坐在床上，抱着膝盖。他在看门。看到你的眼睛出现在门缝里，他往后缩了一下。'你是……真的人吗？'他问。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "里面偶尔的翻身声和自言自语。",
+        "smell": "门缝里飘出来的汗味和恐惧。",
+        "temperature": "门外正常。",
+        "light": "门缝下面透着光。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_2", "patient_room", "npc_location_linyuan", "locked"],
+      "first_visit_event": "event_linyuan_first_contact"
+    },
+
+    "room_203": {
+      "name": "203病房",
+      "name_en": "Room 203",
+      "floor": 2,
+      "description_brief": "墙上写着什么。看起来像干涸的血，但靠近闻是碘伏的味道。",
+      "description_full": "病房里两张床都是空的。干净得不正常。但墙壁上有字。红棕色的字迹从床头一直延伸到天花板，像是有人站在床上奋力书写。字迹大小不一、歪歪斜斜。乍一看像血，但空气中有碘伏的气味。是碘酒。有人用碘酒在墙上写了这些。问题是：碘酒在墙上干了之后会变成暗棕色，几乎和干血分不清。但用碘酒瓶子里的新鲜碘酒涂在上面，字迹颜色会变深，更容易看清。",
+      "connections": {
+        "south": "corridor_2f"
+      },
+      "items": [],
+      "clues": ["clue_wall_writing"],
+      "features": {
+        "wall_writing": {
+          "name": "墙上的字迹",
+          "description": "红棕色的字。大部分能辨认。写着断断续续的句子。有些地方字迹太小或者重叠在一起，看不清。",
+          "investigate": "你能看清的部分：'不要看它的眼睛太久' '回诊的时候' '它在笑就跑' '管子里有东西' '不要——' 后面的字被什么东西蹭掉了。",
+          "investigate_with_iodine": "你把碘酒涂在看不清的部分。字迹立刻变深变清晰。完整的文字是：'不要看它的眼睛太久。看一眼就走。回诊的时候它会走走廊。它在笑就跑。管子里有东西听到声音不要抬头趴下等它走。第三天夜里护士来了不要跟她走看她的手。四楼不要去。门在三楼。碎片在手术室、303、太平间。我把密码分开藏了。活着出去。'"
+        }
+      },
+      "hiding_spots": ["under_bed"],
+      "ambient": {
+        "sound": "安静。但偶尔墙壁里会发出轻微的嘎吱声，像是建筑在呼吸。",
+        "smell": "碘伏味极重。",
+        "temperature": "比其他病房冷。",
+        "light": "日光灯正常。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_2", "patient_room", "clue_critical"],
+      "first_visit_event": null
+    },
+
+    "room_204": {
+      "name": "204病房",
+      "name_en": "Room 204",
+      "floor": 2,
+      "description_brief": "床头柜上有一本笔记本。前一位'住客'留下的日记。",
+      "description_full": "这间病房和其他病房的格局完全不同。只有一张床，靠墙放着。床铺整齐，像是被仔细地铺过。床头柜上放着一本黑色封皮的笔记本、一支笔和一杯水。水杯里的水还是满的。笔记本翻开到某一页，像是在等人来读。窗户的百叶窗被拉到最低。有人不想让外面看进来。或者不想让里面的人看到外面。",
+      "connections": {
+        "south": "corridor_2f"
+      },
+      "items": ["notebook_204"],
+      "clues": ["clue_notebook_204"],
+      "features": {
+        "notebook": {
+          "name": "床头的笔记本",
+          "description": "黑色硬封皮笔记本。翻开到大约中间的位置。手写字迹，整齐但越来越潦草。"
+        },
+        "water_glass": {
+          "name": "水杯",
+          "description": "一杯水。满的。你碰了一下杯壁。水面开始震动。但你没有用力碰它。水面的涟漪向一个方向传播——朝着门口。像是有什么东西从门口方向过来了。",
+          "investigate": "你盯着水面。涟漪停了。水面完全平静。然后你看到了。水面上映出了天花板的倒影。倒影里，天花板上趴着一个人。你立刻抬头看天花板。什么都没有。再看水面。也什么都没有了。"
+        },
+        "closed_blinds": {
+          "name": "关着的百叶窗",
+          "description": "百叶窗拉到最低。叶片之间完全闭合。有人不想看到窗外。",
+          "investigate": "你用手指拨开一条叶片的缝隙。窗外不是城市。是一片漆黑的水面。水面很远在下方。像是这栋楼建在海崖上。水面上有波纹。没有月光照在上面。水自己在发出幽蓝色的微光。你把叶片放回去。"
+        }
+      },
+      "hiding_spots": ["under_bed", "closet"],
+      "ambient": {
+        "sound": "非常安静。偶尔能听到笔记本页面自己翻动的声音。但没有风。",
+        "smell": "旧纸张。墨水。还有一种很淡的海水味。",
+        "temperature": "冷。",
+        "light": "床头灯。暖色。但灯光照不到房间的角落。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_2", "patient_room", "clue_critical", "lore"],
+      "first_visit_event": null
+    },
+
+    "surgery_prep": {
+      "name": "手术准备室",
+      "name_en": "Surgery Preparation Room",
+      "floor": 2,
+      "description_brief": "手术准备室。里面有什么东西。你的大脑拒绝处理你看到的画面。",
+      "description_full": "推开门的一瞬间你就知道这里不对。不是视觉上不对。是你身体里的每一个细胞都在告诉你不要进去。手术准备室中间的手术台上有什么东西。你的眼睛在看它，但你的大脑拒绝构建图像。它像是一团——不。你没有词汇来描述它。它不大。大概婴儿的大小。但它的形状在变化。不是在动。是它同时是很多个形状。你看它的时候会头痛。手术台旁边的托盘上有一块金属碎片在反光。",
+      "connections": {
+        "north": "corridor_2f"
+      },
+      "items": ["scalpel", "key_fragment_surgery"],
+      "clues": ["clue_surgery_thing"],
+      "features": {
+        "the_thing": {
+          "name": "手术台上的东西",
+          "description": "无法描述。你的视觉皮层在尝试渲染它但持续失败。你能感知到的只有：它是湿润的。它在呼吸。它知道你在看它。",
+          "investigate": "不要试图理解它。每多看一秒你的理智就流失得更多。"
+        },
+        "instrument_tray": {
+          "name": "手术器械托盘",
+          "description": "标准的手术器械。手术刀、止血钳、缝合针。以及一块不属于手术器械的金属碎片。它的形状像是某种钥匙的一部分。",
+          "investigate": "金属碎片上刻着极小的字：'第一把钥匙。出去。快。'"
+        },
+        "monitoring_equipment": {
+          "name": "监控仪器",
+          "description": "生命体征监护仪还在运行。屏幕上显示着心率、血氧、血压。数值是正常的。是那个东西的生命体征。它活着。",
+          "investigate": "你靠近看屏幕。心率：72。血氧：98%。血压：120/80。完美的生命体征。然后你注意到屏幕左上角的患者名称栏。上面写着你的名字。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "监护仪的心跳声。你自己加速的心跳。还有一种你听不懂的声音，像是极低频率的嗡鸣，不是用耳朵听到的，是用骨头感受到的。",
+        "smell": "甲醛。血。还有一种不属于这个世界的气味——像是宇宙很远的地方的空气。冷的。空的。",
+        "temperature": "极冷。你能看到自己的呼吸。",
+        "light": "手术无影灯全部亮着。非常亮。但那个东西的周围光线在弯曲。"
+      },
+      "monster_spawn": true,
+      "monster_static": ["the_thing_in_surgery"],
+      "tags": ["floor_2", "danger_high", "key_fragment", "san_drain"],
+      "first_visit_event": "event_surgery_first_enter"
+    },
+
+    "storage_2f": {
+      "name": "二楼储物间",
+      "name_en": "Storage Room (2F)",
+      "floor": 2,
+      "description_brief": "杂物间。堆满了旧设备和用品。空间狭小但有藏身的地方。",
+      "description_full": "一间不大的储物间，堆满了旧轮椅、坏掉的输液架、几箱一次性用品。角落里有几条干净的毛巾和一条布带。靠墙的架子上有一台旧的对讲机，旁边是一卷绷带。这里很拥挤，但正因如此，有很多角落可以藏身。你注意到储物间的门可以从里面锁上。如果需要躲避什么，这里是个选择。",
+      "connections": {
+        "north": "corridor_2f"
+      },
+      "items": ["walkie_talkie", "blindfold"],
+      "clues": [],
+      "features": {
+        "old_wheelchairs": {
+          "name": "旧轮椅",
+          "description": "三把旧轮椅叠在一起。其中一把的扶手上绑着一条布条，上面用圆珠笔写着'我不想再回去了'。",
+          "investigate": "你检查轮椅。座垫下面有一张照片。一个中年男人和一个女孩的合影。照片背面写着：'爸爸说他们不是医生。'照片上的女孩大约十岁。你不认识她。但她的眼睛让你不舒服。不是因为她看起来可怕。而是因为她的眼睛在看镜头的后面。看着拍照的人的后面。看着更远的地方。看着你。"
+        },
+        "towels_and_cloth": {
+          "name": "毛巾和布带",
+          "description": "几条干净的白色毛巾。一条宽布带。布带可以用来蒙眼。"
+        },
+        "lockable_door": {
+          "name": "可锁的门",
+          "description": "标准的门锁。从里面可以锁上。如果需要躲避什么，锁上门至少能争取一些时间。"
+        }
+      },
+      "hiding_spots": ["behind_wheelchairs", "between_shelves"],
+      "ambient": {
+        "sound": "安静。偶尔有东西从架子上掉下来。但你回头看的时候什么都没掉。",
+        "smell": "灰尘。旧塑料。",
+        "temperature": "正常。",
+        "light": "一盏小灯泡。光线昏暗。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_2", "safe_haven", "supplies", "hiding"],
+      "first_visit_event": null
+    },
+
+    "bathroom_2f": {
+      "name": "二楼洗手间",
+      "name_en": "Bathroom (2F)",
+      "floor": 2,
+      "description_brief": "公共洗手间。镜子很大。当SAN值低的时候，镜子里会出现不该出现的东西。",
+      "description_full": "标准的医院公共洗手间。三个隔间，两个洗手池，一面巨大的镜子。灯光是冷白色的。水龙头自动感应式的，你站在前面它会自动出水。但当你离开的时候，水不会立刻停。它会继续流几秒，像是还有人站在那里。镜子非常干净。太干净了。你看着镜子里的自己，觉得镜子里的世界比镜子外面的更清晰。",
+      "connections": {
+        "north": "corridor_2f"
+      },
+      "items": [],
+      "clues": ["clue_bathroom_mirror"],
+      "features": {
+        "mirror": {
+          "name": "镜子",
+          "description": "一整面墙的大镜子。你的倒影看起来非常清晰。比你平时在镜子里看到的更清晰。好像镜子里的分辨率更高。",
+          "investigate": "你凑近看。镜子里的你也凑近了。你能看清镜中自己的每一个毛孔。太清楚了。然后你注意到镜子里你身后的走廊。走廊里有人。你转头看。走廊里没有人。",
+          "investigate_low_san": "（SAN<40时）你看着镜子。镜子里的你在微笑。你没有在微笑。镜子里的你慢慢抬起手，指着你身后。你不敢回头。镜子里你身后的走廊里站满了人。穿着病号服的人。他们都在看着你。他们的脸上没有五官。只有光滑的皮肤。"
+        },
+        "faucets": {
+          "name": "水龙头",
+          "description": "自动感应。你走过去就出水。离开还会多流几秒。",
+          "investigate": "你走到水龙头前。水流出来。正常。你后退一步。水停了。你再后退一步。水又开了。你看着它流了五秒才停。好像有人在你后退之后走到了水龙头前面。"
+        },
+        "stalls": {
+          "name": "隔间",
+          "description": "三个隔间。第一个门开着，空的。第二个门关着但没锁。第三个门关着，锁上了。",
+          "investigate": "你推开第二个隔间的门。空的。干净的。马桶盖放下了。但马桶盖的内侧用指甲刻着一行小字：'数手指'。你看了一眼锁着的第三个隔间。门缝下面没有灯光。但你能看到两只赤脚。朝着门站着。不动。"
+        }
+      },
+      "hiding_spots": ["stall_1", "stall_2"],
+      "ambient": {
+        "sound": "水龙头偶尔自己出水的声音。管道里的水流声。",
+        "smell": "洁厕剂。潮湿。",
+        "temperature": "潮湿，凉。",
+        "light": "冷白色日光灯。镜子把光反射得很亮。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_2", "san_sensitive", "mirror_anomaly"],
+      "first_visit_event": null
+    },
+
+    "corridor_3f": {
+      "name": "三楼走廊",
+      "name_en": "Third Floor Corridor",
+      "floor": 3,
+      "description_brief": "三楼比下面两层更暗。天花板的管道在发出声音。",
+      "description_full": "三楼走廊比一楼和二楼都暗。大部分灯管坏了或者在闪烁。天花板上裸露的管道比下面两层粗得多，发出间歇性的金属敲击声和吱嘎声。像是管道里有什么东西在移动。走廊的墙面有水渍，从天花板一直延伸到地面。水渍的形状不自然。不是水流下来的形状。更像是什么东西从管道里渗出来，沿着墙壁爬行留下的痕迹。空气里有铁锈和海水的味道。",
+      "connections": {
+        "down_stairs": "stairwell_3f",
+        "elevator": "elevator",
+        "north_1": "room_301",
+        "north_2": "room_302",
+        "north_3": "room_303",
+        "south_1": "icu",
+        "south_2": "morgue_entrance",
+        "east": "mysterious_door"
+      },
+      "items": [],
+      "clues": [],
+      "features": {
+        "pipes": {
+          "name": "天花板管道",
+          "description": "粗重的金属管道。有的是水管。有的你不确定是什么。其中一根管道的接缝处在往外渗透一种黏稠的、深色的液体。不是水。太稠了。",
+          "investigate": "你把手电筒照向管道。在光照到的瞬间，管道里面有什么东西动了。你看到了一截——不。你没有看到。你不应该看。管道里传来的声音变大了。它在朝你的方向移动。"
+        },
+        "wall_stains": {
+          "name": "墙上的水渍",
+          "description": "从天花板延伸到地面的深色痕迹。走近看。痕迹里嵌着什么。你蹲下来看。是指甲。人的指甲。嵌在墙面上。像是有什么东西在墙上爬行的时候，指甲脱落了。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "管道里的金属敲击声。吱嘎声。偶尔是爬行的摩擦声。还有远处的海浪声？不可能。这是医院三楼。",
+        "smell": "铁锈。海水。那种甜腐味最浓的一层。",
+        "temperature": "冷。湿冷。",
+        "light": "极暗。大部分灯坏了。需要手电筒。"
+      },
+      "monster_spawn": true,
+      "monster_patrol": ["the_crawler"],
+      "tags": ["floor_3", "corridor", "dark", "danger", "pipe_sounds"],
+      "first_visit_event": "event_3f_first_enter"
+    },
+
+    "stairwell_3f": {
+      "name": "二三楼楼梯间",
+      "name_en": "Stairwell (2F-3F)",
+      "floor": 2,
+      "description_brief": "连接二楼和三楼的楼梯间。门有时候打不开。",
+      "description_full": "和一楼的楼梯间结构相同。灰色水泥墙，绿色扶手。从二楼通往三楼。楼梯间的门有时候会卡住。不是锁的问题，而是门框好像在变形。你推的时候能感觉到木头在挤压。像是建筑本身在收缩。墙上的标识牌写着'2F ⇅ 3F'。楼梯的台阶上有划痕。不是鞋底的痕迹。是什么锋利的东西在台阶上拖行留下的。",
+      "connections": {
+        "down": "corridor_2f",
+        "up": "corridor_3f"
+      },
+      "items": [],
+      "clues": [],
+      "features": {
+        "sticking_door": {
+          "name": "卡住的门",
+          "description": "门框在变形。有时候很顺畅，有时候要用力推。当你用力推的时候，你能听到门框发出的声音不像木头。像骨头。",
+          "investigate": "你摸了摸门框。冰冷的。但有细微的脉搏。不是你的手在颤抖。是门框在搏动。"
+        },
+        "step_scratches": {
+          "name": "台阶上的划痕",
+          "description": "锋利的平行划痕。五道。间距和一楼药房天花板上的抓痕一样。从二楼一直延伸到三楼。有什么东西爬上去了。"
+        }
+      },
+      "hiding_spots": ["behind_door"],
+      "ambient": {
+        "sound": "水泥空间里放大的回声。上面传来的管道声。门框偶尔的吱嘎声。",
+        "smell": "混凝土。",
+        "temperature": "冷。",
+        "light": "应急灯。比一楼楼梯间暗。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_2", "floor_3", "transit"],
+      "first_visit_event": null
+    },
+
+    "room_301": {
+      "name": "301病房",
+      "name_en": "Room 301",
+      "floor": 3,
+      "description_brief": "窗外不是城市。是一片不应该存在的海洋。",
+      "description_full": "这间病房和楼下的病房格局一样。但窗户没有拉百叶窗。你一进门就看到了窗外的景象。不是城市夜景。是一片辽阔的、漆黑的海洋。月光照在水面上。海面在起伏。没有海岸线。没有陆地。只有水。从三楼的高度向下看，建筑直接伸入水中，像一座矗立在深海中间的灯塔。远处的海面上有微弱的光点在移动。不是船。光点在水面之下。",
+      "connections": {
+        "south": "corridor_3f"
+      },
+      "items": ["combination_hint_3"],
+      "clues": ["clue_ocean_view", "clue_underwater_lights"],
+      "features": {
+        "ocean_window": {
+          "name": "窗外的海洋",
+          "description": "这不是你来时看到的城市。这是一片完全的海洋。建筑像是从海里长出来的。水面幽暗。月光下能看到波浪。远处水面下有移动的光点。",
+          "investigate": "你把脸贴在玻璃上往下看。建筑的墙壁延伸到水面以下。你能看到水下的墙面上长满了藤壶和海藻。这栋建筑一直在这片海里。它不是被移到这里的。它从一开始就在这里。只是你从哪个方向进来，就看到什么景象。一楼是城市。三楼是海洋。这栋建筑同时存在于两个地方。"
+        },
+        "underwater_lights": {
+          "name": "水下的光点",
+          "description": "远处的海面下有东西在发光。蓝白色的光。在缓慢移动。不是鱼群。移动方式太有目的性了。像是在巡逻。",
+          "investigate": "你盯着那些光看了一会儿。其中一个光点突然停了。然后它开始朝你的方向移动。越来越近。越来越亮。你能看到光点下面有一个巨大的轮廓。不是鱼。不是任何你认识的生物。它在抬头。它在往上看。看着你所在的窗口。"
+        },
+        "nightstand_item": {
+          "name": "床头柜",
+          "description": "床头柜的抽屉半开着。里面有一张被海水泡皱了的纸条。"
+        }
+      },
+      "hiding_spots": ["under_bed", "closet"],
+      "ambient": {
+        "sound": "海浪声。非常清晰，像是窗户没有关。但窗户关着。",
+        "smell": "海水。盐。腐烂的海藻。",
+        "temperature": "湿冷。窗户玻璃上有水珠。",
+        "light": "月光透过窗户。银白色。"
+      },
+      "monster_spawn": true,
+      "monster_spawn_list": ["the_visitor"],
+      "tags": ["floor_3", "patient_room", "cosmic_horror", "lore", "ocean_view"],
+      "first_visit_event": "event_ocean_reveal"
+    },
+
+    "room_302": {
+      "name": "302病房",
+      "name_en": "Room 302",
+      "floor": 3,
+      "description_brief": "门上写着'限制进入'。需要门禁卡。里面有这栋医院真正的秘密。",
+      "description_full": "门上有一个电子门禁读卡器。旁边的标牌写着'限制进入。非授权人员禁止入内。'用挂号处找到的门禁卡可以打开。门禁读卡器的指示灯是红色的。你刷卡的时候，灯变绿了，但伴随着一声不像电子门锁的声音。更像是什么东西咽了一口口水。",
+      "connections": {
+        "south": "corridor_3f"
+      },
+      "items": [],
+      "clues": ["clue_302_files", "clue_302_photos", "clue_302_diagram"],
+      "features": {
+        "locked_door": {
+          "name": "电子门禁",
+          "description": "红灯。需要门禁卡。标牌显示仅限授权人员。",
+          "requires": "master_key_card"
+        },
+        "file_cabinet": {
+          "name": "文件柜",
+          "description": "四层文件柜。标签依次是：'折叠观测报告'、'维度锚定日志'、'患者转化记录'、'密封协议'。"
+        },
+        "wall_photos": {
+          "name": "墙上的照片",
+          "description": "十几张黑白照片。不同年代的。照片上是这栋医院。但每张照片里，医院的外部环境都不同。沙漠。雪原。森林。高山。海洋。城市。这栋医院在不同的地方出现过。",
+          "investigate": "最后一张照片的背面写着：'第17次锚定。持续时间：未知。预计下次折叠：——'后面是空白的。照片的拍摄日期不可能。比这栋建筑的建造年份早了一百年。"
+        },
+        "diagram_on_desk": {
+          "name": "桌上的图表",
+          "description": "一张复杂的图表。看起来像是某种数学模型。中心是一个标注为'锚点'的符号。从锚点向外延伸出多条线，每条线连接着一个标注为'现实层'的节点。有些节点画了叉。有些画了圆圈。最外层写着一行字。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "极度安静。没有任何外部声音能传进来。你能听到自己的血液在流动。",
+        "smell": "旧纸。墨水。和一种你形容不出的气味——像是空间本身的味道。",
+        "temperature": "温度不稳定。忽冷忽热。",
+        "light": "黑暗。需要手电筒。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_3", "locked", "lore_critical", "dark", "requires_keycard"],
+      "first_visit_event": "event_302_revelation"
+    },
+
+    "room_303": {
+      "name": "303病房",
+      "name_en": "Room 303",
+      "floor": 3,
+      "description_brief": "病房里有一个保险箱。密码锁。三位数。第二把钥匙碎片在里面。",
+      "description_full": "这间病房被改造过。床被推到角落里。房间中央放着一张桌子，桌上是一个小型保险箱。保险箱不大，大约鞋盒大小。三位数滚轮密码锁。墙上用记号笔写着一些数字和符号，像是某个人在试图算出什么。地上散落着废纸。这里有人长期住过。不是病人。是一个试图理解这栋医院的人。",
+      "connections": {
+        "south": "corridor_3f"
+      },
+      "items": ["key_fragment_303"],
+      "clues": ["clue_303_workings"],
+      "features": {
+        "safe": {
+          "name": "保险箱",
+          "description": "小型保险箱。三位数滚轮密码锁。金属外壳有划痕，有人试过暴力打开但没成功。",
+          "requires_combination": true,
+          "correct_combination": "4-7-2",
+          "on_correct": "保险箱打开了。里面是第二把钥匙碎片，和一张折叠的纸。",
+          "on_wrong": "密码不对。滚轮弹回。保险箱发出一声沉闷的声响。像心跳。"
+        },
+        "wall_calculations": {
+          "name": "墙上的计算",
+          "description": "数字、箭头、圆圈。有人在试图解码什么。大部分你看不懂。但你能看到几个反复出现的词：'循环'、'锚点'、'碎片'、'门'。还有一句话被框了起来：'它不是困住我们。它是保护外面的。'"
+        },
+        "scattered_papers": {
+          "name": "地上的废纸",
+          "description": "揉成团的纸。大部分是算错的数学公式。有一张纸上画了这栋医院的平面图。和你实际经历的布局基本一致，但太平间画在了地下室。旁边写着'它移了。搬到了三楼。它在试图靠近锚点。'",
+          "investigate": "你展开更多废纸。找到一张写着遗言的：'如果有人看到这些：密码分成了三份。我藏在我能确定不会变的地方。办公室。护士站。301。它们不会动因为里面没有东西住着。保险箱里的碎片拿到了就跑。303是安全的但不要待太久。待太久什么地方都不安全。'"
+        }
+      },
+      "hiding_spots": ["under_table", "behind_moved_bed"],
+      "ambient": {
+        "sound": "安静。但保险箱偶尔发出一声低沉的嗡鸣。像心跳。",
+        "smell": "纸张。铅笔灰。",
+        "temperature": "正常。",
+        "light": "灯管正常。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_3", "puzzle_room", "key_fragment"],
+      "first_visit_event": null
+    },
+
+    "icu": {
+      "name": "重症监护室",
+      "name_en": "ICU",
+      "floor": 3,
+      "description_brief": "ICU。仪器还在运行。一张病床上有一位'患者'。不要靠近看。",
+      "description_full": "玻璃隔断的重症监护室。四张病床。三张空着。第二张床上有人。至少看起来像人。被子盖到胸口，头部朝向天花板，眼睛闭着。生命监护仪显示着生命体征：心率42，极低。血氧89%，偏低。你能看到被子下的胸口在缓慢起伏。正常的呼吸频率是12-20次/分钟。你数了数。每分钟6次。太慢了。不像是活人的呼吸。更像是什么东西在模拟呼吸这个动作。",
+      "connections": {
+        "north": "corridor_3f"
+      },
+      "items": [],
+      "clues": ["clue_icu_patient"],
+      "features": {
+        "icu_patient": {
+          "name": "第二张床上的患者",
+          "description": "闭着眼。面色灰白。呼吸极慢。从这个距离看，像是一个正常的昏迷患者。但你越走近，就越觉得不对。",
+          "investigate": "你走近了一步。它的脸上有正常的五官。但你仔细看的时候，五官的位置偏了。眼睛之间的距离比正常人宽了大约两厘米。鼻子略微偏左。嘴巴太大了一点。像是有人在尝试画一张人脸，但参考的不是人类。",
+          "investigate_close": "你靠得更近了。你能看清它的皮肤。皮肤上有纹理。但不是人的毛孔纹理。是鳞片状的。非常细小的鳞片。像蛇。或者像鱼。然后它睁开了眼睛。瞳孔是水平的。像山羊。它没有攻击你。它只是看着你。然后它笑了。露出了太多的牙齿。"
+        },
+        "monitoring_displays": {
+          "name": "监护仪",
+          "description": "心率42。血氧89%。偶尔有心律不齐。但它还活着。如果它算是'活着'的话。",
+          "investigate": "你翻看监护仪的历史记录。数据可以追溯到——不对。数据从第一条开始就是今天的日期。但记录了超过48小时的数据。今天怎么可能有48小时的数据？"
+        },
+        "empty_beds": {
+          "name": "其他三张空床",
+          "description": "空的。干净的。但每张床的床垫上都有一个清晰的人形压痕。被子整齐。这些床上曾经有人。",
+          "investigate": "你摸了摸最近的空床。冷的。但床垫的压痕不像是人体重量造成的。太深了。像是有什么极重的东西长时间躺在上面。枕头上有液体痕迹。不是汗。有光泽。黏的。"
+        }
+      },
+      "hiding_spots": ["behind_glass_partition"],
+      "ambient": {
+        "sound": "监护仪的心跳声。42下/分钟。缓慢的。催眠的。你听久了会想跟着它呼吸。不要跟着它呼吸。",
+        "smell": "医院的消毒味。但在消毒味下面是海水的味道。这层楼到处都是海水味。",
+        "temperature": "冷。但第二张床附近更冷。",
+        "light": "监护仪的光。蓝绿色。走廊投射进来的光。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_3", "danger_medium", "horror", "lore"],
+      "first_visit_event": "event_icu_first_enter"
+    },
+
+    "morgue_entrance": {
+      "name": "太平间",
+      "name_en": "Morgue",
+      "floor": 3,
+      "description_brief": "太平间不应该在三楼。但它在这里。第三把钥匙碎片在里面。",
+      "description_full": "太平间。在三楼。你见过的每一家医院的太平间都在地下室。但这里的在三楼。门上的标牌确实写着'太平间'。推门进去，温度骤降。标准的太平间格局：不锈钢冷柜占了一整面墙。十二个柜门。你能看到有三个柜门上贴着标签但看不清。地上有水，从冷柜底下渗出来的。不是冷凝水。太多了。而且有咸味。角落里有一张不锈钢操作台，上面有一个金属碎片。第三把钥匙碎片。但这里有东西在守着它。",
+      "connections": {
+        "north": "corridor_3f"
+      },
+      "items": ["key_fragment_morgue"],
+      "clues": ["clue_morgue_tags"],
+      "features": {
+        "cold_cabinets": {
+          "name": "冷柜",
+          "description": "十二个抽屉。三个贴着标签。其余九个空的。",
+          "investigate": "你看清了标签。第一个写着你的名字。第二个写着你同伴的名字。第三个写着一个你不认识的名字。你打开第三个。里面是空的。但抽屉内壁上画满了符号。和302室图表上的符号一样。"
+        },
+        "operation_table": {
+          "name": "不锈钢操作台",
+          "description": "台面上有一块金属碎片。第三把钥匙碎片。旁边放着一把骨锯，锯齿上有暗色的痕迹。",
+          "investigate": "你拿起钥匙碎片。很冷。冷到你的手指发麻。碎片上刻着和其他碎片一样的小字：'第三把钥匙。你已经有了全部。去三楼走廊尽头。门在等你。'"
+        },
+        "floor_water": {
+          "name": "地上的水",
+          "description": "从冷柜底下渗出来的液体。太多了。而且是咸的。像海水。有东西从冷柜里渗出来。",
+          "investigate": "你蹲下来。液体温温的。不像是制冷系统泄漏。你顺着液体看向冷柜底部。液体不是从柜子里面渗出来的。是从柜子后面的墙壁里渗出来的。墙壁后面是什么？这是三楼的外墙。窗外应该是——海洋。水从海里渗进来了。"
+        }
+      },
+      "hiding_spots": ["behind_cabinets"],
+      "ambient": {
+        "sound": "冷柜的压缩机声。水滴声。偶尔有金属碰撞声，像是某个抽屉从里面被推了一下。",
+        "smell": "甲醛。海水。冷金属。还有腐败的味道。",
+        "temperature": "极冷。你能看到呼吸。",
+        "light": "黑暗。需要手电筒。顶灯开关在墙上但灯管坏了。"
+      },
+      "monster_spawn": true,
+      "monster_spawn_list": ["the_crawler"],
+      "tags": ["floor_3", "dark", "danger_high", "key_fragment", "spatial_anomaly", "guarded"],
+      "first_visit_event": "event_morgue_first_enter"
+    },
+
+    "mysterious_door": {
+      "name": "尽头的门",
+      "name_en": "The Mysterious Door",
+      "floor": 3,
+      "description_brief": "三楼走廊尽头的一扇门。它在午夜之前不存在。这是出口。",
+      "description_full": "走廊尽头。在午夜之前，这里只是一面白墙。但过了午夜，墙上出现了一扇门。不是安装上去的。是从墙里面长出来的。门框是深色的木头，纹理像血管。门上有三个锁孔。每个锁孔的形状都不同。你能感觉到门后面有什么东西。不是另一个房间。是另一个'外面'。空气从门缝里往外流。暖的。有阳光的味道。这是你来的地方。你回去的路。",
+      "connections": {
+        "west": "corridor_3f"
+      },
+      "items": [],
+      "clues": [],
+      "features": {
+        "the_door": {
+          "name": "门",
+          "description": "深色木门。纹理像血管。三个锁孔呈三角形排列。门缝里往外流着温暖的空气。门后面是出口。你能感觉到。",
+          "requires": ["key_fragment_surgery", "key_fragment_303", "key_fragment_morgue"],
+          "on_all_keys": "你把三块碎片依次插入锁孔。每插入一块，门就震动一下。三块全部插入后，门发出了一声长长的叹息。像是活物。门开了。门后面是温暖的光。不是医院的日光灯。是太阳光。你能闻到外面世界的气味。草。泥土。排气管。人类的世界。你回来了。",
+          "on_incomplete": "三个锁孔。你还缺少碎片。门不会为你打开。"
+        },
+        "door_frame": {
+          "name": "门框",
+          "description": "深色木头。但仔细看不像是木头。表面太光滑了。有温度。你把手放上去的时候，能感觉到细微的搏动。这不是木头。这是骨头。某种极大的生物的骨头。",
+          "investigate": "你沿着门框摸上去。到最高处的时候，你的手指碰到了一行凸起的字。盲文？不是。你把手电照上去。是一行极小的字，刻在骨头上：'每一次有人离开，折叠就松一点。我再多关不了几次了。'落款处刻着一个符号。和302室图表中心的'锚点'符号一样。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "门缝里传来的风声。温暖的。像呼吸。像在说'来'。",
+        "smell": "门缝外面的空气：阳光、泥土、汽车尾气。人间的味道。",
+        "temperature": "门附近是温暖的。和医院里的冷形成对比。",
+        "light": "门缝里透出微弱的暖光。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_3", "exit", "cosmic_horror", "endgame"],
+      "first_visit_event": "event_door_appears"
+    },
+
+    "elevator_4f": {
+      "name": "四楼",
+      "name_en": "Floor 4",
+      "floor": 4,
+      "description_brief": "不应该存在的楼层。你不应该在这里。",
+      "description_full": "电梯门打开了。这不是一个楼层。这是一个空间。天花板极高，你看不到尽头。地面是光滑的黑色石头，反射着什么光源，但你找不到光从哪里来。没有墙壁。往任何一个方向看都是无限延伸的黑暗。但不完全是黑暗。远处有什么东西。巨大的。沉默的。你的大脑试图估算它的大小但失败了。因为没有参照物。它可能在一百米之外。也可能在一公里之外。它不动。但你知道它知道你在这里。这就是折叠之间的空间。这就是那些东西来自的地方。你多待一秒，你的理智就少一点。",
+      "connections": {
+        "elevator": "elevator"
+      },
+      "items": [],
+      "clues": ["clue_4f_truth"],
+      "features": {
+        "the_void": {
+          "name": "虚空",
+          "description": "无限延伸的空间。黑色石面。远处的巨大存在。你试图不去理解它。理解它会让你疯掉。",
+          "investigate": "你往前走了一步。地面发出清脆的回声。回声没有减弱。它变大了。越来越大。像是有什么东西在回应。远处的巨大存在动了。不是朝你。是它的一部分——一个你之前以为是它身体一部分的东西——其实是一只眼睛。它睁开了。那只眼睛比你待的整栋医院还大。你现在知道了。医院不是建在维度折叠里的。医院是长在它身上的。一颗寄生物。你们所有人都在它体内。回到电梯。现在。"
+        }
+      },
+      "hiding_spots": [],
+      "ambient": {
+        "sound": "完全的寂静。但你的耳朵在嗡鸣。越来越大声。不是外部的声音。是你的大脑在尖叫。",
+        "smell": "什么都没有。连空气的味道都没有。真空不应该有味道。但你能呼吸。这不是真空。这是'什么都没有'本身。",
+        "temperature": "感觉不到温度。不是因为温度正好。是因为你的皮肤不再传递信号了。",
+        "light": "无来源的灰色光。没有阴影。因为光从所有方向来。或者不从任何方向来。"
+      },
+      "monster_spawn": false,
+      "tags": ["floor_4", "forbidden", "cosmic_horror", "san_extreme", "lore_ultimate", "dark"],
+      "first_visit_event": "event_4f_arrival"
+    }
+  }
+}

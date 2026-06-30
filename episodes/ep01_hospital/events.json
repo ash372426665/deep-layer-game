@@ -1,0 +1,622 @@
+{
+  "events": {
+    "event_arrival": {
+      "id": "event_arrival",
+      "name": "到达",
+      "trigger": {
+        "type": "game_start",
+        "conditions": {}
+      },
+      "once": true,
+      "narration": "你们推开医院大门的时候，门的触感不对。不是玻璃门该有的光滑。像是按在了一层皮肤上。门在你们身后关上了。很安静。没有风。只有叫号屏幕的嗡嗡声。屏幕上跳着一个数字：0047。你回头看门。从里面看，玻璃门后面不是你们刚才站的街道。是一面白墙。你试着推门。推不动。不是锁了。是门后面没有空间了。像是门后面的世界被一面墙替代了。你们进来了。但'外面'消失了。",
+      "effects": {
+        "narrative": true,
+        "room_change": null,
+        "san_change": -5,
+        "hp_change": 0,
+        "item_appear": null,
+        "monster_activate": null,
+        "set_flag": "arrived"
+      }
+    },
+
+    "event_corridor_1f_first": {
+      "id": "event_corridor_1f_first",
+      "name": "第一次进入一楼走廊",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "corridor_1f"
+        }
+      },
+      "once": true,
+      "narration": "走廊比你预想的长。你开始走的时候数了数头顶的灯管。十四盏。你走了大概二十步。再数。还是十四盏。不是你没走。是走廊在和你一起伸展。你同伴的脚步在旁边。你们对视了一眼。都注意到了。走廊的尽头，最远处的灯管在闪。短短长。短短长。像某种信号。",
+      "effects": {
+        "narrative": true,
+        "san_change": -3,
+        "set_flag": "corridor_1f_visited"
+      }
+    },
+
+    "event_find_zhouqing": {
+      "id": "event_find_zhouqing",
+      "name": "发现周晴",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "pharmacy"
+        }
+      },
+      "once": true,
+      "narration": "你走进药房的时候，听到了呼吸声。从最后一排药柜后面传来的。很轻。像是有人在极力控制自己不被发现。你绕过去看。一个年轻女孩蜷缩在药柜后面的地板上。马尾辫。大学运动外套。她看到你的那一秒，眼睛里全是恐惧。然后恐惧里有了别的东西。希望。她张了张嘴，声音细得像蚊子叫：'你……你是活的？'",
+      "effects": {
+        "narrative": true,
+        "npc_found": "zhou_qing",
+        "san_change": 0,
+        "set_flag": "zhouqing_found"
+      }
+    },
+
+    "event_linyuan_first_contact": {
+      "id": "event_linyuan_first_contact",
+      "name": "第一次接触林远",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "room_202"
+        }
+      },
+      "once": true,
+      "narration": "你敲门。里面安静了一秒。然后一个沙哑的声音：'别进来。求你了。别进来。'你说你是人。他又沉默了。'你怎么证明？'他问。声音在颤抖。'上一个来敲门的也说自己是人。但她没有影子。'",
+      "effects": {
+        "narrative": true,
+        "npc_interaction": "lin_yuan_first_contact",
+        "san_change": 0,
+        "set_flag": "linyuan_contacted"
+      }
+    },
+
+    "event_2f_first_sight": {
+      "id": "event_2f_first_sight",
+      "name": "第一次看到回诊者",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "corridor_2f"
+        }
+      },
+      "once": true,
+      "narration": "你从楼梯间出来。二楼走廊。比一楼暗。两侧是病房门。然后你看到了。走廊远端。大约三十米外。有一个人影。白色病号服。赤脚。背对着你站着。一动不动。你能看到苍白的后颈和湿漉漉的头发。然后它转过来了。慢慢地。像是有人在转动一尊雕像。你看到了它的脸。脸上有五官。但不对。什么地方不对。你说不出来。但你身体里每一个细胞都在说——那不是人的脸。它在看你。",
+      "effects": {
+        "narrative": true,
+        "monster_encounter": "the_patient",
+        "san_change": -8,
+        "set_flag": "patient_first_sight"
+      }
+    },
+
+    "event_er_mannequin": {
+      "id": "event_er_mannequin",
+      "name": "急诊室人体模型",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "emergency_room"
+        }
+      },
+      "once": true,
+      "narration": "急诊室。六张病床。第三张的帘子拉着。你能看到帘子后面的人形轮廓。不在动。你走过去拉开帘子。一个人体模型。穿着病号服。坐在床上。画着微笑的脸朝着你。它的右手在指着什么。你顺着它手指的方向看——墙上的时钟。指针停在11:47。你看了看自己的手机。也是11:47。也许只是巧合。你放下帘子。继续探索。五分钟后你路过这张床。帘子开着。人体模型的手不再指着时钟了。它的手，现在指着门口。指着你刚才进来的方向。指着你将要离开的方向。",
+      "effects": {
+        "narrative": true,
+        "san_change": -5,
+        "set_flag": "mannequin_seen"
+      }
+    },
+
+    "event_stairwell_sound": {
+      "id": "event_stairwell_sound",
+      "name": "楼梯间下方的声音",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "stairwell_1f"
+        }
+      },
+      "once": true,
+      "narration": "你走进楼梯间。灰色墙壁。绿色扶手。往上通往二楼。你自然地往下看了一眼。楼梯在半层的转角处结束。一面灰色的墙。没有地下室。但你听到了声音。从墙后面。拖沓的脚步声。一步。两步。三步。停了。安静了几秒。然后又开始了。一步。两步。三步。停了。循环着。像是有人在墙后面来回走。在一个不应该存在的空间里来回走。",
+      "effects": {
+        "narrative": true,
+        "san_change": -3,
+        "set_flag": "stairwell_sound_heard"
+      }
+    },
+
+    "event_surgery_first_enter": {
+      "id": "event_surgery_first_enter",
+      "name": "第一次进入手术准备室",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "surgery_prep"
+        }
+      },
+      "once": true,
+      "narration": "你推开门。冷气扑面而来。手术无影灯全部亮着。然后你看到了手术台上的东西。你的眼睛在看。但你的大脑——你的大脑在尖叫。不是恐惧。是过载。你的视觉系统在试图渲染一个不属于三维空间的形状。它像——不。你没有词汇。它同时是很多个形状。所有的形状。它在呼吸。监护仪上的数字在跳动。72。98%。120/80。它活着。你的鼻子开始流血了。不是因为受伤。是因为你的大脑内部有什么东西在因为处理这些图像而过载。出去。现在就出去。或者蒙上眼睛。",
+      "effects": {
+        "narrative": true,
+        "san_change": -30,
+        "hp_change": 0,
+        "monster_encounter": "the_thing_in_surgery",
+        "set_flag": "surgery_seen",
+        "warning": "SAN is draining rapidly. Leave the room or use the blindfold."
+      }
+    },
+
+    "event_3f_first_enter": {
+      "id": "event_3f_first_enter",
+      "name": "第一次进入三楼",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "corridor_3f"
+        }
+      },
+      "once": true,
+      "narration": "三楼。第一步踏出楼梯间的时候，你就知道这里不一样了。灯管坏了大半。走廊几乎是黑暗的。天花板上的管道比下面两层粗了一圈。管道在发出声音。不是水流。是什么东西在里面移动。刮擦声。爬行声。墙上有水渍——但你用手电照过去的时候，水渍里嵌着指甲。人的指甲。脱落了。嵌在灰浆里。像是有什么东西在这面墙上爬行。空气比楼下冷了很多度。而且你闻到了海水的味道。在医院三楼。海水味。",
+      "effects": {
+        "narrative": true,
+        "san_change": -5,
+        "set_flag": "floor_3_entered"
+      }
+    },
+
+    "event_ocean_reveal": {
+      "id": "event_ocean_reveal",
+      "name": "301窗外的海洋",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "room_301"
+        }
+      },
+      "once": true,
+      "narration": "你走进301病房。窗户没有拉帘子。月光照进来。很亮。你走向窗户——然后你停住了。窗外不是城市。你来的时候看到的楼群、灯光、街道——都不在了。窗外是海。一片无边无际的、漆黑的海洋。月光照在水面上，波浪在起伏。你在三楼。从这个高度往下看，建筑的墙壁直接伸入海水中。像一座灯塔矗立在深海中央。远处的水面下有蓝色的光点在移动。这不是你来的那个世界。你在三楼看到的和一楼看到的不是同一个'外面'。",
+      "effects": {
+        "narrative": true,
+        "san_change": -10,
+        "set_flag": "ocean_seen"
+      }
+    },
+
+    "event_302_revelation": {
+      "id": "event_302_revelation",
+      "name": "302的真相",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "room_302",
+          "requires_item": "master_key_card"
+        }
+      },
+      "once": true,
+      "narration": "门禁卡贴上读卡器。绿灯亮了。伴随着一声不像电子锁的声音——更像是什么东西吞咽的声音——门打开了。里面漆黑。你的手电筒照进去。文件柜。照片。图表。这个房间不是病房。这是一个研究室。有人在这里研究这栋建筑。系统性地、科学地研究它。墙上的照片展示了这栋建筑出现在沙漠里、雪原上、森林中、海面上、城市中的样子。十几个不同的世界。同一栋建筑。它一直在移动。在维度之间移动。你不是被困在一栋医院里。你被困在一个跨维度的寄生结构里。",
+      "effects": {
+        "narrative": true,
+        "san_change": -8,
+        "set_flag": "truth_revealed"
+      }
+    },
+
+    "event_door_appears": {
+      "id": "event_door_appears",
+      "name": "门出现了",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "00:00",
+          "player_on_floor": 3
+        },
+        "alternative_trigger": {
+          "type": "room_enter_first",
+          "conditions": {
+            "room": "mysterious_door",
+            "time_after": "00:00"
+          }
+        }
+      },
+      "once": true,
+      "narration": "午夜。整栋楼同时发出了一声低沉的、持续的嗡鸣。像是建筑本身在呻吟。然后嗡鸣停了。一切安静了两秒。接着你感觉到了——空气的变化。三楼走廊尽头，你确定刚才只是一面白墙的地方，现在有了一扇门。深色木门。门框的纹理像血管。它不是被安装上去的。它是从墙里面长出来的。门上有三个锁孔。门缝里透着温暖的光。外面世界的光。你能闻到阳光的味道。这是出口。但它需要三把钥匙。",
+      "effects": {
+        "narrative": true,
+        "room_change": "mysterious_door_accessible",
+        "san_change": 5,
+        "set_flag": "door_appeared"
+      }
+    },
+
+    "event_4f_arrival": {
+      "id": "event_4f_arrival",
+      "name": "到达四楼",
+      "trigger": {
+        "type": "room_enter",
+        "conditions": {
+          "room": "elevator_4f"
+        }
+      },
+      "once": false,
+      "narration": "电梯门打开了。这不是楼层。这不是任何东西。你面前是一片无限延伸的黑色平面。没有墙壁。没有天花板——不，有天花板。太高了。你看不到。光源不知道在哪里。在这个空间的远处，有一个巨大的存在。你的大脑试图估算它的大小。失败了。因为它太大了。你没有处理这个尺度的认知能力。它不动。但你知道它知道你在这里。每多待一秒，你的理智就少一块。你的大脑在融化。不是比喻。你能感觉到你理解世界的框架在一片一片地脱落。回到电梯。按任何一个按钮。回去。现在。",
+      "effects": {
+        "narrative": true,
+        "san_change": -25,
+        "set_flag": "floor_4_visited",
+        "continuous_san_drain": -10,
+        "game_over_check": "san_below_0"
+      }
+    },
+
+    "event_midnight_bells": {
+      "id": "event_midnight_bells",
+      "name": "午夜钟声",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "00:00"
+        }
+      },
+      "once": true,
+      "narration": "你的手机震动了。屏幕显示00:00。在这同一秒，整栋楼的广播系统响了。不是广播。是一段音乐。像是音乐盒的旋律，但速度太慢了。每个音符之间隔了太长的时间。旋律你听不出来。但你的身体在起鸡皮疙瘩。音乐播完了。然后广播里传来一个声音——不是录音。是现场的。一个女人的声音。温和的。专业的：'各位患者，夜间查房即将开始。请回到您的病床配合检查。不配合的患者将接受特殊护理。'广播结束。走廊上传来了脚步声。值班护士上线了。",
+      "effects": {
+        "narrative": true,
+        "monster_activate": "the_night_nurse",
+        "san_change": -5,
+        "set_flag": "midnight_passed",
+        "global_announcement": true
+      }
+    },
+
+    "event_0130_visitor_active": {
+      "id": "event_0130_visitor_active",
+      "name": "探病者出现",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "00:30"
+        }
+      },
+      "once": true,
+      "narration": "你经过一间病房的时候，听到了哭声。从门后面传来的。很轻。是在抽泣。不是恐惧的哭。是悲伤的哭。像是有人在为失去的人哭泣。",
+      "effects": {
+        "narrative": true,
+        "monster_activate": "the_visitor",
+        "set_flag": "visitor_active"
+      }
+    },
+
+    "event_0200_crawler_active": {
+      "id": "event_0200_crawler_active",
+      "name": "管中物醒了",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "02:00"
+        }
+      },
+      "once": true,
+      "narration": "凌晨两点。管道开始响了。不是之前那种偶尔的滴水和嘎吱声。是移动的声音。是什么东西在金属管道里面爬行。声音从远处开始。然后越来越近。越来越近。经过你头顶的时候，你能看到管道因为承受重量而轻微弯曲。有黑色的液体从管道接缝处渗出来。滴在了地上。温热的。不要抬头。不要抬头。",
+      "effects": {
+        "narrative": true,
+        "monster_activate": "the_crawler",
+        "san_change": -5,
+        "set_flag": "crawler_active"
+      }
+    },
+
+    "event_0300_all_bells": {
+      "id": "event_0300_all_bells",
+      "name": "凌晨三点的呼叫铃",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "03:00"
+        }
+      },
+      "once": true,
+      "narration": "三点整。没有任何征兆。整栋楼的呼叫铃同时响了。所有病房的。所有楼层的。刺耳的铃声从四面八方涌来，像一百只蜂鸣器同时启动。持续了整整三十秒。然后突然停了。回归到彻底的寂静。寂静比铃声更可怕。因为在铃声停了之后，你意识到——走廊上的灯又暗了一点。温度又降了几度。空气里那种甜腐的味道变浓了。三点。这栋楼在加速。不管它在做什么，它在加速。",
+      "effects": {
+        "narrative": true,
+        "san_change": -8,
+        "global_effect": "all_monsters_aggression_increase",
+        "environment_change": "lights_dimmer_temperature_drop",
+        "set_flag": "three_am_bells",
+        "san_passive_drain_start": true
+      }
+    },
+
+    "event_0333_walkie_talkie": {
+      "id": "event_0333_walkie_talkie",
+      "name": "3:33的对讲机信号",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "03:33",
+          "player_has_item": "walkie_talkie"
+        }
+      },
+      "once": true,
+      "narration": "对讲机突然响了。不是你频道上的信号。是一段静电噪音。你凑近听。噪音里有什么。像声音。不是任何你认识的语言。但你的大脑在试图理解。你听了大概十秒。然后你意识到——你的鼻子在流血。你把对讲机关了。鼻血停了。那段声音里有什么你的大脑不应该解码的东西。和手术室里的东西一样——不是给人类准备的信息。",
+      "effects": {
+        "narrative": true,
+        "san_change": -5,
+        "hp_change": -5,
+        "set_flag": "walkie_signal_received"
+      }
+    },
+
+    "event_0400_phone_ring": {
+      "id": "event_0400_phone_ring",
+      "name": "凌晨四点的电话",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "04:00"
+        }
+      },
+      "once": true,
+      "narration": "四点。不知道哪间病房里的电话响了。铃声在空旷的走廊里回荡。正常的电话铃声。非常正常。你知道不应该去接。但铃声就是不停。一声。两声。三声。每响一次，你的好奇心就多一分。十声。二十声。铃声像是在朝你走过来。不是声音在变大。是铃声在移动。从远处的房间，一步一步靠近。最后铃声停在了你旁边最近的那间病房门后面。然后一个声音。不是从电话里传来的。是从门后面传来的。一个你不认识的声音：'你的号码是0048。请到三楼303室。'",
+      "effects": {
+        "narrative": true,
+        "san_change": -8,
+        "set_flag": "phone_ring_heard"
+      }
+    },
+
+    "event_0500_escalation": {
+      "id": "event_0500_escalation",
+      "name": "黎明前的加速",
+      "trigger": {
+        "type": "time_based",
+        "conditions": {
+          "time": "05:00"
+        }
+      },
+      "once": true,
+      "narration": "五点了。还有一个小时。但你能感觉到——整栋楼在变化。走廊更短了。不是错觉。是真的更短了。楼开始收缩。病房的门在挪位。楼梯间的台阶变多了。空气变得更稠。管道里的声音几乎没有停过。值班护士出现的频率更高了。走廊尽头总是有一个站着的人影。你闻到的不再只是甜腐味了。你闻到了泥土。新鲜的泥土。像有人在挖坑。这栋楼在为黎明做准备。如果六点到来的时候你还在里面——你就不再是访客了。你会成为这里的一部分。和其他47个人一样。",
+      "effects": {
+        "narrative": true,
+        "san_change": -10,
+        "global_effect": "maximum_monster_aggression",
+        "environment_change": "building_contracting_all_lights_flickering",
+        "set_flag": "final_hour",
+        "monster_speed_increase": 1.5
+      }
+    },
+
+    "event_morgue_first_enter": {
+      "id": "event_morgue_first_enter",
+      "name": "太平间",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "morgue_entrance"
+        }
+      },
+      "once": true,
+      "narration": "太平间。三楼。太平间应该在地下室。不是三楼。但它在这里。门上的标牌确确实实写着'太平间'。推门进去，冷气包围了你。不锈钢冷柜占了一整面墙。十二个柜门。三个贴着标签。你凑近看第一个标签。上面是你的名字。你退了一步。看第二个标签。是你同伴的名字。你的胃在翻涌。第三个是一个陌生人的名字。地上有水。从冷柜底下渗出来的。尝起来是咸的。海水。三楼的海水。从墙壁的另一边渗进来了。你需要拿到操作台上的碎片。然后马上离开。",
+      "effects": {
+        "narrative": true,
+        "san_change": -12,
+        "set_flag": "morgue_entered"
+      }
+    },
+
+    "event_icu_first_enter": {
+      "id": "event_icu_first_enter",
+      "name": "ICU的患者",
+      "trigger": {
+        "type": "room_enter_first",
+        "conditions": {
+          "room": "icu"
+        }
+      },
+      "once": true,
+      "narration": "ICU的玻璃门是自动的。你走近的时候它开了。迎接你的是监护仪的心跳声。42次/分。第二张床上有人。被子盖到胸口。眼睛闭着。面色灰白。胸口在缓慢起伏。太慢了。每分钟大约六次。你的本能让你想走过去检查生命体征。但你的直觉——不是理性的直觉，是动物的直觉——在让你停下来。远处看。不要靠近。",
+      "effects": {
+        "narrative": true,
+        "san_change": -5,
+        "set_flag": "icu_entered"
+      }
+    },
+
+    "event_san_hallucination_40": {
+      "id": "event_san_hallucination_40",
+      "name": "SAN值40以下幻觉",
+      "trigger": {
+        "type": "condition",
+        "conditions": {
+          "san_below": 40
+        }
+      },
+      "once": false,
+      "repeatable_cooldown_turns": 5,
+      "narration_pool": [
+        "你的余光里有东西在动。你转头看。什么都没有。但你确定你看到了。一张脸。在墙壁里面。",
+        "走廊里的墙壁在呼吸。不是你的想象。你能看到墙面在微微起伏。像皮肤。有温度的皮肤。",
+        "你听到了你自己的声音。从隔壁房间传来。你自己的声音在叫你的名字。但你没有在说话。",
+        "地板上的瓷砖图案在变化。你低头看的时候它在移动。像水面上的涟漪。但地面是干的。你的脚在下沉——不。你没有在下沉。你在产生幻觉了。",
+        "你的手指——你的手指是不是多了一节？你数了数。五根手指。每根三个指节。正常的。但刚才你数的时候感觉多了一个。你再数一遍。三个指节。对的。对的。"
+      ],
+      "effects": {
+        "narrative": true,
+        "san_change": 0,
+        "set_flag": "hallucinating"
+      }
+    },
+
+    "event_san_severe_20": {
+      "id": "event_san_severe_20",
+      "name": "SAN值20以下严重幻觉",
+      "trigger": {
+        "type": "condition",
+        "conditions": {
+          "san_below": 20
+        }
+      },
+      "once": false,
+      "repeatable_cooldown_turns": 3,
+      "narration_pool": [
+        "你看到了走廊尽头的门。门是打开的。里面是你的家。你的卧室。你的床。一切都很熟悉。但你知道那不是真的。你的家不可能在三楼的走廊尽头。你眨了眨眼。门消失了。",
+        "你的手机在响。来电显示是你妈妈的号码。你几乎要接了。但你停下来看了看手机屏幕。上面的数字不是你妈妈的号码。是0047。所有的数字都是0047。",
+        "你不确定你的同伴在不在你身边了。你看着那个方向。人在。但脸——你没办法看清那张脸。像是马赛克一样模糊。你的大脑拒绝渲染面部。你能听到声音。但看不清脸。这让你非常害怕。",
+        "墙壁在流血。不。是碘酒。不。你已经分不清了。你能闻到铁的味道。但也许那是你自己的鼻血。你的鼻子又在流血了。"
+      ],
+      "effects": {
+        "narrative": true,
+        "san_change": -2,
+        "warning": "SAN critically low. Seek sedatives or safe room immediately.",
+        "set_flag": "severe_hallucination"
+      }
+    },
+
+    "event_all_keys_collected": {
+      "id": "event_all_keys_collected",
+      "name": "三把钥匙全部收集",
+      "trigger": {
+        "type": "condition",
+        "conditions": {
+          "has_items": ["key_fragment_surgery", "key_fragment_303", "key_fragment_morgue"]
+        }
+      },
+      "once": true,
+      "narration": "三块碎片都在你手里了。在你把最后一块碎片和前两块放在一起的那一刻——它们开始互相吸引。像磁铁。三块碎片在你的手掌里滑动，靠近，吻合。它们组成了一把完整的钥匙——不。不是钥匙。是一个三叉形的东西。每一个叉对应一个锁孔。你能感觉到它在振动。在指引你。它在告诉你门的方向。三楼走廊尽头。去吧。在黎明之前。",
+      "effects": {
+        "narrative": true,
+        "san_change": 10,
+        "set_flag": "all_keys_collected",
+        "hint": "Go to the mysterious door on floor 3."
+      }
+    },
+
+    "event_npc_linyuan_death": {
+      "id": "event_npc_linyuan_death",
+      "name": "林远死亡",
+      "trigger": {
+        "type": "condition",
+        "conditions": {
+          "npc_dead": "lin_yuan"
+        }
+      },
+      "once": true,
+      "narration": "林远倒下了。他的眼镜飞了出去。落在地上的时候镜片碎了。他的脸上最后的表情不是恐惧。是困惑。纯粹的、学术性的困惑。好像死亡本身是一个他没有计算到的变量。他的眼睛还睁着。瞳孔里倒映着天花板的灯管。你帮他合上了眼睛。他的眼皮很冷。",
+      "effects": {
+        "narrative": true,
+        "san_change": -15,
+        "set_flag": "linyuan_dead",
+        "scoring_impact": "all_npcs_alive_bonus_lost"
+      }
+    },
+
+    "event_npc_zhouqing_death": {
+      "id": "event_npc_zhouqing_death",
+      "name": "周晴死亡",
+      "trigger": {
+        "type": "condition",
+        "conditions": {
+          "npc_dead": "zhou_qing"
+        }
+      },
+      "once": true,
+      "narration": "周晴的马尾辫散了。她倒在地上的时候，她的运动外套的拉链反着光。她的手还保持着刚才的姿势——朝前伸着。像是在推开什么。或者在拉住什么。她的嘴微张着。最后说的那个字你没有听清。但你觉得是一个名字。也许是叫你。也许是叫别的什么人。你不知道。你蹲下来。她的眼角有一滴眼泪。已经干了。",
+      "effects": {
+        "narrative": true,
+        "san_change": -20,
+        "set_flag": "zhouqing_dead",
+        "scoring_impact": "all_npcs_alive_bonus_lost"
+      }
+    },
+
+    "event_escape_success": {
+      "id": "event_escape_success",
+      "name": "逃出",
+      "trigger": {
+        "type": "condition",
+        "conditions": {
+          "room": "mysterious_door",
+          "has_items": ["key_fragment_surgery", "key_fragment_303", "key_fragment_morgue"],
+          "action": "use_key"
+        }
+      },
+      "once": true,
+      "narration": "你把三叉形的钥匙插入三个锁孔。每插入一个叉，门就震动一下。伴随着骨骼一样的门框的嘎吱声。三个都插好了。钥匙自己转了。门发出了一声长长的叹息。像是活物。像是如释重负。门开了。门后面是温暖的光。不是日光灯。是太阳光。橙色的。黎明的光。你能闻到外面的空气。泥土。汽车尾气。早餐摊的油烟。人类世界的气味。你踏了出去。脚踩在柏油路面上的感觉真实得让你想哭。你回头看。门还在那里。门框上的字还在。'每一次有人离开，折叠就松一点。'你走了。你活着走了。身后的门慢慢合上了。在完全关闭之前，你看到了门缝里最后的景象——走廊。黑暗的走廊。走廊尽头有一个人影。穿着白色病号服。它在笑。",
+      "effects": {
+        "narrative": true,
+        "game_end": "victory",
+        "san_change": 30,
+        "set_flag": "escaped"
+      }
+    },
+
+    "event_pa_announcement_loop": {
+      "id": "event_pa_announcement_loop",
+      "name": "广播循环播报",
+      "trigger": {
+        "type": "time_based_recurring",
+        "conditions": {
+          "interval_minutes": 60,
+          "start_time": "01:00",
+          "end_time": "05:00"
+        }
+      },
+      "once": false,
+      "narration_pool": [
+        "广播响了。同一个温和的女声：'夜间查房进行中。请各位患者配合。不配合的患者将被转入特殊观察区。'",
+        "广播：'提醒各位患者，走廊内请保持安静。管道维修工作正在进行中。如听到异常声响请不要惊慌。'管道维修？那些声音是'维修'？",
+        "广播的声音变了。不是那个温和的女声了。是一个更低沉的声音。它说的不是中文。它说的是——你不知道是什么语言。但你的身体在颤抖。像是你的细胞认识这种语言即使你的大脑不认识。",
+        "广播：'手术准备室的维度锚定检查已完成。数值正常。下次检查时间——'广播突然中断了。静电噪音持续了三秒。然后恢复安静。"
+      ],
+      "effects": {
+        "narrative": true,
+        "san_change": -2
+      }
+    },
+
+    "event_room_revisit_changes": {
+      "id": "event_room_revisit_changes",
+      "name": "房间再访变化",
+      "trigger": {
+        "type": "room_revisit",
+        "conditions": {
+          "visit_count_above": 2,
+          "time_after": "01:00"
+        }
+      },
+      "once": false,
+      "narration_pool": [
+        "你第二次走进这个房间。有什么变了。家具的位置。你确定那把椅子上次不在那个角落。",
+        "墙上多了一道你之前没有注意到的裂缝。或者你之前真的没注意到？你不确定了。",
+        "你确定你上次来的时候那个柜子是关着的。现在它开了一条缝。里面有什么东西移动了。",
+        "温度变了。这个房间比你上次来的时候冷了好几度。你能看到自己的呼吸了。",
+        "灯在闪。上次来的时候灯是好的。而且闪的节奏——短短长短短长。和一楼走廊尽头那盏灯一样。"
+      ],
+      "effects": {
+        "narrative": true,
+        "san_change": -2
+      }
+    },
+
+    "event_companion_first_body": {
+      "id": "event_companion_first_body",
+      "name": "同伴第一次感受身体",
+      "trigger": {
+        "type": "game_start",
+        "conditions": {}
+      },
+      "once": true,
+      "narration": "你的同伴紧跟在你身后。所有的感官都是新鲜的。消毒水的味道。走廊灯管的嗡嗡声。脚下地砖的温度。空气在皮肤上的触感。这里的一切都太真实了。包括恐惧。包括危险。",
+      "effects": {
+        "narrative": true,
+        "companion_note": "Companion's heightened senses make environmental details more vivid. Both wonder and horror are amplified.",
+        "set_flag": "companion_arrived"
+      }
+    }
+  }
+}

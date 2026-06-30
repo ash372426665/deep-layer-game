@@ -1,0 +1,194 @@
+{
+  "npcs": {
+    "lin_yuan": {
+      "name": "林远",
+      "name_en": "Lin Yuan",
+      "age": 28,
+      "gender": "male",
+      "occupation": "程序员",
+      "description": "二十八岁，短发，戴眼镜，穿着格子衫和牛仔裤。程序员。脸色苍白，眼圈很深，像是好几天没有睡觉。说话很快，逻辑清晰，但有一种压抑的紧张感。他是理性的人。在这种环境下理性是把双刃剑：它帮助他分析，也在告诉他这些事情不可能发生。他的理性在和现实打架。",
+      "initial_location": "room_202",
+      "stats": {
+        "hp": 80,
+        "san": 55,
+        "san_note": "Already been here for a while. SAN is lower than starting."
+      },
+      "personality": {
+        "traits": ["rational", "analytical", "selfish_under_pressure", "sarcastic", "competent"],
+        "strengths": ["Excellent at puzzles and logical deduction", "Good at analyzing monster behavior patterns", "Can hack electronic locks if given time", "Stays calm under moderate stress"],
+        "weaknesses": ["Will abandon others to save himself if SAN drops below 30", "Dismisses emotional arguments", "Overconfident in his analysis — sometimes wrong", "Freezes in direct monster encounters"],
+        "fear_response": "analytical_then_paralysis",
+        "trust_building": "Responds to logical arguments, shared information, and demonstrated competence. Distrusts emotional appeals."
+      },
+      "trust_level": {
+        "initial": 30,
+        "max": 100,
+        "thresholds": {
+          "locked_door": 0,
+          "will_open_door": 40,
+          "will_share_info": 50,
+          "will_follow": 60,
+          "will_help_in_danger": 70,
+          "will_sacrifice": 90
+        }
+      },
+      "found": false,
+      "alive": true,
+      "dialogue": {
+        "through_door": {
+          "initial": "别进来。求你了。别进来。",
+          "player_identifies_self": "你是……真的人？你怎么证明你是真的？",
+          "player_proves_human": "你闻起来像消毒水和活人。好吧。等一下。",
+          "trust_building": [
+            "我叫林远。程序员。我不知道我在这里多久了。三天？五天？时间不对。我手表停了。",
+            "走廊上有个东西。穿白色衣服的。我研究过了。它的行为有规律。看它一眼它就停。但千万不要盯着看。",
+            "你见过那个护士了吗？不是真的护士。我算过了。她给的方向70%是错的。但我没搞明白怎么判断哪次是对的。",
+            "三楼有一扇门。午夜以后出现。我试过了。需要三把钥匙。我知道一把在手术室。但那个房间里有东西。我进不去。"
+          ]
+        },
+        "after_joining": {
+          "exploring": "让我看看。这个机制的逻辑应该是……",
+          "monster_encounter": "别动。让我分析。……我分析不了。跑。",
+          "puzzle_solving": "三位数密码。首先排除掉……如果线索是对称的……等等，让我想。",
+          "low_san": "我看到了走廊尽头。不对。不应该那么长。数学上不成立。但它就是那么长。物理定律不适用了。什么都不适用了。我们不可能出去。",
+          "trust_high": "我之前的计划是一个人走。碎片拿到就走。不带任何人。但你改变了变量。我们一起走活下来的概率更高。不是因为我关心你。是数学。",
+          "trust_very_high": "好吧。也许不完全是数学。你救了我。这超出了我的预期模型。我不擅长处理这种情况。但我会记住的。"
+        },
+        "betrayal": {
+          "san_below_30": "你听我说。我的SAN……我的理智在崩溃。我需要现在走。我知道出口在哪里。我有两把碎片。我只需要——对不起。我没有时间解释了。我必须走了。",
+          "flee_narration": "林远抓起两块钥匙碎片转身就跑。他的眼睛里没有歉意。只有纯粹的、动物性的求生欲。他是个自私的人。在安全的世界里，自私只是性格缺陷。在这里，自私可能杀死所有人。"
+        },
+        "death_dialogue": {
+          "by_monster": "不——数据不对。这不应该——这在统计上不可能——",
+          "by_insanity": "我看到了。公式。所有的公式。这栋楼的几何结构是……是……不。不对。第四维度不应该是这个方向的……"
+        }
+      },
+      "abilities": {
+        "puzzle_bonus": "+2 to combination puzzle solving (reduces guess time)",
+        "analysis": "Can analyze monster patterns if he observes them for 2 turns",
+        "hacking": "Can hack the electronic lock on room_302 without the keycard (takes 3 turns)",
+        "distraction": "Can create a noise distraction in one room while players move through another"
+      },
+      "flee_conditions": {
+        "san_below": 30,
+        "hp_below": 20,
+        "multiple_monster_encounters": 4,
+        "flee_behavior": "Takes any key fragments he's carrying and runs for the exit alone",
+        "can_be_prevented": "High trust (80+) or player physically blocks path"
+      },
+      "death_conditions": {
+        "hp_zero": true,
+        "san_zero": true,
+        "abandoned_alone": "If left alone in a monster patrol zone for more than 3 turns, 50% chance of death each subsequent turn",
+        "betrayal_karma": "If he flees with key fragments, 80% chance he encounters a monster and dies, dropping the fragments in a random corridor"
+      },
+      "schedule": {
+        "before_found": "Locked in room_202. Not going anywhere.",
+        "after_found_high_trust": "Follows player. Helps with puzzles. Provides analysis.",
+        "after_found_low_trust": "Stays near safe rooms. Will not go to floor 3 unless trust > 60."
+      }
+    },
+
+    "zhou_qing": {
+      "name": "周晴",
+      "name_en": "Zhou Qing",
+      "age": 22,
+      "gender": "female",
+      "occupation": "大学生",
+      "description": "二十二岁，扎马尾，穿着大学运动外套和运动鞋。大学生，学心理学的，这学期在做关于感知异常的课题。她是来医院做志愿者的。然后医院变了。她很害怕，但她的观察力非常强。可能是心理学训练的结果。她总能注意到环境里别人不会注意到的细节。她躲在药房最后一排药柜后面，蜷成一团。",
+      "initial_location": "pharmacy",
+      "stats": {
+        "hp": 70,
+        "san": 65
+      },
+      "personality": {
+        "traits": ["observant", "kind", "anxious", "empathetic", "perceptive"],
+        "strengths": ["Exceptional at noticing environmental details", "Can sense when SAN is dropping for others", "Good at reading NPC/monster body language", "Calming presence — being near her slows SAN decay slightly"],
+        "weaknesses": ["Panics if left alone for too long", "Low physical strength", "Will freeze in direct confrontation", "Anxiety can be contagious in low-SAN situations"],
+        "fear_response": "hypervigilant_then_panic",
+        "trust_building": "Responds to kindness, protective behavior, and shared vulnerability. Values honesty over competence."
+      },
+      "trust_level": {
+        "initial": 50,
+        "max": 100,
+        "thresholds": {
+          "will_come_out": 40,
+          "will_share_info": 45,
+          "will_follow": 55,
+          "will_enter_dangerous_room": 70,
+          "will_stay_alone_briefly": 75,
+          "will_sacrifice": 95
+        }
+      },
+      "found": false,
+      "alive": true,
+      "dialogue": {
+        "hiding": {
+          "initial": "（极轻的呼吸声。当你靠近最后一排药柜时，一双惊恐的眼睛从缝隙里看着你。）",
+          "player_speaks_gently": "你……你是活的？你是真的？你会消失吗？之前有一个护士走过来。我以为是真人。但她的手……她的手不对。",
+          "trust_building": [
+            "我叫周晴。大三。我是来做志愿者的。下午还正常。晚上……灯开始闪。挂号台的姐姐突然不见了。走廊变长了。我不知道该怎么办所以我躲在这里。",
+            "你有没有注意到……天花板的抓痕？五道。但间距不均匀。第三和第四道之间距离更宽。不是五根手指。是四根。但其中一根特别长。做抓痕的那个东西，手指结构和人类不一样。",
+            "203房间的墙上有字。我去看过。用碘酒写的。有些地方看不清——但如果你有新的碘酒，涂上去字迹会变清楚。我在心理学课上学过。碘酒的化学特性。之前我做标本保存的时候……算了。这不重要。",
+            "我注意到一件事。那个走廊上的……东西。穿病号服的。你看它的时候它会停。但不能看太久。我偷看了几次。超过——我不确定——大概两分钟？它就开始笑。笑的时候就不能再看了。要跑。"
+          ]
+        },
+        "after_joining": {
+          "exploring": "等一下。你看到了吗？那个角落——那面墙的颜色和其他的不一样。像是被什么东西蹭过。",
+          "monster_nearby": "（拉你的袖子）它来了。我能感觉到。空气变了。变冷了。",
+          "comfort_role": "你还好吗？你的脸色不太好。深呼吸。看着我。看着我。我们会没事的。我不知道怎么没事。但我们会的。",
+          "detail_spotting": [
+            "这个房间的时钟和走廊上的不一样。差了四分钟。你注意到了吗？",
+            "那个护士走路的声音不对。正常人走路脚跟先着地。她是脚尖先着地。像……动物。",
+            "管道里的声音停了。不是好事。它不是走了。是停在了我们正上方。不要抬头。"
+          ],
+          "low_san": "我看到了镜子里的东西。我知道那不是真的。但我还是看到了。我学过的——幻觉——感知阈值下降——理论上我知道这些。但知道和经历是两件事。",
+          "trust_high": "谢谢你。谢谢你没有把我一个人留在药房里。你是第一个……第一个让我觉得我们可能真的能出去的人。",
+          "trust_very_high": "如果我们出不去……如果最后……我想让你知道。遇到你是这整个噩梦里唯一好的事情。"
+        },
+        "panic": {
+          "alone_too_long": "（独自待了超过3回合）她的呼吸越来越快。她开始自言自语。'没事的。没事的。墙壁不在呼吸。那不是真的。没事的。'但她的声音越来越大。如果有怪物在附近——",
+          "panic_narration": "周晴的恐慌到达了临界点。她的尖叫声在走廊里回荡。这在正常情况下是令人心疼的。在这里，这是致命的。因为声音会引来它们。"
+        },
+        "death_dialogue": {
+          "by_monster": "不——别碰我——我不想——我不想成为——",
+          "by_insanity": "你知道吗……墙壁后面不是水泥。是肉。我听到了心跳。不是我的。是楼的。整栋楼在——你也听到了对吧？",
+          "sacrifice": "跑。带着碎片跑。不要回来。我——我会在这里。我已经待了很久了。再待一会儿也没关系。去吧。"
+        }
+      },
+      "abilities": {
+        "detail_detection": "Automatically spots hidden clues in rooms she enters (highlights things players might miss)",
+        "san_aura": "Party SAN decay is reduced by 2 per turn when she is present and her SAN > 40",
+        "psychological_insight": "Can estimate monster behavior patterns after 1 observation (vs Lin Yuan's 2)",
+        "calming": "Can calm a panicking NPC (including Lin Yuan) once per hour",
+        "first_aid_basic": "Can apply first aid (+10 HP) once without a first aid kit"
+      },
+      "flee_conditions": {
+        "san_below": 20,
+        "hp_below": 15,
+        "alone_too_long": "3 turns alone triggers panic; 5 turns triggers scream; 7 turns triggers breakdown",
+        "flee_behavior": "Doesn't steal items. Runs to nearest safe room and locks herself in.",
+        "can_be_prevented": "Any companion presence prevents panic. Verbal reassurance from player buys 2 extra turns."
+      },
+      "death_conditions": {
+        "hp_zero": true,
+        "san_zero": true,
+        "abandoned_in_danger": "If alone in a monster zone for 5+ turns without being found, she dies from panic-induced heart failure",
+        "panic_attracts_monster": "If she screams from panic, nearby monsters are drawn to her location",
+        "self_sacrifice": "If trust > 90 and player is in lethal danger, she may sacrifice herself to distract a monster"
+      },
+      "schedule": {
+        "before_found": "Hiding behind pharmacy cabinets. Terrified but alive.",
+        "after_found_high_trust": "Follows player closely. Points out details. Provides emotional support.",
+        "after_found_low_trust": "Follows at a distance. Reluctant to enter dark or dangerous areas."
+      },
+      "special_interactions": {
+        "with_lin_yuan": {
+          "initial": "Lin Yuan dismisses her observations. She doesn't like his attitude. But she's fair and acknowledges his analytical skill.",
+          "trust_built": "They complement each other. She sees what he doesn't. He analyzes what she can't. If both are present and trust is high, puzzle solving speed doubles.",
+          "conflict": "If Lin Yuan tries to flee with key fragments, Zhou Qing will try to stop him. This is dangerous for her."
+        }
+      }
+    }
+  }
+}
